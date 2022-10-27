@@ -1,130 +1,159 @@
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 class FJ {
 	public static void main(String[] args) {
-		Program program = new Program();
+		List<String> emptyStringList = Arrays.asList();
+		List<FJField> emptyFJFieldList = Arrays.asList();
+		List<FJMethod> emptyFJMethodList = Arrays.asList();
+		HashMap<String,String> emptyHashMap = new HashMap<String,String>();
+
+		FJClass objectClass = new FJClass("Object",null,null,emptyFJMethodList,emptyFJFieldList);
+		//Class A
+		FJConstructor constructorA = new FJConstructor(emptyFJFieldList,emptyStringList,emptyHashMap);
+		FJClass classA = new FJClass("A",objectClass,constructorA,emptyFJMethodList,emptyFJFieldList);
+
+		//Class B
+		FJConstructor constructorB = new FJConstructor(emptyFJFieldList,emptyStringList,emptyHashMap);
+		FJClass classB = new FJClass("B",objectClass,constructorB,emptyFJMethodList,emptyFJFieldList);
+
+		//Pair
+		FJField fst = new FJField("fst",objectClass);
+		FJField snd = new FJField("snd",objectClass);
+		HashMap<String,String> pairHashMap = new HashMap<String,String>();
+
+		pairHashMap.put("fst","fst");
+		pairHashMap.put("snd","snd");
+
+		FJConstructor constructorPair = new FJConstructor(Arrays.asList(fst,snd),emptyStringList,pairHashMap);
+
+		//Prolème ici, la méthode doit retourner un Pair, mais la class n'est pas encore défini
+		FJMethod pairFst = new FJMethod("setfst",objectClass,emptyFJFieldList,emptyStringList,emptyHashMap);
+
+
+		FJProgram program = new FJProgram(Arrays.asList(classA,classB));
 	}
 }
 
-class Type extends Name {}
-class Argument extends Field {}
-class Parameter extends Name {}
-class Assignment extends Tuple<Name, Name> {}
-class ClassTable extends Array<Class> {}
 
-class FJClass {
-	Name name;
-	Name superClass;
-	Array<Field> fields;
-	Constructor constructor;
-	Array<Method> methods;
+class FJProgram {
+
+	public FJProgram(List<FJClass> classes) {
+		this.classes = classes;
+	}
+
+	private List<FJClass> classes;
 }
 
-class Field {
-	Type ftype;
-	Name fname;
+class FJClass extends Type {
+
+	public FJClass(String name, FJClass superClass,FJConstructor constructor, List<FJMethod> methods,List<FJField> fields) {
+		super(name);
+		this.superClass = superClass;
+		this.constructor = constructor;
+		this.methods = methods;
+		this.fields = fields;
+	}
+	private FJClass superClass;
+	private List<FJField> fields;
+	private List<FJMethod> methods;
+	private FJConstructor constructor;
+
+	@Override
+	public String toString() {
+		return "class " + name + " extends " + superClass + "/n"
+				 + "fields: " + fields + "/n" +
+				 "methods: " + methods + "/n" +
+				 "constructor: " + constructor;
+	}
 }
 
-class Method {
-	/**
-	 * Not to be confused with mtype in [1]
-	 */
-	Type mtype;
-	Name mname;
-	Array<Argument> margs;
-	Expr mexpr;
-}
-
-class Constructor {
-	Name kname;
-	Aray<Argument> kargs;
-	Aray<Parameter> ksuperParam;
-	Aray<Assignment> kassignments;
-}
-
-class Expr {}
-class ExprVar extends Expr {
-	Name ename;
-}
-class ExprField extends Expr {
-	Expr eexpr;
-	Name ename;
-}
-class ExprMethod extends Expr {
-	Expr eexpr;
-	Name ename;
-	Array<Expr> eexprs;
-}
-class ExprNew extends Expr {
-	Type etype;
-	Array<Expr> eexprs;
-}
-class ExprCast extends Expr {
-	Type etype;
-	Expr eexpr;
+@Setter
+@Getter
+@AllArgsConstructor
+class FJField {
+	private String name;
+	private Type type;
 }
 
 
+class FJMethod {
 
-/*
+	public FJMethod(String name, Type returnType, List<FJField> args,Expression expression) {
+		this.name = name;
+		this.returnType = returnType;
+		this.args = args;
+		this.expression = expression;
+	}
 
-module FJ.Data where
+	private String name;
+	private Type returnType;
+	private List<FJField> args; //Argument meme chose que FJField
+	private Expression expression;
+}
 
--- {{{ Data structures and types
 
-data Class = Class
-    { cname        :: Name
-    , csuperClass  :: Name
-    , cfields      :: [Field]
-    , cconstructor :: Constructor
-    , cmethods     :: [Method]
-    }
-    deriving (Eq, Show)
+class FJConstructor {
+	public FJConstructor(List<FJField> args, List<String> superParams, HashMap<String,String> assignments) {
+		this.args = args;
+		this.superParams = superParams;
+		this.assignments = assignments;
+	}
 
-data Field = Field
-    { ftype :: Type
-    , fname :: Name
-    }
-    deriving (Eq, Show)
+	private List<FJField> args;
+	private List<String> superParams;
+	private HashMap<String,String> assignments = new HashMap<>();
 
-data Method = Method
-    { mtype :: Type -- Not to be confused with mtype in [1].
-    , mname :: Name
-    , margs :: [Argument]
-    , mexpr :: Expr
-    }
-    deriving (Eq, Show)
+}
 
-data Constructor = Constructor
-    { kname         :: Name
-    , kargs         :: [Argument]
-    , ksuperParam   :: [Parameter]
-    , kassignments  :: [Assignment]
-    }
-    deriving (Eq, Show)
+@Setter
+@Getter
+@AllArgsConstructor
+class Type {
+	protected String name;
+}
 
-data Expr =
-    ExprVar    { ename  :: Name }
-  | ExprField  { eexpr  :: Expr
-               , ename  :: Name
-               }
-  | ExprMethod { eexpr  :: Expr
-               , ename  :: Name
-               , eexprs :: [Expr]
-               }
-  | ExprNew    { etype  :: Type
-               , eexprs :: [Expr]
-               }
-  | ExprCast   { etype  :: Type
-               , eexpr  :: Expr
-               }
-    deriving (Eq, Show)
+@Setter
+@Getter
+class Expression {}
 
-type Name        = String
-type Type        = Name
-type Argument    = Field
-type Parameter   = Name
-type Assignment  = (Name, Name)
-type ClassTable  = [Class]
+@Setter
+@Getter
+class ExprVar extends Expression {
+	private String name;
+}
 
--- }}}
+@Setter
+@Getter
+class ExprField  extends Expression {
+	private Expression expression;
+	private String name;
+}
 
- */
+@Setter
+@Getter
+class ExprMethod extends Expression {
+	private Expression expression;
+	private String name;
+	private List<Expression> args;
+}
+
+@Setter
+@Getter
+class ExprNew extends Expression {
+	private FJClass type;
+	private List<Expression> args;
+}
+
+@Setter
+@Getter
+class ExprCast extends Expression {
+	private FJClass type;
+	private Expression expression;
+}
