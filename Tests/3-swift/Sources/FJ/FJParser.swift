@@ -1,3 +1,5 @@
+// Based on <https://github.com/fjpub/fj-lam/blob/cbcb453fb2595d341bb3c1341fdf235f066778fd/FJParser.hs>.
+
 // MARK: Syntactic constructors
 
 /// Type definition.
