@@ -1,3 +1,5 @@
+package imt.fil.a3.recherche.fj;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

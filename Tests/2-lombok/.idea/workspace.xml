@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3de4b2e3-37fa-4943-8c8f-5d439b7d8a60" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../1-from-haskell/fj-types.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fj-types.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/fj-types.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lombok.jar" beforeDir="false" afterPath="$PROJECT_DIR$/libs/lombok.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imt-fil-a3-recherche-fj.iml" beforeDir="false" afterPath="$PROJECT_DIR$/2-lombok.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/ExprCast.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/ExprField.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/ExprMethod.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/ExprNew.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/ExprVar.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/Expression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/FJ.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/FJClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/FJConstructor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/FJField.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/FJMethod.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/FJProgram.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/Type.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/lombok.jar" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2H0JkyUX7qbyCqEeJwTvTj3I1pT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="abbreviatePackageNames" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3de4b2e3-37fa-4943-8c8f-5d439b7d8a60" name="Changes" comment="" />
+      <created>1667416215000</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667416215000</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>
