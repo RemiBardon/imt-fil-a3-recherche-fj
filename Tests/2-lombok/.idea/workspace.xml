@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3de4b2e3-37fa-4943-8c8f-5d439b7d8a60" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../1-from-haskell/fj-types.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fj-types.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/fj-types.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lombok.jar" beforeDir="false" afterPath="$PROJECT_DIR$/libs/lombok.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../imt-fil-a3-recherche-fj.iml" beforeDir="false" afterPath="$PROJECT_DIR$/2-lombok.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/ExprCast.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/ExprField.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/ExprMethod.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/ExprNew.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/ExprVar.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/Expression.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/FJ.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/FJClass.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/FJConstructor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/FJField.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/FJMethod.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/FJProgram.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/Type.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../out/test/imt-fil-a3-recherche-fj/lombok.jar" beforeDir="false" />
-    </list>
+    <list default="true" id="3de4b2e3-37fa-4943-8c8f-5d439b7d8a60" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
