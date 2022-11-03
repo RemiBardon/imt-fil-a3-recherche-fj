@@ -5,7 +5,7 @@
 /// Type definition.
 ///
 /// `T ::= C | I`
-enum FJType: Equatable {
+enum FJType: Hashable {
   case `class`(FJClass)
   case interface(FJInterface)
 }
@@ -13,7 +13,7 @@ enum FJType: Equatable {
 /// Class declaration.
 ///
 /// `class C extends D implements I̅ { T̅ f̅; K M̅ }`
-struct FJClass: Equatable {
+struct FJClass: Hashable {
   /// Class name (`class C`).
   let name: String
   /// Extended class (`extends D`).
@@ -31,7 +31,7 @@ struct FJClass: Equatable {
 /// Interface declaration.
 ///
 /// `P ::= interface I extends I̅ { S̅; default M̅ }`
-struct FJInterface: Equatable {
+struct FJInterface: Hashable {
   let name: String
   let extends: [String]
   let signatures: [FJSignature]
@@ -42,7 +42,7 @@ typealias P = FJInterface
 /// Constructor declaration.
 ///
 /// `K ::= C(T̅ f̅) { super(f̅); this.f̅ = f̅; }`
-struct FJConstructor: Equatable {
+struct FJConstructor: Hashable {
   let name: String
   let args: [FJField]
   let superArgs: [String]
@@ -53,7 +53,7 @@ typealias K = FJConstructor
 /// (Method) signature declaration.
 ///
 /// `S ::= T m(T̅ x̅)`
-struct FJSignature: Equatable {
+struct FJSignature: Hashable {
   let typeName: FJTypeName
   let name: String
   let args: [FJField]
@@ -70,7 +70,7 @@ typealias S = FJSignature
 ///   System.out.println("Hello");
 /// }
 /// ```
-struct FJMethod: Equatable {
+struct FJMethod: Hashable {
   let signature: FJSignature
   let body: FJExpr
 }
@@ -87,7 +87,7 @@ typealias M = FJMethod
 ///   (T)e        cast
 ///   (T̅ x̅) → e   λ-expression
 /// ```
-indirect enum FJExpr: Equatable {
+indirect enum FJExpr: Hashable {
   /// Variable (`x`).
   case variable(String)
   /// Field access (`e.f`).
@@ -97,7 +97,7 @@ indirect enum FJExpr: Equatable {
   /// Object instantiation (`new C(e̅)`).
   case createObject(String, [FJExpr])
   /// Cast (`(T)e`).
-  case cast(String, FJExpr)
+  case cast(FJTypeName, FJExpr)
   /// λ-expression (`(T̅ x̅) → e`).
   case lambda([FJField], FJExpr)
 }
@@ -116,7 +116,7 @@ typealias CT = [FJTypeName: FJType]
 
 // MARK: Typing errors
 
-enum TypeError: Error, Equatable {
+enum TypeError: Error, Hashable {
   case variableNotFound(String)
   case fieldNotFound(String)
   case classNotFound(String)
@@ -129,23 +129,23 @@ enum TypeError: Error, Equatable {
 
 // MARK: Swift requirements
 
-// Swift does not automatically synthesize `Equatable` conformance for tuples,
-// even when members are `Equatable`. We must define `struct`s to replace pairs.
+// Swift does not automatically synthesize `Hashable` conformance for tuples,
+// even when members are `Hashable`. We must define `struct`s to replace pairs.
 
 /// Equivalent of `(FJTypeName, String)`.
-struct FJField: Equatable {
+struct FJField: Hashable {
   let type: FJTypeName
   let name: String
 }
 
 /// Equivalent of `(String, String)` (in `this.f̅ = f̅`).
-struct FieldInit: Equatable {
+struct FieldInit: Hashable {
   let fieldName: String
   let argumentName: String
 }
 
 /// Equivalent of `(FJExpr, FJTypeName)`.
-struct TypeMismatch: Equatable {
+struct TypeMismatch: Hashable {
   let expression: FJExpr
   let expectedTypeName: FJTypeName
 }
