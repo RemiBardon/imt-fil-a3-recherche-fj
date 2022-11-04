@@ -110,7 +110,7 @@ typealias FJTypeName = String
 
 // MARK: Auxiliary definitions
 
-typealias Env = [String: FJTypeName]
+typealias Context = [String: FJTypeName]
 /// Class table.
 typealias CT = [FJTypeName: FJType]
 

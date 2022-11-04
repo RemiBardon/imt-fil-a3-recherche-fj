@@ -28,7 +28,7 @@ func subtyping(ct classTable: CT, _ classA: String, _ classB: String) -> Bool {
 
 /// Searches for a class in the class table and returns its fields.
 /// - Returns: A monad Maybe containing the field list or Nothing.
-func fields(ct classTable: CT, className: String) -> [FJField]? {
+func fields(ct classTable: CT, className: FJTypeName) -> [FJField]? {
   if className == "Object" { return [] }
 
   switch classTable[className] {
@@ -47,7 +47,7 @@ func fields(ct classTable: CT, className: String) -> [FJField]? {
 
 /// Searches for a class or interface in the class table and returns its abstract methods.
 /// - Returns: A monad Maybe containing the method signature or Nothin.
-func abstractMethods(ct classTable: CT, class className: String) -> [FJSignature]? {
+func abstractMethods(ct classTable: CT, class className: FJTypeName) -> [FJSignature]? {
   if className == "Object" { return [] }
 
   switch classTable[className] {
@@ -93,7 +93,7 @@ func abstractMethods(ct classTable: CT, class className: String) -> [FJSignature
 
 /// Searches for a class in the class table and returns its methods.
 /// - Returns: A monad Maybe containing the method list of Nothing.
-func methods(ct classTable: CT, className: String) -> [FJMethod]? {
+func methods(ct classTable: CT, className: FJTypeName) -> [FJMethod]? {
   if className == "Object" { return [] }
 
   switch classTable[className] {
@@ -133,7 +133,7 @@ func methods(ct classTable: CT, className: String) -> [FJMethod]? {
 func methodType(
   ct classTable: CT,
   methodName: String,
-  className: String
+  className: FJTypeName
 ) -> ([FJTypeName], FJTypeName)? {
   if className == "Object" { return nil }
 
@@ -155,7 +155,7 @@ func methodType(
 func methodBody(
   ct classTable: CT,
   methodName: String,
-  className: String
+  className: FJTypeName
 ) -> ([String], FJExpr)? {
   if className == "Object" { return nil }
 
