@@ -164,8 +164,6 @@ func methodTyping(
 /// Checks if a class is well-formed.
 /// - Returns: `true` for a well-formed class, `false` otherwise.
 func classTyping(ct classTable: CT, context: Context, class: FJClass) -> Bool {
-  //classTyping ct ctx cl@(Class c b _ attrs (Constr _ pc s ths) meths) =
-
   guard let fields = fields(ct: classTable, className: `class`.extends) else {
     return false
   }
