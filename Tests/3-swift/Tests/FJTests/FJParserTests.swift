@@ -1,5 +1,5 @@
 import XCTest
-@testable import FJ
+import FJ
 
 final class FJParserTests: XCTestCase {
   /// This test represents a Java program.
@@ -30,23 +30,16 @@ final class FJParserTests: XCTestCase {
       .class(.init(
         name: "A",
         extends: "Object",
-        implements: [],
-        fields: [],
-        constructor: .init(name: "A", args: [], superArgs: [], fieldInits: []),
-        methods: []
+        constructor: .init(name: "A")
       )),
       .class(.init(
         name: "B",
         extends: "Object",
-        implements: [],
-        fields: [],
-        constructor: .init(name: "B", args: [], superArgs: [], fieldInits: []),
-        methods: []
+        constructor: .init(name: "B")
       )),
       .class(.init(
         name: "Pair",
         extends: "Object",
-        implements: [],
         fields: [
           .init(type: "Object", name: "fst"),
           .init(type: "Object", name: "snd"),
@@ -57,7 +50,6 @@ final class FJParserTests: XCTestCase {
             .init(type: "X", name: "fst"),
             .init(type: "Y", name: "snd"),
           ],
-          superArgs: [],
           fieldInits: [
             .init(fieldName: "fst", argumentName: "fst"),
             .init(fieldName: "snd", argumentName: "snd"),

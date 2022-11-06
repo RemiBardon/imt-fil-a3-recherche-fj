@@ -5,7 +5,7 @@
 /// Type definition.
 ///
 /// `T ::= C | I`
-enum FJType: Hashable {
+public enum FJType: Hashable {
   case `class`(FJClass)
   case interface(FJInterface)
 }
@@ -13,50 +13,100 @@ enum FJType: Hashable {
 /// Class declaration.
 ///
 /// `class C extends D implements I̅ { T̅ f̅; K M̅ }`
-struct FJClass: Hashable {
+public struct FJClass: Hashable {
   /// Class name (`class C`).
-  let name: String
+  public let name: String
   /// Extended class (`extends D`).
-  let extends: String
+  public let extends: String
   /// List of implemented interfaces (`implements I̅`).
-  let implements: [String]
+  public let implements: [String]
   /// List of fields (`T̅ f̅`).
-  let fields: [FJField]
+  public let fields: [FJField]
   /// Object constructor (`K`).
-  let constructor: FJConstructor
+  public let constructor: FJConstructor
   /// List of methods (`M̅`).
-  let methods: [FJMethod]
+  public let methods: [FJMethod]
+
+  public init(
+    name: String,
+    extends: String = "Object",
+    implements: [String] = [],
+    fields: [FJField] = [],
+    constructor: FJConstructor,
+    methods: [FJMethod] = []
+  ) {
+    self.name = name
+    self.extends = extends
+    self.implements = implements
+    self.fields = fields
+    self.constructor = constructor
+    self.methods = methods
+  }
 }
 
 /// Interface declaration.
 ///
 /// `P ::= interface I extends I̅ { S̅; default M̅ }`
-struct FJInterface: Hashable {
-  let name: String
-  let extends: [String]
-  let signatures: [FJSignature]
-  let defaultMethods: [FJMethod]
+public struct FJInterface: Hashable {
+  public let name: String
+  public let extends: [String]
+  public let signatures: [FJSignature]
+  public let defaultMethods: [FJMethod]
+
+  public init(
+    name: String,
+    extends: [String] = [],
+    signatures: [FJSignature] = [],
+    defaultMethods: [FJMethod] = []
+  ) {
+    self.name = name
+    self.extends = extends
+    self.signatures = signatures
+    self.defaultMethods = defaultMethods
+  }
 }
 typealias P = FJInterface
 
 /// Constructor declaration.
 ///
 /// `K ::= C(T̅ f̅) { super(f̅); this.f̅ = f̅; }`
-struct FJConstructor: Hashable {
-  let name: String
-  let args: [FJField]
-  let superArgs: [String]
-  let fieldInits: [FieldInit]
+public struct FJConstructor: Hashable {
+  public let name: String
+  public let args: [FJField]
+  public let superArgs: [String]
+  public let fieldInits: [FieldInit]
+
+  public init(
+    name: String,
+    args: [FJField] = [],
+    superArgs: [String] = [],
+    fieldInits: [FieldInit] = []
+  ) {
+    self.name = name
+    self.args = args
+    self.superArgs = superArgs
+    self.fieldInits = fieldInits
+  }
 }
 typealias K = FJConstructor
 
 /// (Method) signature declaration.
 ///
 /// `S ::= T m(T̅ x̅)`
-struct FJSignature: Hashable {
-  let typeName: FJTypeName
-  let name: String
-  let args: [FJField]
+public struct FJSignature: Hashable {
+  public let typeName: FJTypeName
+  public let name: String
+  public let args: [FJField]
+
+  public init(
+    typeName: FJTypeName,
+    name: String,
+    args: [FJField] = []
+  ) {
+    self.typeName = typeName
+    self.name = name
+    self.args = args
+  }
 }
 typealias S = FJSignature
 
@@ -70,9 +120,17 @@ typealias S = FJSignature
 ///   System.out.println("Hello");
 /// }
 /// ```
-struct FJMethod: Hashable {
-  let signature: FJSignature
-  let body: FJExpr
+public struct FJMethod: Hashable {
+  public let signature: FJSignature
+  public let body: FJExpr
+
+  public init(
+    signature: FJSignature,
+    body: FJExpr
+  ) {
+    self.signature = signature
+    self.body = body
+  }
 }
 typealias M = FJMethod
 
@@ -87,7 +145,7 @@ typealias M = FJMethod
 ///   (T)e        cast
 ///   (T̅ x̅) → e   λ-expression
 /// ```
-indirect enum FJExpr: Hashable {
+public indirect enum FJExpr: Hashable {
   /// Variable (`x`).
   case variable(String)
   /// Field access (`e.f`).
@@ -105,18 +163,18 @@ typealias e = FJExpr
 
 // MARK: Nominal typing
 
-// Type name.
-typealias FJTypeName = String
+/// Type name.
+public typealias FJTypeName = String
 
 // MARK: Auxiliary definitions
 
-typealias Context = [String: FJTypeName]
+public typealias Context = [String: FJTypeName]
 /// Class table.
-typealias CT = [FJTypeName: FJType]
+public typealias CT = [FJTypeName: FJType]
 
 // MARK: Typing errors
 
-enum TypeError: Error, Hashable {
+public enum TypeError: Error, Hashable {
   case variableNotFound(String)
   case fieldNotFound(String)
   case classNotFound(String)
@@ -133,19 +191,43 @@ enum TypeError: Error, Hashable {
 // even when members are `Hashable`. We must define `struct`s to replace pairs.
 
 /// Equivalent of `(FJTypeName, String)`.
-struct FJField: Hashable {
-  let type: FJTypeName
-  let name: String
+public struct FJField: Hashable {
+  public let type: FJTypeName
+  public let name: String
+
+  public init(
+    type: FJTypeName,
+    name: String
+  ) {
+    self.type = type
+    self.name = name
+  }
 }
 
 /// Equivalent of `(String, String)` (in `this.f̅ = f̅`).
-struct FieldInit: Hashable {
-  let fieldName: String
-  let argumentName: String
+public struct FieldInit: Hashable {
+  public let fieldName: String
+  public let argumentName: String
+
+  public init(
+    fieldName: String,
+    argumentName: String
+  ) {
+    self.fieldName = fieldName
+    self.argumentName = argumentName
+  }
 }
 
 /// Equivalent of `(FJExpr, FJTypeName)`.
-struct TypeMismatch: Hashable {
-  let expression: FJExpr
-  let expectedTypeName: FJTypeName
+public struct TypeMismatch: Hashable {
+  public let expression: FJExpr
+  public let expectedTypeName: FJTypeName
+
+  public init(
+    expression: FJExpr,
+    expectedTypeName: FJTypeName
+  ) {
+    self.expression = expression
+    self.expectedTypeName = expectedTypeName
+  }
 }

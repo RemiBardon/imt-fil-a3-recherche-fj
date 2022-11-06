@@ -120,7 +120,7 @@ func evalʹ(ct classTable: CT, expr: FJExpr) -> FJExpr? {
 
 /// Evaluates an expression recursively.
 /// - Returns: A value after all the reduction steps.
-func eval(ct classTable: CT, expr: FJExpr) -> FJExpr {
+public func eval(ct classTable: CT, expr: FJExpr) -> FJExpr {
   if isValue(ct: classTable, expr) {
     return expr
   } else {

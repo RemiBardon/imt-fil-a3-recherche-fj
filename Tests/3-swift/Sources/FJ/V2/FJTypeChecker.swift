@@ -138,7 +138,7 @@ func typeof(
 
 /// Checks if a method is well formed.
 /// - Returns: `true` for a well formed method, `false` otherwise.
-func methodTyping(
+public func methodTyping(
   ct classTable: CT,
   context: Context,
   className: FJTypeName,
@@ -163,7 +163,7 @@ func methodTyping(
 
 /// Checks if a class is well-formed.
 /// - Returns: `true` for a well-formed class, `false` otherwise.
-func classTyping(ct classTable: CT, context: Context, class: FJClass) -> Bool {
+public func classTyping(ct classTable: CT, context: Context, class: FJClass) -> Bool {
   guard let fields = fields(ct: classTable, className: `class`.extends) else {
     return false
   }
@@ -189,7 +189,7 @@ func classTyping(ct classTable: CT, context: Context, class: FJClass) -> Bool {
 
 /// Checks if an interface is well-formed.
 /// - Returns: `true` for a well-formed interface, `false` otherwise.
-func interfaceTyping(ct classTable: CT, context: Context, interface: FJInterface) -> Bool {
+public func interfaceTyping(ct classTable: CT, context: Context, interface: FJInterface) -> Bool {
   return abstractMethods(ct: classTable, class: interface.name) != nil
     && interface.defaultMethods.allSatisfy {
       methodTyping(ct: classTable, context: context, className: interface.name, method: $0)
