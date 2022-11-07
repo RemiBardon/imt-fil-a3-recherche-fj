@@ -1,22 +1,12 @@
 package imt.fil.a3.recherche.fj.v2;
 
 import imt.fil.a3.recherche.fj.FJUtils;
-import imt.fil.a3.recherche.fj.parser.FJMethod;
-import imt.fil.a3.recherche.fj.parser.error.ClassNotFound;
-import imt.fil.a3.recherche.fj.parser.error.FieldNotFound;
-import imt.fil.a3.recherche.fj.parser.error.TypeError;
-import imt.fil.a3.recherche.fj.parser.error.VariableNotFound;
-import imt.fil.a3.recherche.fj.parser.expression.FJExpr;
-import imt.fil.a3.recherche.fj.parser.expression.FJFieldAccess;
-import imt.fil.a3.recherche.fj.parser.expression.FJVariable;
-import imt.fil.a3.recherche.fj.parser.type.FJClass;
-import imt.fil.a3.recherche.fj.parser.type.FJInterface;
-import imt.fil.a3.recherche.fj.parser.type.FJType;
+import imt.fil.a3.recherche.fj.parser.*;
+import imt.fil.a3.recherche.fj.parser.error.*;
+import imt.fil.a3.recherche.fj.parser.expression.*;
+import imt.fil.a3.recherche.fj.parser.type.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public final class FJTypeChecker {
     final HashMap<String, FJType> classTable;
@@ -56,6 +46,40 @@ public final class FJTypeChecker {
                 return field.get().type;
             } else {
                 throw new FieldNotFound(fieldAccess.fieldName);
+            }
+        } else if (expression instanceof final FJMethodInvocation methodInvocation) {
+            final String typeName = this.typeNameOf(methodInvocation);
+            final List<FJExpr> parameters = methodInvocation.parameters;
+
+            final Optional<FJMethodTypeSignature> methodTypeSignature =
+                FJUtils.methodType(this.classTable, methodInvocation.methodName, typeName);
+            if (methodTypeSignature.isEmpty()) {
+                throw new MethodNotFound(methodInvocation.methodName, typeName);
+            }
+            final List<String> parameterTypes = methodTypeSignature.get().argumentTypeNames;
+
+            if (parameters.size() != parameterTypes.size()) {
+                throw new ParamsTypeMismatch(new ArrayList<>());
+            }
+            var tmp = new ArrayList<TypeMismatch>();
+            for (int i = 0; i < parameters.size(); i++) {
+                final var expr = parameters.get(i);
+                final var type = parameterTypes.get(i);
+                tmp.add(new TypeMismatch(FJUtils.lambdaMark(expr, type), type));
+            }
+
+            final boolean isCorrectlyTyped = tmp.stream().allMatch(tm -> {
+                try {
+                    final String type = this.typeNameOf(tm.expression);
+                    return FJUtils.isSubtype(this.classTable, type, tm.expectedTypeName);
+                } catch (TypeError e) {
+                    return false;
+                }
+            });
+            if (isCorrectlyTyped) {
+                return methodTypeSignature.get().returnTypeName;
+            } else {
+                throw new ParamsTypeMismatch(tmp);
             }
         }
         throw new RuntimeException("Not implemented yet.");
