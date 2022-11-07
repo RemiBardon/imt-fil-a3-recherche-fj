@@ -1,5 +1,9 @@
 package imt.fil.a3.recherche.fj;
 
+import imt.fil.a3.recherche.fj.parser.*;
+import imt.fil.a3.recherche.fj.parser.expression.FJExpr;
+import imt.fil.a3.recherche.fj.parser.type.FJType;
+
 import java.util.HashMap;
 import java.util.List;
 
