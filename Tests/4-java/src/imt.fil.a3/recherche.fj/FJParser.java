@@ -2,7 +2,10 @@ package imt.fil.a3.recherche.fj;
 
 import java.util.List;
 
-class FJClass {
+
+interface FJType{}
+
+class FJClass implements FJType {
     public final String name;
     public final String extendsName;
     public final List<String> implementsNames;
@@ -28,7 +31,7 @@ class FJClass {
     }
 }
 
-class FJInterface{
+class FJInterface implements FJType {
     public final String name;
     public final List<String> extendsNames;
 
