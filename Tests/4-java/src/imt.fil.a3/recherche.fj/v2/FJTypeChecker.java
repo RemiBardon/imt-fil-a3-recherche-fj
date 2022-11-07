@@ -32,14 +32,14 @@ public final class FJTypeChecker {
         } else if (expression instanceof final FJFieldAccess fieldAccess) { // T-Field
             final String typeName = this.typeNameOf(fieldAccess.object);
 
-            final var fields = FJUtils.classFields(this.classTable, typeName);
+            final Optional<List<FJField>> fields = FJUtils.classFields(this.classTable, typeName);
             if (fields.isEmpty()) {
                 throw new ClassNotFound(typeName);
             }
 
             // NOTE: `filter` iterates over all elements while we could abort sooner if a value is found.
             // TODO: Find a way to avoid unnecessary filtering.
-            final var field = fields.get().stream()
+            final Optional<FJField> field = fields.get().stream()
                 .filter(f -> Objects.equals(f.name, fieldAccess.fieldName))
                 .findFirst();
             if (field.isPresent()) {
@@ -47,28 +47,28 @@ public final class FJTypeChecker {
             } else {
                 throw new FieldNotFound(fieldAccess.fieldName);
             }
-        } else if (expression instanceof final FJMethodInvocation methodInvocation) {
+        } else if (expression instanceof final FJMethodInvocation methodInvocation) { // T-Invk
             final String typeName = this.typeNameOf(methodInvocation);
-            final List<FJExpr> parameters = methodInvocation.parameters;
+            final List<FJExpr> args = methodInvocation.args;
 
             final Optional<FJMethodTypeSignature> methodTypeSignature =
                 FJUtils.methodType(this.classTable, methodInvocation.methodName, typeName);
             if (methodTypeSignature.isEmpty()) {
                 throw new MethodNotFound(methodInvocation.methodName, typeName);
             }
-            final List<String> parameterTypes = methodTypeSignature.get().argumentTypeNames;
+            final List<String> parameterTypes = methodTypeSignature.get().parameterTypeNames;
 
-            if (parameters.size() != parameterTypes.size()) {
+            if (args.size() != parameterTypes.size()) {
                 throw new ParamsTypeMismatch(new ArrayList<>());
             }
             var temp = new ArrayList<TypeMismatch>();
-            for (int i = 0; i < parameters.size(); i++) {
-                final var expr = parameters.get(i);
-                final var type = parameterTypes.get(i);
-                temp.add(new TypeMismatch(FJUtils.lambdaMark(expr, type), type));
+            for (int i = 0; i < args.size(); i++) {
+                final FJExpr arg = args.get(i);
+                final String type = parameterTypes.get(i);
+                temp.add(new TypeMismatch(FJUtils.lambdaMark(arg, type), type));
             }
 
-            // Check method invocation parameters typing
+            // Check method invocation arguments typing
             for (TypeMismatch tm: temp) {
                 final String type;
                 try {
@@ -83,6 +83,39 @@ public final class FJTypeChecker {
 
             // Method invocation is correctly typed
             return methodTypeSignature.get().returnTypeName;
+        } else if (expression instanceof final FJCreateObject createObject) { // T-New
+            final String typeName = createObject.className;
+            final List<FJExpr> args = createObject.args;
+
+            final Optional<List<FJField>> fields = FJUtils.classFields(this.classTable, typeName);
+            if (fields.isEmpty()) {
+                throw new ClassNotFound(typeName);
+            }
+            if (args.size() != fields.get().size()) {
+                throw new ParamsTypeMismatch(new ArrayList<>());
+            }
+            var temp = new ArrayList<TypeMismatch>();
+            for (int i = 0; i < args.size(); i++) {
+                final FJExpr arg = args.get(i);
+                final FJField field = fields.get().get(i);
+                temp.add(new TypeMismatch(FJUtils.lambdaMark(arg, field.type), field.type));
+            }
+
+            // Check object creation arguments typing
+            for (TypeMismatch tm: temp) {
+                final String type;
+                try {
+                    type = this.typeNameOf(tm.expression);
+                } catch (TypeError e) {
+                    throw new ParamsTypeMismatch(temp);
+                }
+                if (!FJUtils.isSubtype(this.classTable, type, tm.expectedTypeName)) {
+                    throw new ParamsTypeMismatch(temp);
+                }
+            }
+
+            // Object creation is correctly typed
+            return createObject.className;
         }
         throw new RuntimeException("Not implemented yet.");
     }

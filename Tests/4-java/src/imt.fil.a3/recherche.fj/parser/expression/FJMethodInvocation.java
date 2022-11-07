@@ -5,11 +5,11 @@ import java.util.List;
 public final class FJMethodInvocation implements FJExpr {
     public final FJExpr source;
     public final String methodName;
-    public final List<FJExpr> parameters;
+    public final List<FJExpr> args;
 
-    public FJMethodInvocation(FJExpr source, String methodName, List<FJExpr> parameters) {
+    public FJMethodInvocation(FJExpr source, String methodName, List<FJExpr> args) {
         this.source = source;
         this.methodName = methodName;
-        this.parameters = parameters;
+        this.args = args;
     }
 }
