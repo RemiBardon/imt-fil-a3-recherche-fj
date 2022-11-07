@@ -2,51 +2,51 @@
 
 /// Checks the type of a given expression.
 /// - Returns: The type of a given term or a type error.
-func typeof(
-  ct classTable: CT,
-  context: Context,
-  expression: FJExpr
+func typeNameOf(
+  _ expression: FJExpr,
+  classTable: ClassTable,
+  context: Context
 ) -> Result<FJTypeName, TypeError> {
   switch expression {
   case .variable(let varName): // T-Var
     if let typeName = context[varName] {
       return .success(typeName)
     } else {
-      return .failure(.variableNotFound(varName))
+      return .failure(.variableNotFound(name: varName))
     }
 
   case let .fieldAccess(e, f): // T-Field
-    return typeof(ct: classTable, context: context, expression: e).flatMap { typeName in
-      guard let fields = fields(ct: classTable, className: typeName) else {
-        return .failure(.classNotFound(typeName))
+    return typeNameOf(e, classTable: classTable, context: context).flatMap { typeName in
+      guard let fields = classFields(classTable: classTable, className: typeName) else {
+        return .failure(.classNotFound(name: typeName))
       }
       if let field = fields.first(where: { $0.name == f }) {
         return .success(field.type)
       } else {
-        return .failure(.fieldNotFound(f))
+        return .failure(.fieldNotFound(name: f))
       }
     }
 
   case let .methodInvocation(e, methodName, parameters): // T-Invk
-    return typeof(ct: classTable, context: context, expression: e).flatMap { typeName in
+    return typeNameOf(e, classTable: classTable, context: context).flatMap { typeName in
       guard let (parameterTypes, returnType) = methodType(
-        ct: classTable,
+        classTable: classTable,
         methodName: methodName,
         className: typeName
       ) else {
-        return .failure(.methodNotFound(methodName, typeName))
+        return .failure(.methodNotFound(name: methodName, returnTypeName: typeName))
       }
       guard parameters.count == parameterTypes.count else {
-        return .failure(.paramsTypeMismatch([]))
+        return .failure(.paramsTypeMismatch(params: []))
       }
 
       let tmp = zip(parameters, parameterTypes).map { (e, t) in
         TypeMismatch(expression: lambdaMark(expression: e, type: t), expectedTypeName: t)
       }
       let isCorrectlyTyped = tmp.allSatisfy {
-        switch typeof(ct: classTable, context: context, expression: $0.expression) {
+        switch typeNameOf($0.expression, classTable: classTable, context: context) {
         case .success(let t):
-          return subtyping(ct: classTable, t, $0.expectedTypeName)
+          return isSubtype(classTable: classTable, t, $0.expectedTypeName)
         case .failure:
           return false
         }
@@ -55,25 +55,25 @@ func typeof(
       if isCorrectlyTyped {
         return .success(returnType)
       } else {
-        return .failure(.paramsTypeMismatch(tmp))
+        return .failure(.paramsTypeMismatch(params: tmp))
       }
     }
 
   case let .createObject(className, parameters): // T-New
-    guard let fields = fields(ct: classTable, className: className) else {
-      return .failure(.classNotFound(className))
+    guard let fields = classFields(classTable: classTable, className: className) else {
+      return .failure(.classNotFound(name: className))
     }
     guard parameters.count == fields.count else {
-      return .failure(.paramsTypeMismatch([]))
+      return .failure(.paramsTypeMismatch(params: []))
     }
 
     let tmp = zip(parameters, fields).map { (e, f) in
       TypeMismatch(expression: lambdaMark(expression: e, type: f.type), expectedTypeName: f.type)
     }
     let isCorrectlyTyped = tmp.allSatisfy {
-      switch typeof(ct: classTable, context: context, expression: $0.expression) {
+      switch typeNameOf($0.expression, classTable: classTable, context: context) {
       case .success(let t):
-        return subtyping(ct: classTable, t, $0.expectedTypeName)
+        return isSubtype(classTable: classTable, t, $0.expectedTypeName)
       case .failure:
         return false
       }
@@ -82,7 +82,7 @@ func typeof(
     if isCorrectlyTyped {
       return .success(className)
     } else {
-      return .failure(.paramsTypeMismatch(tmp))
+      return .failure(.paramsTypeMismatch(params: tmp))
     }
 
   case let .cast(type, castExpr):
@@ -92,33 +92,33 @@ func typeof(
         parameters.map { ($0.name, $0.type) },
         uniquingKeysWith: { a, _ in a }
       )
-      guard let abstractMethods = abstractMethods(ct: classTable, class: type),
+      guard let abstractMethods = abstractMethods(classTable: classTable, typeName: type),
             abstractMethods.count == 1,
             let method = abstractMethods.first
-      else { return .failure(.wrongClosure(type, castExpr)) }
+      else { return .failure(.wrongLambdaType(targetTypeName: type, lambda: castExpr)) }
 
-      return typeof(
-        ct: classTable,
-        context: context,
-        expression: lambdaMark(expression: lambdaExpr, type: method.typeName)
+      return typeNameOf(
+        lambdaMark(expression: lambdaExpr, type: method.returnTypeName),
+        classTable: classTable,
+        context: context
       ).flatMap { expectedType in
-        if subtyping(ct: classTable, expectedType, method.typeName)
+        if isSubtype(classTable: classTable, expectedType, method.returnTypeName)
             && method.args.first == parameters.first {
           return .success(type)
         } else {
-          return .failure(.wrongClosure(type, castExpr))
+          return .failure(.wrongLambdaType(targetTypeName: type, lambda: castExpr))
         }
       }
 
     default:
       let castExprʹ = lambdaMark(expression: castExpr, type: type)
-      return typeof(
-        ct: classTable,
-        context: context,
-        expression: castExprʹ
+      return typeNameOf(
+        castExprʹ,
+        classTable: classTable,
+        context: context
       ).flatMap { expectedType in
-        let expectedTypeIsType = subtyping(ct: classTable, expectedType, type)
-        let typeIsExpectedType = subtyping(ct: classTable, type, expectedType)
+        let expectedTypeIsType = isSubtype(classTable: classTable, expectedType, type)
+        let typeIsExpectedType = isSubtype(classTable: classTable, type, expectedType)
 
         if (expectedTypeIsType) // T-UCast
         || (typeIsExpectedType && type != expectedType) // T-DCast
@@ -126,31 +126,31 @@ func typeof(
         {
           return .success(type)
         } else {
-          return .failure(.wrongCast(type, castExpr))
+          return .failure(.wrongCast(castType: type, expression: castExpr))
         }
       }
     }
 
   case .lambda: // Error: Lambda expression without a type
-    return .failure(.wrongClosure("None", expression))
+    return .failure(.wrongLambdaType(targetTypeName: "None", lambda: expression))
   }
 }
 
 /// Checks if a method is well formed.
 /// - Returns: `true` for a well formed method, `false` otherwise.
 public func methodTyping(
-  ct classTable: CT,
+  classTable: ClassTable,
   context: Context,
   className: FJTypeName,
   method: FJMethod
 ) -> Bool {
-  let eʹ = lambdaMark(expression: method.body, type: method.signature.typeName)
+  let eʹ = lambdaMark(expression: method.body, type: method.signature.returnTypeName)
   let contextualArguments = method.signature.args.map { ($0.name, $0.type) } + [("this", className)]
   let context = context.merging(contextualArguments, uniquingKeysWith: { a, _ in a })
-  switch typeof(ct: classTable, context: context, expression: eʹ) {
+  switch typeNameOf(eʹ, classTable: classTable, context: context) {
   case .success(let exprType):
-    if let meths = methods(ct: classTable, className: exprType) {
-      return subtyping(ct: classTable, exprType, method.signature.typeName)
+    if let meths = methods(classTable: classTable, className: exprType) {
+      return isSubtype(classTable: classTable, exprType, method.signature.returnTypeName)
         && meths.contains(method)
     } else {
       return false // Error obtaining methods
@@ -163,8 +163,8 @@ public func methodTyping(
 
 /// Checks if a class is well-formed.
 /// - Returns: `true` for a well-formed class, `false` otherwise.
-public func classTyping(ct classTable: CT, context: Context, class: FJClass) -> Bool {
-  guard let fields = fields(ct: classTable, className: `class`.extends) else {
+public func classTyping(classTable: ClassTable, context: Context, class: FJClass) -> Bool {
+  guard let fields = classFields(classTable: classTable, className: `class`.extends) else {
     return false
   }
   guard `class`.constructor.args == fields + `class`.fields else {
@@ -173,7 +173,7 @@ public func classTyping(ct classTable: CT, context: Context, class: FJClass) -> 
   guard `class`.constructor.fieldInits.allSatisfy({ $0.fieldName == $0.argumentName }) else {
     return false
   }
-  guard let absMeths = abstractMethods(ct: classTable, class: `class`.name) else {
+  guard let absMeths = abstractMethods(classTable: classTable, typeName: `class`.name) else {
     return false // Error obtaining abstract methods
   }
 
@@ -183,15 +183,15 @@ public func classTyping(ct classTable: CT, context: Context, class: FJClass) -> 
   return absMeths.isEmpty
     && (pʹ == pʺ)
     && `class`.methods.allSatisfy {
-      methodTyping(ct: classTable, context: context, className: `class`.name, method: $0)
+      methodTyping(classTable: classTable, context: context, className: `class`.name, method: $0)
     }
 }
 
 /// Checks if an interface is well-formed.
 /// - Returns: `true` for a well-formed interface, `false` otherwise.
-public func interfaceTyping(ct classTable: CT, context: Context, interface: FJInterface) -> Bool {
-  return abstractMethods(ct: classTable, class: interface.name) != nil
+public func interfaceTyping(classTable: ClassTable, context: Context, interface: FJInterface) -> Bool {
+  return abstractMethods(classTable: classTable, typeName: interface.name) != nil
     && interface.defaultMethods.allSatisfy {
-      methodTyping(ct: classTable, context: context, className: interface.name, method: $0)
+      methodTyping(classTable: classTable, context: context, className: interface.name, method: $0)
     }
 }

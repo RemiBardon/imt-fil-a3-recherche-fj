@@ -20,7 +20,7 @@ final class FJTypeCheckerTests: XCTestCase {
       )
     )
     XCTAssertTrue(classTyping(
-      ct: ["MyClass": .class(wellTypedClass)],
+      classTable: ["MyClass": .class(wellTypedClass)],
       context: [:],
       class: wellTypedClass
     ))
@@ -42,7 +42,7 @@ final class FJTypeCheckerTests: XCTestCase {
       )
     )
     XCTAssertFalse(classTyping(
-      ct: ["MyClass": .class(badlyTypedClass)],
+      classTable: ["MyClass": .class(badlyTypedClass)],
       context: [:],
       class: badlyTypedClass
     ))

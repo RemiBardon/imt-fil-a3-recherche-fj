@@ -6,20 +6,21 @@
 ///
 /// `T ::= C | I`
 public enum FJType: Hashable {
-  case `class`(FJClass)
-  case interface(FJInterface)
+  case `class`(_ class: FJClass)
+  case interface(_ interface: FJInterface)
 }
+typealias T = FJType
 
 /// Class declaration.
 ///
 /// `class C extends D implements I̅ { T̅ f̅; K M̅ }`
 public struct FJClass: Hashable {
   /// Class name (`class C`).
-  public let name: String
+  public let name: FJClassName
   /// Extended class (`extends D`).
-  public let extends: String
+  public let extends: FJClassName
   /// List of implemented interfaces (`implements I̅`).
-  public let implements: [String]
+  public let implements: [FJInterfaceName]
   /// List of fields (`T̅ f̅`).
   public let fields: [FJField]
   /// Object constructor (`K`).
@@ -28,9 +29,9 @@ public struct FJClass: Hashable {
   public let methods: [FJMethod]
 
   public init(
-    name: String,
-    extends: String = "Object",
-    implements: [String] = [],
+    name: FJClassName,
+    extends: FJClassName = "Object",
+    implements: [FJInterfaceName] = [],
     fields: [FJField] = [],
     constructor: FJConstructor,
     methods: [FJMethod] = []
@@ -48,14 +49,14 @@ public struct FJClass: Hashable {
 ///
 /// `P ::= interface I extends I̅ { S̅; default M̅ }`
 public struct FJInterface: Hashable {
-  public let name: String
-  public let extends: [String]
+  public let name: FJInterfaceName
+  public let extends: [FJInterfaceName]
   public let signatures: [FJSignature]
   public let defaultMethods: [FJMethod]
 
   public init(
-    name: String,
-    extends: [String] = [],
+    name: FJInterfaceName,
+    extends: [FJInterfaceName] = [],
     signatures: [FJSignature] = [],
     defaultMethods: [FJMethod] = []
   ) {
@@ -71,15 +72,15 @@ typealias P = FJInterface
 ///
 /// `K ::= C(T̅ f̅) { super(f̅); this.f̅ = f̅; }`
 public struct FJConstructor: Hashable {
-  public let name: String
+  public let name: FJClassName
   public let args: [FJField]
-  public let superArgs: [String]
+  public let superArgs: [FJVariableName]
   public let fieldInits: [FieldInit]
 
   public init(
-    name: String,
+    name: FJClassName,
     args: [FJField] = [],
-    superArgs: [String] = [],
+    superArgs: [FJVariableName] = [],
     fieldInits: [FieldInit] = []
   ) {
     self.name = name
@@ -94,16 +95,16 @@ typealias K = FJConstructor
 ///
 /// `S ::= T m(T̅ x̅)`
 public struct FJSignature: Hashable {
-  public let typeName: FJTypeName
-  public let name: String
+  public let returnTypeName: FJTypeName
+  public let name: FJMethodName
   public let args: [FJField]
 
   public init(
-    typeName: FJTypeName,
-    name: String,
+    returnTypeName: FJTypeName,
+    name: FJMethodName,
     args: [FJField] = []
   ) {
-    self.typeName = typeName
+    self.returnTypeName = returnTypeName
     self.name = name
     self.args = args
   }
@@ -147,17 +148,17 @@ typealias M = FJMethod
 /// ```
 public indirect enum FJExpr: Hashable {
   /// Variable (`x`).
-  case variable(String)
+  case variable(name: FJVariableName)
   /// Field access (`e.f`).
-  case fieldAccess(FJExpr, String)
+  case fieldAccess(source: FJExpr, fieldName: FJVariableName)
   /// Method invocation (`e.m(e̅)`).
-  case methodInvocation(FJExpr, String, [FJExpr])
+  case methodInvocation(source: FJExpr, methodName: FJMethodName, parameters: [FJExpr])
   /// Object instantiation (`new C(e̅)`).
-  case createObject(String, [FJExpr])
+  case createObject(className: FJClassName, arguments: [FJExpr])
   /// Cast (`(T)e`).
-  case cast(FJTypeName, FJExpr)
+  case cast(typeName: FJTypeName, expression: FJExpr)
   /// λ-expression (`(T̅ x̅) → e`).
-  case lambda([FJField], FJExpr)
+  case lambda(parameters: [FJField], body: FJExpr)
 }
 typealias e = FJExpr
 
@@ -165,24 +166,33 @@ typealias e = FJExpr
 
 /// Type name.
 public typealias FJTypeName = String
+/// Class name.
+public typealias FJClassName = String
+/// Interface name.
+public typealias FJInterfaceName = String
+/// Variable name.
+public typealias FJVariableName = String
+/// Method name.
+public typealias FJMethodName = String
 
 // MARK: Auxiliary definitions
 
-public typealias Context = [String: FJTypeName]
+public typealias Context = [FJVariableName: FJTypeName]
 /// Class table.
-public typealias CT = [FJTypeName: FJType]
+public typealias ClassTable = [FJTypeName: FJType]
+typealias CT = ClassTable
 
 // MARK: Typing errors
 
 public enum TypeError: Error, Hashable {
-  case variableNotFound(String)
-  case fieldNotFound(String)
-  case classNotFound(String)
-  case methodNotFound(String, String)
-  case paramsTypeMismatch([TypeMismatch])
-  case wrongClosure(String, FJExpr)
-  case wrongCast(String, FJExpr)
-  case unknownError(FJExpr)
+  case variableNotFound(name: FJVariableName)
+  case fieldNotFound(name: FJVariableName)
+  case classNotFound(name: FJClassName)
+  case methodNotFound(name: FJMethodName, returnTypeName: FJTypeName)
+  case paramsTypeMismatch(params: [TypeMismatch])
+  case wrongLambdaType(targetTypeName: FJTypeName, lambda: FJExpr)
+  case wrongCast(castType: FJTypeName, expression: FJExpr)
+//  case unknownError(expression: FJExpr)
 }
 
 // MARK: Swift requirements
@@ -190,28 +200,28 @@ public enum TypeError: Error, Hashable {
 // Swift does not automatically synthesize `Hashable` conformance for tuples,
 // even when members are `Hashable`. We must define `struct`s to replace pairs.
 
-/// Equivalent of `(FJTypeName, String)`.
+/// Equivalent of `(FJTypeName, FJVariableName)`.
 public struct FJField: Hashable {
   public let type: FJTypeName
-  public let name: String
+  public let name: FJVariableName
 
   public init(
     type: FJTypeName,
-    name: String
+    name: FJVariableName
   ) {
     self.type = type
     self.name = name
   }
 }
 
-/// Equivalent of `(String, String)` (in `this.f̅ = f̅`).
+/// Equivalent of `(FJVariableName, FJVariableName)` (in `this.f̅ = f̅`).
 public struct FieldInit: Hashable {
-  public let fieldName: String
-  public let argumentName: String
+  public let fieldName: FJVariableName
+  public let argumentName: FJVariableName
 
   public init(
-    fieldName: String,
-    argumentName: String
+    fieldName: FJVariableName,
+    argumentName: FJVariableName
   ) {
     self.fieldName = fieldName
     self.argumentName = argumentName

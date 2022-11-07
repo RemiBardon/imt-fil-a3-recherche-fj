@@ -2,10 +2,9 @@
 
 import func Algorithms.product
 
-/// Checks classes for subtyping.
-/// - Parameters: Class table, Class A, Class B.
-/// - Returns: Returns if class A is subtype of class B.
-func subtyping(ct classTable: CT, _ classA: String, _ classB: String) -> Bool {
+/// Checks is a class is a subtype of another class.
+/// - Returns: Returns if `classA` is a subtype of `classB`.
+func isSubtype(classTable: ClassTable, _ classA: FJClassName, _ classB: FJClassName) -> Bool {
   if classA == classB { return true }
 
   switch classTable[classA] {
@@ -13,13 +12,13 @@ func subtyping(ct classTable: CT, _ classA: String, _ classB: String) -> Bool {
     if classC.extends == classB || classC.implements.contains(classB) {
       return true
     } else {
-      return subtyping(ct: classTable, classC.extends, classB)
-        || classC.implements.contains(where: { subtyping(ct: classTable, $0, classB) })
+      return isSubtype(classTable: classTable, classC.extends, classB)
+        || classC.implements.contains(where: { isSubtype(classTable: classTable, $0, classB) })
     }
 
   case .some(.interface(let interface)):
     return interface.extends.contains(classB)
-      || interface.extends.contains(where: { subtyping(ct: classTable, $0, classB) })
+      || interface.extends.contains(where: { isSubtype(classTable: classTable, $0, classB) })
 
   case .none:
     return false
@@ -27,18 +26,14 @@ func subtyping(ct classTable: CT, _ classA: String, _ classB: String) -> Bool {
 }
 
 /// Searches for a class in the class table and returns its fields.
-/// - Returns: A monad Maybe containing the field list or Nothing.
-func fields(ct classTable: CT, className: FJTypeName) -> [FJField]? {
+/// - Returns: The list of fields or nothing (`nil`) if the class was not found.
+func classFields(classTable: ClassTable, className: FJTypeName) -> [FJField]? {
   if className == "Object" { return [] }
 
   switch classTable[className] {
   case .some(.class(let `class`)):
-    switch fields(ct: classTable, className: `class`.extends) {
-    case .some(let base):
-      return base + `class`.fields
-    case .none:
-      return nil
-    }
+    return classFields(classTable: classTable, className: `class`.extends)
+      .map { $0 + `class`.fields }
   default:
     return nil
   }
@@ -46,22 +41,22 @@ func fields(ct classTable: CT, className: FJTypeName) -> [FJField]? {
 
 
 /// Searches for a class or interface in the class table and returns its abstract methods.
-/// - Returns: A monad Maybe containing the method signature or Nothin.
-func abstractMethods(ct classTable: CT, class className: FJTypeName) -> [FJSignature]? {
-  if className == "Object" { return [] }
+/// - Returns: The abstract methods signatures or nothing (`nil`) if the type was not found.
+func abstractMethods(classTable: ClassTable, typeName: FJTypeName) -> [FJSignature]? {
+  if typeName == "Object" { return [] }
 
-  switch classTable[className] {
+  switch classTable[typeName] {
   case .some(.class(let `class`)):
-    switch abstractMethods(ct: classTable, class: `class`.extends) {
-    case .some(let bam):
-      let bamʹ: [FJSignature] = `class`.implements.flatMap {
-        abstractMethods(ct: classTable, class: $0) ?? []
+    switch abstractMethods(classTable: classTable, typeName: `class`.extends) {
+    case .some(var abstractMethods):
+      let superAbstractMethods: [FJSignature] = `class`.implements.flatMap {
+        FJ.abstractMethods(classTable: classTable, typeName: $0) ?? []
       }
-      let bamʺ: [FJSignature] = union(bam, bamʹ) { (s1, s2) in s1.name == s2.name }
+      abstractMethods = union(abstractMethods, superAbstractMethods) { $0.name == $1.name }
       let cam: [FJSignature] = {
-        switch methods(ct: classTable, className: `class`.extends) {
+        switch methods(classTable: classTable, className: `class`.extends) {
         case .some(let meths):
-          switch methods(ct: classTable, className: `class`.name) {
+          switch methods(classTable: classTable, className: `class`.name) {
           case .some(let bmeths):
             return union(meths.map(\.signature), bmeths.map(\.signature)) { (s1, s2) in
               s1.name == s2.name
@@ -73,13 +68,13 @@ func abstractMethods(ct classTable: CT, class className: FJTypeName) -> [FJSigna
           return []
         }
       }()
-      return listDifference(bamʺ, cam)
+      return listDifference(abstractMethods, cam)
     case .none:
       return nil
     }
   case .some(.interface(let interface)):
     let bam: [FJSignature] = interface.extends.flatMap {
-      abstractMethods(ct: classTable, class: $0) ?? []
+      abstractMethods(classTable: classTable, typeName: $0) ?? []
     }
     let abstractMethsʹ = union(interface.signatures, bam) { (s1, s2) in
       s1.name == s2.name
@@ -93,15 +88,15 @@ func abstractMethods(ct classTable: CT, class className: FJTypeName) -> [FJSigna
 
 /// Searches for a class in the class table and returns its methods.
 /// - Returns: A monad Maybe containing the method list of Nothing.
-func methods(ct classTable: CT, className: FJTypeName) -> [FJMethod]? {
+func methods(classTable: ClassTable, className: FJTypeName) -> [FJMethod]? {
   if className == "Object" { return [] }
 
   switch classTable[className] {
   case .some(.class(let `class`)):
-    switch methods(ct: classTable, className: `class`.extends) {
+    switch methods(classTable: classTable, className: `class`.extends) {
     case .some(let bms):
       let bim = `class`.implements.flatMap {
-        methods(ct: classTable, className: $0) ?? []
+        methods(classTable: classTable, className: $0) ?? []
       }
       let mʹ = union(`class`.methods, bms) { (m1: FJMethod, m2: FJMethod) in
         m1.signature.name == m2.signature.name
@@ -116,7 +111,7 @@ func methods(ct classTable: CT, className: FJTypeName) -> [FJMethod]? {
 
   case .some(.interface(let interface)):
     let bim = interface.extends.flatMap {
-      methods(ct: classTable, className: $0) ?? []
+      methods(classTable: classTable, className: $0) ?? []
     }
     let mʹ = union(interface.defaultMethods, bim) { (m1: FJMethod, m2: FJMethod) in
       m1.signature.name == m2.signature.name
@@ -131,20 +126,23 @@ func methods(ct classTable: CT, className: FJTypeName) -> [FJMethod]? {
 /// Searches for a class in the class table, then looks up for a method and returns its type.
 /// - Returns: A monad Maybe containing the method type.
 func methodType(
-  ct classTable: CT,
+  classTable: ClassTable,
   methodName: String,
   className: FJTypeName
 ) -> ([FJTypeName], FJTypeName)? {
   if className == "Object" { return nil }
 
-  guard let absMeths = abstractMethods(ct: classTable, class: className) else { return nil }
+  guard let absMeths = abstractMethods(
+    classTable: classTable,
+    typeName: className
+  ) else { return nil }
   if let signature = absMeths.first(where: { $0.name == methodName }) {
-    return (signature.args.map(\.type), signature.typeName)
+    return (signature.args.map(\.type), signature.returnTypeName)
   }
 
-  guard let meths = methods(ct: classTable, className: className) else { return nil }
+  guard let meths = methods(classTable: classTable, className: className) else { return nil }
   if let signature = meths.map(\.signature).first(where: { $0.name == methodName }) {
-    return (signature.args.map(\.type), signature.typeName)
+    return (signature.args.map(\.type), signature.returnTypeName)
   }
 
   return nil
@@ -153,13 +151,13 @@ func methodType(
 /// Searches for a class in the class table, then looks up for a method and returns its body.
 /// - Returns: A monad Maybe containing the method body or Nothing.
 func methodBody(
-  ct classTable: CT,
+  classTable: ClassTable,
   methodName: String,
   className: FJTypeName
 ) -> ([String], FJExpr)? {
   if className == "Object" { return nil }
 
-  guard let meths = methods(ct: classTable, className: className) else { return nil }
+  guard let meths = methods(classTable: classTable, className: className) else { return nil }
   if let method = meths.first(where: { $0.signature.name == methodName }) {
     return (method.signature.args.map(\.name), method.body)
   }
@@ -169,10 +167,10 @@ func methodBody(
 
 /// Checks if an expression represents a value.
 /// - Returns: Boolean indicating if an expression is a value.
-func isValue(ct classTable: CT, _ expression: FJExpr) -> Bool {
+func isValue(classTable: ClassTable, _ expression: FJExpr) -> Bool {
   switch expression {
   case .createObject(_, []): return true
-  case .createObject(_, let p): return p.allSatisfy { isValue(ct: classTable, $0) }
+  case .createObject(_, let p): return p.allSatisfy { isValue(classTable: classTable, $0) }
   case .lambda: return true
   case .cast(_, .lambda): return true
   default: return false
@@ -185,7 +183,7 @@ func isValue(ct classTable: CT, _ expression: FJExpr) -> Bool {
 func lambdaMark(expression: FJExpr, type: FJTypeName) -> FJExpr {
   switch expression {
   case .lambda:
-    return .cast(type, expression)
+    return .cast(typeName: type, expression: expression)
   default:
     return expression
   }
@@ -196,19 +194,25 @@ func lambdaMark(expression: FJExpr, type: FJTypeName) -> FJExpr {
 func removeRuntimeAnnotation(expression: FJExpr) -> FJExpr {
   switch expression {
   case let .fieldAccess(expr, fieldName):
-    return .fieldAccess(removeRuntimeAnnotation(expression: expr), fieldName)
+    return .fieldAccess(
+      source: removeRuntimeAnnotation(expression: expr),
+      fieldName: fieldName
+    )
   case let .methodInvocation(expr, methodName, parameters):
     return .methodInvocation(
-      removeRuntimeAnnotation(expression: expr),
-      methodName,
-      parameters.map(removeRuntimeAnnotation)
+      source: removeRuntimeAnnotation(expression: expr),
+      methodName: methodName,
+      parameters: parameters.map(removeRuntimeAnnotation)
     )
   case let .createObject(className, parameters):
-    return .createObject(className, parameters.map(removeRuntimeAnnotation))
+    return .createObject(
+      className: className,
+      arguments: parameters.map(removeRuntimeAnnotation)
+    )
   case let .lambda(parameters, expr):
-    return .lambda(parameters, removeRuntimeAnnotation(expression: expr))
-  case let .cast(typeName, expr):
-    return .cast(typeName, removeRuntimeAnnotation(expression: expr))
+    return .lambda(parameters: parameters, body: removeRuntimeAnnotation(expression: expr))
+  case let .cast(typeName, expression):
+    return .cast(typeName: typeName, expression: removeRuntimeAnnotation(expression: expression))
   default:
     return expression
   }

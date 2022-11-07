@@ -58,15 +58,15 @@ final class FJParserTests: XCTestCase {
         methods: [
           .init(
             signature: .init(
-              typeName: "Pair",
+              returnTypeName: "Pair",
               name: "setfst",
               args: [
                 .init(type: "Object", name: "newfst"),
               ]
             ),
-            body: .createObject("Pair", [
-              .variable("newfst"),
-              .fieldAccess(.variable("this"), "snd"),
+            body: .createObject(className: "Pair", arguments: [
+              .variable(name: "newfst"),
+              .fieldAccess(source: .variable(name: "this"), fieldName: "snd"),
             ])
           ),
         ]
