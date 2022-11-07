@@ -1,6 +1,6 @@
 package imt.fil.a3.recherche.fj.parser.error;
 
-public final class MethodNotFound implements TypeError {
+public final class MethodNotFound extends TypeError {
     public final String name;
     public final String returnTypeName;
 

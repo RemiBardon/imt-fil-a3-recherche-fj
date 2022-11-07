@@ -2,7 +2,7 @@ package imt.fil.a3.recherche.fj.parser.error;
 
 import imt.fil.a3.recherche.fj.parser.expression.FJExpr;
 
-public final class WrongCast implements TypeError {
+public final class WrongCast extends TypeError {
     public final String castType;
     public final FJExpr expression;
 
