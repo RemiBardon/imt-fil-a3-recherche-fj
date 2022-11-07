@@ -168,7 +168,26 @@ public final class FJTypeChecker {
      * @return {@code Boolean.TRUE} for a well formed method, {@code Boolean.FALSE} otherwise.
      **/
     public Boolean methodTyping(String className, FJMethod method) {
-        throw new RuntimeException("Not implemented yet.");
+        HashMap<String, String> methodContext = this.context;
+        for (FJField arg: method.signature.args) {
+            methodContext.put(arg.name, arg.type);
+        }
+        methodContext.put("this", className);
+
+        final String expectedReturnTypeName;
+        try {
+            expectedReturnTypeName = new FJTypeChecker(this.classTable, methodContext)
+                .typeNameOf(FJUtils.lambdaMark(method.body, method.signature.returnTypeName));
+        } catch (TypeError e) {
+            return false; // Error obtaining type of expression
+        }
+
+        final Optional<List<FJMethod>> methods = FJUtils.methods(this.classTable, expectedReturnTypeName);
+        if (methods.isEmpty()) {
+            return false; // Error obtaining methods
+        }
+        return FJUtils.isSubtype(this.classTable, expectedReturnTypeName, method.signature.returnTypeName)
+            && methods.get().contains(method);
     }
 
     /**
