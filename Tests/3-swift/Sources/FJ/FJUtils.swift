@@ -47,39 +47,38 @@ func abstractMethods(classTable: ClassTable, typeName: FJTypeName) -> [FJSignatu
 
   switch classTable[typeName] {
   case .some(.class(let `class`)):
-    switch abstractMethods(classTable: classTable, typeName: `class`.extends) {
-    case .some(var abstractMethods):
-      let superAbstractMethods: [FJSignature] = `class`.implements.flatMap {
+    return abstractMethods(
+      classTable: classTable,
+      typeName: `class`.extends
+    ).map { superAbstractMethods in
+      let implementsAbstractMethods: [FJSignature] = `class`.implements.flatMap {
         FJ.abstractMethods(classTable: classTable, typeName: $0) ?? []
       }
-      abstractMethods = union(abstractMethods, superAbstractMethods) { $0.name == $1.name }
-      let cam: [FJSignature] = {
-        switch methods(classTable: classTable, className: `class`.extends) {
-        case .some(let meths):
-          switch methods(classTable: classTable, className: `class`.name) {
-          case .some(let bmeths):
-            return union(meths.map(\.signature), bmeths.map(\.signature)) { (s1, s2) in
-              s1.name == s2.name
-            }
-          case .none:
-            return meths.map(\.signature)
-          }
-        case .none:
+      let abstractMethods = union(superAbstractMethods, implementsAbstractMethods) { (s1, s2) in
+        s1.name == s2.name
+      }
+      let concreteMethods: [FJSignature] = {
+        guard let superMethods = methods(classTable: classTable, className: `class`.extends) else {
           return []
         }
+        if let methods = methods(classTable: classTable, className: `class`.name) {
+          return union(superMethods.map(\.signature), methods.map(\.signature)) { (s1, s2) in
+            s1.name == s2.name
+          }
+        } else {
+          return superMethods.map(\.signature)
+        }
       }()
-      return listDifference(abstractMethods, cam)
-    case .none:
-      return nil
+      return listDifference(abstractMethods, concreteMethods)
     }
   case .some(.interface(let interface)):
-    let bam: [FJSignature] = interface.extends.flatMap {
-      abstractMethods(classTable: classTable, typeName: $0) ?? []
+    let superAbstractMethods: [FJSignature] = interface.extends.flatMap {
+      FJ.abstractMethods(classTable: classTable, typeName: $0) ?? []
     }
-    let abstractMethsʹ = union(interface.signatures, bam) { (s1, s2) in
+    let abstractMethods = union(interface.signatures, superAbstractMethods) { (s1, s2) in
       s1.name == s2.name
     }
-    return abstractMethsʹ
+    return abstractMethods
   case .none:
     return nil
   }
