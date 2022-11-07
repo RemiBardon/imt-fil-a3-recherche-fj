@@ -3,13 +3,13 @@ package imt.fil.a3.recherche.fj.parser.expression;
 import java.util.List;
 
 public final class FJMethodInvocation implements FJExpr {
-    public final FJExpr object;
+    public final FJExpr source;
     public final String methodName;
-    public final List<FJExpr> arguments;
+    public final List<FJExpr> parameters;
 
-    public FJMethodInvocation(FJExpr object, String methodName, List<FJExpr> arguments) {
-        this.object = object;
+    public FJMethodInvocation(FJExpr source, String methodName, List<FJExpr> parameters) {
+        this.source = source;
         this.methodName = methodName;
-        this.arguments = arguments;
+        this.parameters = parameters;
     }
 }

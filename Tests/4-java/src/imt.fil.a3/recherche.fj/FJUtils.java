@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public class FJUtils {
 
-    public static boolean isSubtype(HashMap<String, FJType> classTable, String type1, String type2) {
-        return false;
+    public static Boolean isSubtype(HashMap<String, FJType> classTable, String type1, String type2) {
+        throw new RuntimeException("Not implemented yet.");
     }
 
     public static Optional<List<FJField>> classFields(
@@ -52,11 +52,11 @@ public class FJUtils {
         throw new RuntimeException("Not implemented yet.");
     }
 
-    public static boolean isValue(HashMap<String, FJType> classTable, FJExpr expr) {
-        return false;
+    public static Boolean isValue(HashMap<String, FJType> classTable, FJExpr expr) {
+        throw new RuntimeException("Not implemented yet.");
     }
 
-    public static FJExpr lambdaMark(HashMap<String, FJType> classTable, FJExpr expr) {
+    public static FJExpr lambdaMark(FJExpr expr, String type) {
         throw new RuntimeException("Not implemented yet.");
     }
 
