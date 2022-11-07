@@ -243,6 +243,7 @@ public final class FJTypeChecker {
      * @return {@code Boolean.TRUE} for a well-formed interface, {@code Boolean.FALSE} otherwise.
      */
     public Boolean interfaceTyping(FJInterface fjInterface) {
-        throw new RuntimeException("Not implemented yet.");
+        return FJUtils.abstractMethods(this.classTable, fjInterface.name).isPresent()
+            && fjInterface.defaultMethods.stream().allMatch(m -> methodTyping(fjInterface.name, m));
     }
 }
