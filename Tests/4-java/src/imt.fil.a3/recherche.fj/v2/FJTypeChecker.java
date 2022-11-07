@@ -165,7 +165,7 @@ public final class FJTypeChecker {
 
     /**
      * Checks if a method is well formed.
-     * @return `Boolean.TRUE` for a well formed method, `Boolean.FALSE` otherwise.
+     * @return {@code Boolean.TRUE} for a well formed method, {@code Boolean.FALSE} otherwise.
      **/
     public Boolean methodTyping(String className, FJMethod method) {
         throw new RuntimeException("Not implemented yet.");
@@ -173,7 +173,7 @@ public final class FJTypeChecker {
 
     /**
      * Checks if a class is well-formed.
-     * @return `Boolean.TRUE` for a well-formed class, `Boolean.FALSE` otherwise.
+     * @return {@code Boolean.TRUE} for a well-formed class, {@code Boolean.FALSE} otherwise.
      */
     public Boolean classTyping(FJClass fjClass) {
         throw new RuntimeException("Not implemented yet.");
@@ -181,7 +181,7 @@ public final class FJTypeChecker {
 
     /**
      * Checks if an interface is well-formed.
-     * @return `Boolean.TRUE` for a well-formed interface, `Boolean.FALSE` otherwise.
+     * @return {@code Boolean.TRUE} for a well-formed interface, {@code Boolean.FALSE} otherwise.
      */
     public Boolean interfaceTyping(FJInterface fjInterface) {
         throw new RuntimeException("Not implemented yet.");
