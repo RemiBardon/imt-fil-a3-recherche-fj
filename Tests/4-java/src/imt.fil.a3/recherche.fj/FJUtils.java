@@ -15,23 +15,23 @@ public class FJUtils {
     }
 
     public static List<FJField> classFields(HashMap<String, FJType> classTable, String className) {
-        return null;
+        throw new RuntimeException("Not implemented yet.");
     }
 
     public static List<FJSignature> abstractMethods(HashMap<String, FJType> classTable, String className) {
-        return null;
+        throw new RuntimeException("Not implemented yet.");
     }
 
     public static List<FJMethod> methods(HashMap<String, FJType> classTable, String className) {
-        return null;
+        throw new RuntimeException("Not implemented yet.");
     }
 
     public static Pair<List<String>, String> methodType(HashMap<String, FJType> classTable, String methodName, String className) {
-        return null;
+        throw new RuntimeException("Not implemented yet.");
     }
 
     public static Pair<List<String>, FJExpr> methodBody(HashMap<String, FJType> classTable, String methodName, String className) {
-        return null;
+        throw new RuntimeException("Not implemented yet.");
     }
 
     public static boolean isValue(HashMap<String, FJType> classTable, FJExpr expr) {
@@ -39,10 +39,10 @@ public class FJUtils {
     }
 
     public static FJExpr lambdaMark(HashMap<String, FJType> classTable, FJExpr expr) {
-        return null;
+        throw new RuntimeException("Not implemented yet.");
     }
 
     public static FJExpr removeRuntimeAnnotation(FJExpr expr) {
-        return null;
+        throw new RuntimeException("Not implemented yet.");
     }
 }
