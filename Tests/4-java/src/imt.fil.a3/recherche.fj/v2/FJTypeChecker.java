@@ -7,6 +7,8 @@ import imt.fil.a3.recherche.fj.parser.expression.*;
 import imt.fil.a3.recherche.fj.parser.type.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class FJTypeChecker {
     final HashMap<String, FJType> classTable;
@@ -195,7 +197,45 @@ public final class FJTypeChecker {
      * @return {@code Boolean.TRUE} for a well-formed class, {@code Boolean.FALSE} otherwise.
      */
     public Boolean classTyping(FJClass fjClass) {
-        throw new RuntimeException("Not implemented yet.");
+        final FJConstructor constructor = fjClass.constructor;
+
+        // Get superclass fields or return false if not found.
+        Optional<List<FJField>> _superFields = FJUtils.classFields(this.classTable, fjClass.extendsName);
+        if (_superFields.isEmpty()) {
+            return false;
+        }
+        List<FJField> superFields = _superFields.get();
+
+        // Make sure all fields are passed to the constructor.
+        List<FJField> allFields = Stream.concat(superFields.stream(), fjClass.fields.stream())
+            .collect(Collectors.toList());
+        if (!constructor.args.equals(allFields)) {
+            return false;
+        }
+
+        // Make sure constructor argument names match field names.
+        if (constructor.fieldInits.stream().anyMatch(f -> !f.fieldName.equals(f.argumentName))) {
+            return false;
+        }
+
+        final Optional<List<FJSignature>> _abstractMethods =
+            FJUtils.abstractMethods(this.classTable, fjClass.name);
+        if (_abstractMethods.isEmpty()) {
+            return false; // Error obtaining abstract methods
+        }
+        final List<FJSignature> abstractMethods = _abstractMethods.get();
+
+        // Make sure all constructor arguments are used
+        final List<String> args = constructor.args.stream().map(a -> a.name)
+            .collect(Collectors.toList());
+        final List<String> usedArgs = Stream.concat(
+            constructor.superArgs.stream(),
+            constructor.fieldInits.stream().map(fi -> fi.fieldName)
+        ).collect(Collectors.toList());
+
+        return abstractMethods.isEmpty()
+            && (args.equals(usedArgs))
+            && fjClass.methods.stream().allMatch(m -> this.methodTyping(fjClass.name, m));
     }
 
     /**
