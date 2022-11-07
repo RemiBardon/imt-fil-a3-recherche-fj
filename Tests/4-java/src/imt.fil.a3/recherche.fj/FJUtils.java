@@ -4,8 +4,10 @@ import imt.fil.a3.recherche.fj.parser.*;
 import imt.fil.a3.recherche.fj.parser.expression.FJExpr;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
+import javax.swing.text.html.Option;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 
 public class FJUtils {
@@ -14,23 +16,40 @@ public class FJUtils {
         return false;
     }
 
-    public static List<FJField> classFields(HashMap<String, FJType> classTable, String className) {
+    public static Optional<List<FJField>> classFields(
+        HashMap<String, FJType> classTable,
+        String className
+    ) {
         throw new RuntimeException("Not implemented yet.");
     }
 
-    public static List<FJSignature> abstractMethods(HashMap<String, FJType> classTable, String className) {
+    public static Optional<List<FJSignature>> abstractMethods(
+        HashMap<String, FJType> classTable,
+        String className
+    ) {
         throw new RuntimeException("Not implemented yet.");
     }
 
-    public static List<FJMethod> methods(HashMap<String, FJType> classTable, String className) {
+    public static Optional<List<FJMethod>> methods(
+        HashMap<String, FJType> classTable,
+        String className
+    ) {
         throw new RuntimeException("Not implemented yet.");
     }
 
-    public static Pair<List<String>, String> methodType(HashMap<String, FJType> classTable, String methodName, String className) {
+    public static Optional<Pair<List<String>, String>> methodType(
+        HashMap<String, FJType> classTable,
+        String methodName,
+        String className
+    ) {
         throw new RuntimeException("Not implemented yet.");
     }
 
-    public static Pair<List<String>, FJExpr> methodBody(HashMap<String, FJType> classTable, String methodName, String className) {
+    public static Optional<Pair<List<String>, FJExpr>> methodBody(
+        HashMap<String, FJType> classTable,
+        String methodName,
+        String className
+    ) {
         throw new RuntimeException("Not implemented yet.");
     }
 
