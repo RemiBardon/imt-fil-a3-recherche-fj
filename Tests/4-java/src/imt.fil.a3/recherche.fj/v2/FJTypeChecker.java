@@ -61,26 +61,28 @@ public final class FJTypeChecker {
             if (parameters.size() != parameterTypes.size()) {
                 throw new ParamsTypeMismatch(new ArrayList<>());
             }
-            var tmp = new ArrayList<TypeMismatch>();
+            var temp = new ArrayList<TypeMismatch>();
             for (int i = 0; i < parameters.size(); i++) {
                 final var expr = parameters.get(i);
                 final var type = parameterTypes.get(i);
-                tmp.add(new TypeMismatch(FJUtils.lambdaMark(expr, type), type));
+                temp.add(new TypeMismatch(FJUtils.lambdaMark(expr, type), type));
             }
 
-            final boolean isCorrectlyTyped = tmp.stream().allMatch(tm -> {
+            // Check method invocation parameters typing
+            for (TypeMismatch tm: temp) {
+                final String type;
                 try {
-                    final String type = this.typeNameOf(tm.expression);
-                    return FJUtils.isSubtype(this.classTable, type, tm.expectedTypeName);
+                    type = this.typeNameOf(tm.expression);
                 } catch (TypeError e) {
-                    return false;
+                    throw new ParamsTypeMismatch(temp);
                 }
-            });
-            if (isCorrectlyTyped) {
-                return methodTypeSignature.get().returnTypeName;
-            } else {
-                throw new ParamsTypeMismatch(tmp);
+                if (!FJUtils.isSubtype(this.classTable, type, tm.expectedTypeName)) {
+                    throw new ParamsTypeMismatch(temp);
+                }
             }
+
+            // Method invocation is correctly typed
+            return methodTypeSignature.get().returnTypeName;
         }
         throw new RuntimeException("Not implemented yet.");
     }
