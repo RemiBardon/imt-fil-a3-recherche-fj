@@ -116,6 +116,46 @@ public final class FJTypeChecker {
 
             // Object creation is correctly typed
             return createObject.className;
+        } else if (expression instanceof final FJCast cast) {
+            if (cast.body instanceof final FJLambda lambda) { // T-Lam
+                final String lambdaReturnType = cast.typeName;
+
+                HashMap<String, String> lambdaContext = this.context;
+                lambda.args.forEach(arg -> lambdaContext.putIfAbsent(arg.name, arg.type));
+
+                final Optional<List<FJSignature>> abstractMethods =
+                    FJUtils.abstractMethods(this.classTable, lambdaReturnType);
+                if (abstractMethods.isEmpty() || abstractMethods.get().size() != 1) {
+                    throw new WrongLambdaType(lambdaReturnType, lambda);
+                }
+                FJSignature method = abstractMethods.get().get(0);
+
+                final String expectedTypeName = new FJTypeChecker(this.classTable, lambdaContext)
+                    .typeNameOf(FJUtils.lambdaMark(lambda, method.returnTypeName));
+                if (FJUtils.isSubtype(classTable, expectedTypeName, method.returnTypeName)
+                    && method.args.get(0).equals(lambda.args.get(0))
+                ) {
+                    return lambdaReturnType;
+                } else {
+                    throw new WrongLambdaType(lambdaReturnType, lambda);
+                }
+            } else {
+                final String expectedTypeName = this.typeNameOf(FJUtils.lambdaMark(cast.body, cast.typeName));
+
+                final boolean expectedTypeIsType =
+                    FJUtils.isSubtype(this.classTable, expectedTypeName, cast.typeName);
+                final boolean typeIsExpectedType =
+                    FJUtils.isSubtype(this.classTable, cast.typeName, expectedTypeName);
+
+                if ((expectedTypeIsType) // T-UCast
+                    || (typeIsExpectedType && !cast.typeName.equals(expectedTypeName)) // T-DCast
+                    || (!typeIsExpectedType && !expectedTypeIsType) // T-SCast
+                ) {
+                    return cast.typeName;
+                } else {
+                    throw new WrongCast(cast.typeName, cast.body);
+                }
+            }
         }
         throw new RuntimeException("Not implemented yet.");
     }
