@@ -3,13 +3,13 @@ package imt.fil.a3.recherche.fj;
 import java.util.List;
 
 class FJClass {
-    private String name;
-    private String extendsName;
-    private List<String> implementsNames;
+    public final String name;
+    public final String extendsName;
+    public final List<String> implementsNames;
 
-    private List<FJField> fields;
-    private List<FJMethod> methods;
-    private FJConstructor constructor;
+    public final List<FJField> fields;
+    public final List<FJMethod> methods;
+    public final FJConstructor constructor;
 
     public FJClass(
             String name,
@@ -29,12 +29,12 @@ class FJClass {
 }
 
 class FJInterface{
-    private String name;
-    private List<String> extendsNames;
+    public final String name;
+    public final List<String> extendsNames;
 
-    private List<FJMethod> methods;
-    private List<FJSignature> signatures;
-    private List<FJMethod> defaultMethods;
+    public final List<FJMethod> methods;
+    public final List<FJSignature> signatures;
+    public final List<FJMethod> defaultMethods;
 
     public FJInterface(
             String name,
@@ -53,10 +53,10 @@ class FJInterface{
 
 
 class FJConstructor{
-    private String name;
-    private List<FJField> args;
-    private List<String> superArgs;
-    private List<FieldInit> fieldInits;
+    public final String name;
+    public final List<FJField> args;
+    public final List<String> superArgs;
+    public final List<FieldInit> fieldInits;
 
     public FJConstructor(
             String name,
@@ -72,9 +72,9 @@ class FJConstructor{
 }
 
 class FJSignature{
-    private String typeName;
-    private String name;
-    private List<FJField> args;
+    public final String typeName;
+    public final String name;
+    public final List<FJField> args;
 
     public FJSignature(
             String typeName,
@@ -88,8 +88,8 @@ class FJSignature{
 }
 
 class FJMethod{
-    private FJSignature signature;
-    private FJExpr body;
+    public final FJSignature signature;
+    public final FJExpr body;
 
     public FJMethod(FJSignature signature, FJExpr body) {
         this.signature = signature;
@@ -98,8 +98,8 @@ class FJMethod{
 }
 
 class FJField{
-    private String type;
-    private String name;
+    public final String type;
+    public final String name;
 
     public FJField(String type, String name) {
         this.type = type;
@@ -108,8 +108,8 @@ class FJField{
 }
 
 class FieldInit{
-    private String fieldName;
-    private String argumentName;
+    public final String fieldName;
+    public final String argumentName;
 
     public FieldInit(String fieldName, String argumentName) {
         this.fieldName = fieldName;
@@ -118,8 +118,8 @@ class FieldInit{
 }
 
 class TypeMismatch{
-    private FJExpr expression;
-    private String expectedTypeName;
+    public final FJExpr expression;
+    public final String expectedTypeName;
 
     public TypeMismatch(FJExpr expression, String expectedTypeName) {
         this.expression = expression;
@@ -219,11 +219,11 @@ class ClassNotFound implements TypeError {
 
 
 class MethodNotFound implements TypeError {
-    String message;
+    String name;
     String returnTypeName;
 
-    public MethodNotFound(String message, String returnTypeName) {
-        this.message = message;
+    public MethodNotFound(String message, String name) {
+        this.name = name;
         this.returnTypeName = returnTypeName;
     }
 }
@@ -247,11 +247,11 @@ class WrongLambdaType implements TypeError {
 }
 
 class WrongCast implements TypeError {
-    String message;
+    String castType;
     FJExpr expression;
 
-    public WrongCast(String message, FJExpr expression) {
-        this.message = message;
+    public WrongCast(String castType, FJExpr expression) {
+        this.castType = castType;
         this.expression = expression;
     }
 }
