@@ -156,8 +156,11 @@ public final class FJTypeChecker {
                     throw new WrongCast(cast.typeName, cast.body);
                 }
             }
+        } else if (expression instanceof FJLambda) { // Error: Lambda expression without a type
+            throw new WrongLambdaType("None", expression);
+        } else {
+            throw new RuntimeException("Unexpected code path: expression type not supported.");
         }
-        throw new RuntimeException("Not implemented yet.");
     }
 
     /**
