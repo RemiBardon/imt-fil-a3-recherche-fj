@@ -4,7 +4,6 @@ import imt.fil.a3.recherche.fj.parser.*;
 import imt.fil.a3.recherche.fj.parser.expression.FJExpr;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
-import javax.swing.text.html.Option;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +36,7 @@ public class FJUtils {
         throw new RuntimeException("Not implemented yet.");
     }
 
-    public static Optional<Pair<List<String>, String>> methodType(
+    public static Optional<FJMethodTypeSignature> methodType(
         HashMap<String, FJType> classTable,
         String methodName,
         String className
@@ -45,7 +44,7 @@ public class FJUtils {
         throw new RuntimeException("Not implemented yet.");
     }
 
-    public static Optional<Pair<List<String>, FJExpr>> methodBody(
+    public static Optional<FJMethodBodySignature> methodBody(
         HashMap<String, FJType> classTable,
         String methodName,
         String className
