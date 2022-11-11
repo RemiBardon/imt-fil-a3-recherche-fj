@@ -6,10 +6,10 @@ import java.util.List;
 
 public final class FJMethodBodySignature {
     public final List<String> argumentNames;
-    public final FJExpr bodys;
+    public final FJExpr body;
 
-    public FJMethodBodySignature(List<String> argumentNames, FJExpr bodys) {
+    public FJMethodBodySignature(List<String> argumentNames, FJExpr body) {
         this.argumentNames = argumentNames;
-        this.bodys = bodys;
+        this.body = body;
     }
 }
