@@ -1,8 +1,10 @@
 package imt.fil.a3.recherche.fj.parser.type;
 
 import imt.fil.a3.recherche.fj.FJUtils;
+import imt.fil.a3.recherche.fj.haskell.Haskell;
 import imt.fil.a3.recherche.fj.parser.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -81,5 +83,39 @@ public final class FJClass implements FJType {
         return abstractMethods.isEmpty()
             && (args.equals(usedArgs))
             && this.methods.stream().allMatch(m -> m.typeCheck(classTable, context, this.name));
+    }
+
+    @Override
+    public Optional<List<FJSignature>> abstractMethods(final HashMap<String, FJType> classTable) {
+        return FJUtils.abstractMethods(classTable, this.extendsName).map(superAbstractMethods -> {
+            final Stream<FJSignature> implementsAbstractMethods = this.implementsNames.stream()
+                .flatMap(t -> FJUtils.abstractMethods(classTable, t).orElse(Collections.emptyList()).stream());
+
+            final Stream<FJSignature> abstractMethods = Haskell.union(
+                superAbstractMethods.stream(),
+                implementsAbstractMethods,
+                (s1, s2) -> s1.name.equals(s2.name)
+            );
+
+            final Stream<FJSignature> concreteMethods;
+            final Optional<List<FJMethod>> superMethods = FJUtils.methods(classTable, this.extendsName);
+            if (superMethods.isPresent()) {
+                final Optional<List<FJMethod>> methods = FJUtils.methods(classTable, this.name);
+                // noinspection OptionalIsPresent
+                if (methods.isPresent()) {
+                    concreteMethods = Haskell.union(
+                        superMethods.get().stream().map(m -> m.signature),
+                        methods.get().stream().map(m -> m.signature),
+                        (s1, s2) -> s1.name.equals(s2.name)
+                    );
+                } else {
+                    concreteMethods = superMethods.get().stream().map(m -> m.signature);
+                }
+            } else {
+                concreteMethods = Stream.empty();
+            }
+
+            return Haskell.difference(abstractMethods.toList(), concreteMethods.toList());
+        });
     }
 }

@@ -1,11 +1,16 @@
 package imt.fil.a3.recherche.fj.parser.type;
 
 import imt.fil.a3.recherche.fj.FJUtils;
+import imt.fil.a3.recherche.fj.haskell.Haskell;
 import imt.fil.a3.recherche.fj.parser.FJMethod;
 import imt.fil.a3.recherche.fj.parser.FJSignature;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class FJInterface implements FJType {
     public final String name;
@@ -39,5 +44,19 @@ public final class FJInterface implements FJType {
     ) {
         return FJUtils.abstractMethods(classTable, this.name).isPresent()
             && this.defaultMethods.stream().allMatch(m -> m.typeCheck(classTable, context, this.name));
+    }
+
+    @Override
+    public Optional<List<FJSignature>> abstractMethods(final HashMap<String, FJType> classTable) {
+        final Stream<FJSignature> superAbstractMethods = this.extendsNames.stream()
+            .flatMap(i -> FJUtils.abstractMethods(classTable, i).orElse(Collections.emptyList()).stream());
+
+        final Stream<FJSignature> abstractMethods = Haskell.union(
+            this.signatures.stream(),
+            superAbstractMethods,
+            (s1, s2) -> s1.name.equals(s2.name)
+        );
+
+        return Optional.of(abstractMethods.collect(Collectors.toList()));
     }
 }

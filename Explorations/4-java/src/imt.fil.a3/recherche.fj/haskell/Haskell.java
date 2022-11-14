@@ -1,4 +1,4 @@
-package imt.fil.a3.recherche.fj;
+package imt.fil.a3.recherche.fj.haskell;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,18 +6,18 @@ import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-final class Haskell {
+public final class Haskell {
     /**
      * Translation of <a href="https://hackage.haskell.org/package/base-4.14.1.0/docs/Data-List.html#v:union">Haskell's union function</a>.
      */
-    static <E> Stream<E> union(Stream<E> a, Stream<E> b) {
+    public static <E> Stream<E> union(Stream<E> a, Stream<E> b) {
         return union(a, b, E::equals);
     }
 
     /**
      * Translation of <a href="https://hackage.haskell.org/package/base-4.14.1.0/docs/Data-List.html#v:unionBy">Haskell's unionBy function</a>.
      */
-    static <E> Stream<E> union(Stream<E> a, Stream<E> b, BiPredicate<E, E> predicate) {
+    public static <E> Stream<E> union(Stream<E> a, Stream<E> b, BiPredicate<E, E> predicate) {
         // > Duplicates are removed from the the second list
         List<E> b1 = b.distinct().collect(Collectors.toList());
         // > elements of the first list are removed from the the second list
@@ -29,7 +29,7 @@ final class Haskell {
     /**
      * Translation of <a href="https://hackage.haskell.org/package/base-4.17.0.0/docs/Data-List.html#v:-92--92-">Haskell's \\ function</a>.
      */
-    static <E> List<E> difference(List<E> a, List<E> b) {
+    public static <E> List<E> difference(List<E> a, List<E> b) {
         List<E> res = new ArrayList<>(a);
         for (final E e: b) {
             final int index = res.indexOf(e);

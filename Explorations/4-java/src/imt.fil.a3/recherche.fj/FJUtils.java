@@ -1,5 +1,6 @@
 package imt.fil.a3.recherche.fj;
 
+import imt.fil.a3.recherche.fj.haskell.Haskell;
 import imt.fil.a3.recherche.fj.parser.*;
 import imt.fil.a3.recherche.fj.parser.type.*;
 
@@ -58,56 +59,8 @@ public class FJUtils {
         final String className
     ) {
         if (className.equals("Object")) return Optional.of(Collections.emptyList());
-
         if (!classTable.containsKey(className)) return Optional.empty();
-
-        final FJType fjType = classTable.get(className);
-
-        if (fjType instanceof final FJClass fjClass) {
-            return abstractMethods(classTable, fjClass.extendsName).map(superAbstractMethods -> {
-                final Stream<FJSignature> implementsAbstractMethods = fjClass.implementsNames.stream()
-                    .flatMap(t -> abstractMethods(classTable, t).orElse(Collections.emptyList()).stream());
-
-                final Stream<FJSignature> abstractMethods = Haskell.union(
-                    superAbstractMethods.stream(),
-                    implementsAbstractMethods,
-                    (s1, s2) -> s1.name.equals(s2.name)
-                );
-
-                final Stream<FJSignature> concreteMethods;
-                final Optional<List<FJMethod>> superMethods = methods(classTable, fjClass.extendsName);
-                if (superMethods.isPresent()) {
-                    final Optional<List<FJMethod>> methods = methods(classTable, fjClass.name);
-                    // noinspection OptionalIsPresent
-                    if (methods.isPresent()) {
-                        concreteMethods = Haskell.union(
-                            superMethods.get().stream().map(m -> m.signature),
-                            methods.get().stream().map(m -> m.signature),
-                            (s1, s2) -> s1.name.equals(s2.name)
-                        );
-                    } else {
-                        concreteMethods = superMethods.get().stream().map(m -> m.signature);
-                    }
-                } else {
-                    concreteMethods = Stream.empty();
-                }
-
-                return Haskell.difference(abstractMethods.toList(), concreteMethods.toList());
-            });
-        } else if (fjType instanceof final FJInterface fjInterface) {
-            final Stream<FJSignature> superAbstractMethods = fjInterface.extendsNames.stream()
-                .flatMap(i -> abstractMethods(classTable, i).orElse(Collections.emptyList()).stream());
-
-            final Stream<FJSignature> abstractMethods = Haskell.union(
-                fjInterface.signatures.stream(),
-                superAbstractMethods,
-                (s1, s2) -> s1.name.equals(s2.name)
-            );
-
-            return Optional.of(abstractMethods.collect(Collectors.toList()));
-        } else {
-            throw new RuntimeException("Unexpected code path: expression type not supported.");
-        }
+        return classTable.get(className).abstractMethods(classTable);
     }
 
     public static Optional<List<FJMethod>> methods(
