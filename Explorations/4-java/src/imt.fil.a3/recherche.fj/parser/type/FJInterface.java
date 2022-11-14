@@ -68,7 +68,7 @@ public final class FJInterface implements FJType {
         final Stream<FJMethod> methods = Haskell.union(
             this.defaultMethods.stream(),
             superMethods,
-            (m1, m2) -> m1.signature.name.equals(m2.signature.name)
+            FJMethod::signatureEquals
         );
         return Optional.of(methods.collect(Collectors.toList()));
     }

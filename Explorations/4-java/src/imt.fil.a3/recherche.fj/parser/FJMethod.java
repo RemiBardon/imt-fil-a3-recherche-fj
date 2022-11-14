@@ -50,4 +50,10 @@ public final class FJMethod {
         return FJUtils.isSubtype(classTable, expectedReturnTypeName, this.signature.returnTypeName)
             && methods.get().contains(this);
     }
+
+    // NOTE: This warning is a bogus, the method is used, through a reference.
+    @SuppressWarnings("unused")
+    public Boolean signatureEquals(FJMethod other) {
+        return this.signature.name.equals(other.signature.name);
+    }
 }
