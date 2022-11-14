@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../3-swift/Sources/FJ/FJUtils.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../3-swift/Sources/FJ/FJUtils.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/Haskell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/FJUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/FJUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -51,6 +52,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>

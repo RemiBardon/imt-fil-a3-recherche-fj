@@ -1,12 +1,11 @@
 package imt.fil.a3.recherche.fj;
 
 import imt.fil.a3.recherche.fj.parser.*;
-import imt.fil.a3.recherche.fj.parser.expression.*;
 import imt.fil.a3.recherche.fj.parser.type.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FJUtils {
 
@@ -54,72 +53,61 @@ public class FJUtils {
         }
     }
 
-
     public static Optional<List<FJSignature>> abstractMethods(
         final HashMap<String, FJType> classTable,
         final String className
     ) {
-        if (className.equals("Object")) return Optional.empty();
+        if (className.equals("Object")) return Optional.of(Collections.emptyList());
+
+        if (!classTable.containsKey(className)) return Optional.empty();
 
         final FJType fjType = classTable.get(className);
 
         if (fjType instanceof final FJClass fjClass) {
-            //get methods from implemented interfaces
-            final Optional<List<FJMethod>> methodsFromImplemnts = fjClass.implementsNames.stream()
-                    .map(implementName -> methods(classTable, implementName))
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .reduce((methods1, methods2) -> {
-                        methods1.addAll(methods2);
-                        return methods1;
-                    });
+            return abstractMethods(classTable, fjClass.extendsName).map(superAbstractMethods -> {
+                final Stream<FJSignature> implementsAbstractMethods = fjClass.implementsNames.stream()
+                    .flatMap(t -> abstractMethods(classTable, t).orElse(Collections.emptyList()).stream());
 
-            //get methods from abstract methods
-            final Optional<List<FJMethod>> methodsFromAbstract = abstractMethods(classTable, className)
-                    .map(abstractMethods -> abstractMethods.stream()
-                            .map(abstractMethod -> new FJMethod(
-                                    abstractMethod.returnType,
-                                    abstractMethod.name,
-                                    abstractMethod.arguments,
-                                    new FJBlock(List.of(), List.of())
-                            ))
-                            .toList()
-                    );
+                final Stream<FJSignature> abstractMethods = Haskell.union(
+                    superAbstractMethods.stream(),
+                    implementsAbstractMethods,
+                    (s1, s2) -> s1.name.equals(s2.name)
+                );
 
-            //get methods from class
-            final Optional<List<FJMethod>> methodsFromClass = Optional.of(fjClass.methods);
+                final Stream<FJSignature> concreteMethods;
+                final Optional<List<FJMethod>> superMethods = methods(classTable, fjClass.extendsName);
+                if (superMethods.isPresent()) {
+                    final Optional<List<FJMethod>> methods = methods(classTable, fjClass.name);
+                    // noinspection OptionalIsPresent
+                    if (methods.isPresent()) {
+                        concreteMethods = Haskell.union(
+                            superMethods.get().stream().map(m -> m.signature),
+                            methods.get().stream().map(m -> m.signature),
+                            (s1, s2) -> s1.name.equals(s2.name)
+                        );
+                    } else {
+                        concreteMethods = superMethods.get().stream().map(m -> m.signature);
+                    }
+                } else {
+                    concreteMethods = Stream.empty();
+                }
 
-            //merge all methods
-            return methodsFromImplemnts.map(methods -> {
-                methodsFromAbstract.ifPresent(methods::addAll);
-                methodsFromClass.ifPresent(methods::addAll);
-                return methods;
+                return Haskell.difference(abstractMethods.toList(), concreteMethods.toList());
             });
-        } else if( fjType instanceof final FJInterface fjInterface) {
-            //get super methods abstract
-            final Optional<List<FJMethod>> methodsFromAbstract = abstractMethods(classTable, className)
-                    .map(abstractMethods -> abstractMethods.stream()
-                            .map(abstractMethod -> new FJMethod(
-                                    abstractMethod.returnType,
-                                    abstractMethod.name,
-                                    abstractMethod.arguments,
-                                    new FJBlock(List.of(), List.of())
-                            ))
-                            .toList()
-                    );
+        } else if (fjType instanceof final FJInterface fjInterface) {
+            final Stream<FJSignature> superAbstractMethods = fjInterface.extendsNames.stream()
+                .flatMap(i -> abstractMethods(classTable, i).orElse(Collections.emptyList()).stream());
 
-            //get abstract methods from interface
-            final Optional<List<FJMethod>> methodsFromInterface = Optional.of(fjInterface.methods);
+            final Stream<FJSignature> abstractMethods = Haskell.union(
+                fjInterface.signatures.stream(),
+                superAbstractMethods,
+                (s1, s2) -> s1.name.equals(s2.name)
+            );
 
-            //merge all methods
-            return methodsFromAbstract.map(methods -> {
-                methodsFromInterface.ifPresent(methods::addAll);
-                return methods;
-            });
+            return Optional.of(abstractMethods.collect(Collectors.toList()));
         } else {
-            return Optional.empty();
+            throw new RuntimeException("Unexpected code path: expression type not supported.");
         }
-
     }
 
     public static Optional<List<FJMethod>> methods(
@@ -134,8 +122,7 @@ public class FJUtils {
            //get methods from implemented interfaces
             final Optional<List<FJMethod>> methodsFromImplemnts = fjClass.implementsNames.stream()
                     .map(implementName -> methods(classTable, implementName))
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
+                    .flatMap(Optional::stream)
                     .reduce((methods1, methods2) -> {
                         methods1.addAll(methods2);
                         return methods1;
@@ -149,7 +136,7 @@ public class FJUtils {
                 methodsFromClass.ifPresent(methods::addAll);
                 return methods;
             });
-        } else if( fjType instanceof final FJInterface fjInterface) {
+        } else if (fjType instanceof final FJInterface fjInterface) {
             //get super methods
             final Optional<List<FJMethod>> methodsFromSuper = methods(classTable, className);
 
