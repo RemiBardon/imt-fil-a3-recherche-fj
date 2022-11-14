@@ -24,4 +24,10 @@ public final class FJVariable implements FJExpr {
             throw new VariableNotFound(this.name);
         }
     }
+
+    @Override
+    public Boolean isValue() { return false; }
+
+    @Override
+    public FJVariable removingRuntimeAnnotation() { return this; }
 }

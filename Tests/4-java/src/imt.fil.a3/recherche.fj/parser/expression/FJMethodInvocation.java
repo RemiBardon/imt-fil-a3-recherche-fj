@@ -50,7 +50,7 @@ public final class FJMethodInvocation implements FJExpr {
         for (int i = 0; i < this.args.size(); i++) {
             final FJExpr arg = this.args.get(i);
             final String type = parameterTypes.get(i);
-            temp.add(new TypeMismatch(FJUtils.lambdaMark(arg, type), type));
+            temp.add(new TypeMismatch(arg.lambdaMark(type), type));
         }
 
         // Check method invocation arguments typing
@@ -68,5 +68,17 @@ public final class FJMethodInvocation implements FJExpr {
 
         // Method invocation is correctly typed
         return methodTypeSignature.get().returnTypeName;
+    }
+
+    @Override
+    public Boolean isValue() { return false; }
+
+    @Override
+    public FJMethodInvocation removingRuntimeAnnotation() {
+        return new FJMethodInvocation(
+            this.source.removingRuntimeAnnotation(),
+            this.methodName,
+            this.args.stream().map(FJExpr::removingRuntimeAnnotation).toList()
+        );
     }
 }

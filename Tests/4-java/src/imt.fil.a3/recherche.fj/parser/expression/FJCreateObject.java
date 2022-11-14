@@ -38,7 +38,7 @@ public final class FJCreateObject implements FJExpr {
         for (int i = 0; i < this.args.size(); i++) {
             final FJExpr arg = this.args.get(i);
             final FJField field = fields.get().get(i);
-            temp.add(new TypeMismatch(FJUtils.lambdaMark(arg, field.type), field.type));
+            temp.add(new TypeMismatch(arg.lambdaMark(field.type), field.type));
         }
 
         // Check object creation arguments typing
@@ -58,5 +58,16 @@ public final class FJCreateObject implements FJExpr {
 
         // Object creation is correctly typed
         return this.className;
+    }
+
+    @Override
+    public Boolean isValue() {
+        // NOTE: `allMatch` returns `true` if `args.isEmpty()`.
+        return args.stream().allMatch(FJExpr::isValue);
+    }
+
+    @Override
+    public FJCreateObject removingRuntimeAnnotation() {
+        return new FJCreateObject(this.className, this.args.stream().map(FJExpr::removingRuntimeAnnotation).toList());
     }
 }

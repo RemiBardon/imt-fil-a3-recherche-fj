@@ -27,11 +27,11 @@ public final class FJInterpreter {
                 .flatMap(Optional::stream).toList();
             return Optional.of(new FJCreateObject(createObject.className, args));
         } else if (expr instanceof final FJFieldAccess fieldAccess) { // R-Field
-            if (FJUtils.isValue(this.classTable, fieldAccess.object)) {
+            if (fieldAccess.object.isValue()) {
                 if (fieldAccess.object instanceof final FJCreateObject createObject) {
                     final Optional<List<FJField>> _fields =
                         FJUtils.classFields(this.classTable, createObject.className);
-                    if (_fields.isEmpty()) { return Optional.empty(); }
+                    if (_fields.isEmpty()) return Optional.empty();
                     final List<FJField> fields = _fields.get();
 
                     Optional<Integer> index = Optional.empty();
@@ -41,12 +41,9 @@ public final class FJInterpreter {
                             break;
                         }
                     }
-                    if (index.isEmpty()) { return Optional.empty(); }
+                    if (index.isEmpty()) return Optional.empty();
 
-                    return Optional.of(FJUtils.lambdaMark(
-                        createObject.args.get(index.get()),
-                        fields.get(index.get()).name
-                    ));
+                    return Optional.of(createObject.args.get(index.get()).lambdaMark(fields.get(index.get()).name));
                 } else {
                     return Optional.empty(); // Not an object instance
                 }
@@ -54,13 +51,13 @@ public final class FJInterpreter {
                 return this._eval(expr).map(e -> new FJFieldAccess(e, fieldAccess.fieldName));
             }
         } else if (expr instanceof final FJMethodInvocation methodInvocation) {
-            if (FJUtils.isValue(this.classTable, methodInvocation.source)) {
-                if (methodInvocation.args.stream().allMatch(a -> FJUtils.isValue(this.classTable, a))) {
+            if (methodInvocation.source.isValue()) {
+                if (methodInvocation.args.stream().allMatch(FJExpr::isValue)) {
                     if (methodInvocation.source instanceof final FJCreateObject createObject) { // R-Invk
                         final Optional<FJMethodTypeSignature> methodType = FJUtils.methodType(
-                                this.classTable,
-                                methodInvocation.methodName,
-                                createObject.className
+                            this.classTable,
+                            methodInvocation.methodName,
+                            createObject.className
                         );
                         if (methodType.isEmpty()) { return Optional.empty(); } // No method type
 
@@ -72,12 +69,10 @@ public final class FJInterpreter {
                         if (methodBody.isEmpty()) { return Optional.empty(); } // No method body
 
                         final List<FJExpr> args = Collections.emptyList();
-                        // zip(methodInvocation.args, methodType.parameterTypeNames)
+                        // <=> zip(methodInvocation.args, methodType.parameterTypeNames)
                         for (int i = 0; i < methodInvocation.args.size(); i++) {
-                            args.add(FJUtils.lambdaMark(
-                                methodInvocation.args.get(i),
-                                methodType.get().parameterTypeNames.get(i)
-                            ));
+                            args.add(methodInvocation.args.get(i)
+                                .lambdaMark(methodType.get().parameterTypeNames.get(i)));
                         }
                         args.add(methodInvocation.source);
                         final List<String> parameterNames = Stream.concat(
@@ -87,7 +82,7 @@ public final class FJInterpreter {
                         return this.substitute(
                             parameterNames,
                             args,
-                            FJUtils.lambdaMark(methodBody.get().body, methodType.get().returnTypeName)
+                            methodBody.get().body.lambdaMark(methodType.get().returnTypeName)
                         );
                     } else if (
                         methodInvocation.source instanceof final FJCast fjCast
@@ -100,12 +95,10 @@ public final class FJInterpreter {
                         );
                         if (methodType.isEmpty()) { return Optional.empty(); } // No method type
                         final List<FJExpr> args = Collections.emptyList();
-                        // zip(methodInvocation.args, methodType.parameterTypeNames)
+                        // <=> zip(methodInvocation.args, methodType.parameterTypeNames)
                         for (int i = 0; i < methodInvocation.args.size(); i++) {
-                            args.add(FJUtils.lambdaMark(
-                                    methodInvocation.args.get(i),
-                                    methodType.get().parameterTypeNames.get(i)
-                            ));
+                            args.add(methodInvocation.args.get(i)
+                                .lambdaMark(methodType.get().parameterTypeNames.get(i)));
                         }
 
                         final Optional<FJMethodBodySignature> methodBody = FJUtils.methodBody(
@@ -117,13 +110,13 @@ public final class FJInterpreter {
                             return substitute(
                                 methodBody.get().argumentNames,
                                 args,
-                                FJUtils.lambdaMark(methodBody.get().body, methodType.get().returnTypeName)
+                                methodBody.get().body.lambdaMark(methodType.get().returnTypeName)
                             );
                         } else { // R-Lam
                             return this.substitute(
                                 lambda.args.stream().map(a -> a.name).toList(),
                                 args,
-                                FJUtils.lambdaMark(lambda.body, methodType.get().returnTypeName)
+                                lambda.body.lambdaMark(methodType.get().returnTypeName)
                             );
                         }
                     } else {
@@ -143,7 +136,7 @@ public final class FJInterpreter {
                     .map(e -> new FJMethodInvocation(e, methodInvocation.methodName, methodInvocation.args));
             }
         } else if (expr instanceof final FJCast fjCast) {
-            if (FJUtils.isValue(this.classTable, fjCast.body)) {
+            if (fjCast.body.isValue()) {
                 if (fjCast.body instanceof final FJCreateObject createObject) {
                     if (FJUtils.isSubtype(this.classTable, createObject.className, fjCast.typeName)) { // R-Cast
                         return Optional.of(fjCast.body);
@@ -176,7 +169,7 @@ public final class FJInterpreter {
      * @return A value after all the reduction steps.
      */
     public FJExpr eval(FJExpr expr) {
-        if (FJUtils.isValue(this.classTable, expr)) {
+        if (expr.isValue()) {
             return expr;
         } else {
             return eval(_eval(expr).orElse(expr));

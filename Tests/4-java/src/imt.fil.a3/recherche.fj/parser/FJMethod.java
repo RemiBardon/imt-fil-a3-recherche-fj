@@ -4,7 +4,6 @@ import imt.fil.a3.recherche.fj.FJUtils;
 import imt.fil.a3.recherche.fj.parser.error.TypeError;
 import imt.fil.a3.recherche.fj.parser.expression.FJExpr;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
-import imt.fil.a3.recherche.fj.v2.FJTypeChecker;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,8 +37,8 @@ public final class FJMethod {
 
         final String expectedReturnTypeName;
         try {
-            expectedReturnTypeName = new FJTypeChecker(classTable, methodContext)
-                .typeNameOf(FJUtils.lambdaMark(this.body, this.signature.returnTypeName));
+            expectedReturnTypeName = this.body.lambdaMark(this.signature.returnTypeName)
+                    .getTypeName(classTable, methodContext);
         } catch (TypeError e) {
             return false; // Error obtaining type of expression
         }

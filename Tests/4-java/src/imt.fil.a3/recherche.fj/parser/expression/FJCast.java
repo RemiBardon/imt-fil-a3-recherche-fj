@@ -1,15 +1,11 @@
 package imt.fil.a3.recherche.fj.parser.expression;
 
 import imt.fil.a3.recherche.fj.FJUtils;
-import imt.fil.a3.recherche.fj.parser.FJSignature;
 import imt.fil.a3.recherche.fj.parser.error.TypeError;
 import imt.fil.a3.recherche.fj.parser.error.WrongCast;
-import imt.fil.a3.recherche.fj.parser.error.WrongLambdaType;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
 
 public final class FJCast implements FJExpr {
     public final String typeName;
@@ -28,7 +24,7 @@ public final class FJCast implements FJExpr {
         if (this.body instanceof final FJLambda lambda) { // T-Lam
             return lambda.getTypeName(classTable, context, this.typeName);
         } else {
-            final String expectedTypeName = FJUtils.lambdaMark(this.body, this.typeName)
+            final String expectedTypeName = this.body.lambdaMark(this.typeName)
                 .getTypeName(classTable, context);
 
             final boolean expectedTypeIsType =
@@ -45,5 +41,17 @@ public final class FJCast implements FJExpr {
                 throw new WrongCast(this.typeName, this.body);
             }
         }
+    }
+
+    @Override
+    public Boolean isValue() {
+        // NOTE: [Rémi BARDON] The original Haskell code says it should be
+        //       only if `body instanceof FJLambda`, but I think it can be generalized.
+        return body.isValue();
+    }
+
+    @Override
+    public FJCast removingRuntimeAnnotation() {
+        return new FJCast(this.typeName, this.body.removingRuntimeAnnotation());
     }
 }

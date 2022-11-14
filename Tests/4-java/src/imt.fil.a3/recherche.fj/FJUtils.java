@@ -7,7 +7,6 @@ import imt.fil.a3.recherche.fj.parser.type.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class FJUtils {
 
@@ -117,18 +116,6 @@ public class FJUtils {
         final String methodName,
         final String className
     ) {
-        throw new RuntimeException("Not implemented yet.");
-    }
-
-    public static Boolean isValue(final HashMap<String, FJType> classTable, final FJExpr expr) {
-        throw new RuntimeException("Not implemented yet.");
-    }
-
-    public static FJExpr lambdaMark(final FJExpr expr, final String type) {
-        throw new RuntimeException("Not implemented yet.");
-    }
-
-    public static FJExpr removeRuntimeAnnotation(final FJExpr expr) {
         throw new RuntimeException("Not implemented yet.");
     }
 }

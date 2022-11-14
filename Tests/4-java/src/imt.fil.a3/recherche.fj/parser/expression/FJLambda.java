@@ -45,7 +45,7 @@ public final class FJLambda implements FJExpr {
         }
         final FJSignature method = abstractMethods.get().get(0);
 
-        final String expectedTypeName = FJUtils.lambdaMark(this, method.returnTypeName)
+        final String expectedTypeName = this.lambdaMark(method.returnTypeName)
             .getTypeName(classTable, lambdaContext);
         final boolean returnTypeIsCorrect = FJUtils.isSubtype(classTable, expectedTypeName, method.returnTypeName);
         final boolean argsTypesAreCorrect = method.args.get(0).equals(this.args.get(0));
@@ -55,5 +55,18 @@ public final class FJLambda implements FJExpr {
         } else {
             throw new WrongLambdaType(returnType, this);
         }
+    }
+
+    @Override
+    public Boolean isValue() { return true; }
+
+    @Override
+    public FJExpr lambdaMark(final String typeName) {
+        return new FJCast(typeName, this);
+    }
+
+    @Override
+    public FJLambda removingRuntimeAnnotation() {
+        return new FJLambda(this.args, this.body.removingRuntimeAnnotation());
     }
 }

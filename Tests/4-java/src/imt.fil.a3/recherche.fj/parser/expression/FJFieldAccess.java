@@ -43,4 +43,12 @@ public final class FJFieldAccess implements FJExpr {
             throw new FieldNotFound(this.fieldName);
         }
     }
+
+    @Override
+    public Boolean isValue() { return false; }
+
+    @Override
+    public FJFieldAccess removingRuntimeAnnotation() {
+        return new FJFieldAccess(this.object.removingRuntimeAnnotation(), this.fieldName);
+    }
 }
