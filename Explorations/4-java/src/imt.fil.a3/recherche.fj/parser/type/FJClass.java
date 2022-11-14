@@ -118,4 +118,23 @@ public final class FJClass implements FJType {
             return Haskell.difference(abstractMethods.toList(), concreteMethods.toList());
         });
     }
+
+    @Override
+    public Optional<List<FJMethod>> methods(final HashMap<String, FJType> classTable) {
+        return FJUtils.methods(classTable, this.extendsName).map(superMethods -> {
+            final Stream<FJMethod> thisPlusSuperMethods = Haskell.union(
+                this.methods.stream(),
+                superMethods.stream(),
+                (m1, m2) -> m1.signature.name.equals(m2.signature.name)
+            );
+            final Stream<FJMethod> interfacesMethods = this.implementsNames.stream()
+                .flatMap(t -> FJUtils.methods(classTable, t).orElse(Collections.emptyList()).stream());
+            final Stream<FJMethod> allMethods = Haskell.union(
+                thisPlusSuperMethods,
+                interfacesMethods,
+                (m1, m2) -> m1.signature.name.equals(m2.signature.name)
+            );
+            return allMethods.collect(Collectors.toList());
+        });
+    }
 }

@@ -5,6 +5,7 @@ import imt.fil.a3.recherche.fj.haskell.Haskell;
 import imt.fil.a3.recherche.fj.parser.FJMethod;
 import imt.fil.a3.recherche.fj.parser.FJSignature;
 
+import javax.swing.text.html.Option;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -58,5 +59,17 @@ public final class FJInterface implements FJType {
         );
 
         return Optional.of(abstractMethods.collect(Collectors.toList()));
+    }
+
+    @Override
+    public Optional<List<FJMethod>> methods(final HashMap<String, FJType> classTable) {
+        final Stream<FJMethod> superMethods = this.extendsNames.stream()
+            .flatMap(i -> FJUtils.methods(classTable, i).orElse(Collections.emptyList()).stream());
+        final Stream<FJMethod> methods = Haskell.union(
+            this.defaultMethods.stream(),
+            superMethods,
+            (m1, m2) -> m1.signature.name.equals(m2.signature.name)
+        );
+        return Optional.of(methods.collect(Collectors.toList()));
     }
 }

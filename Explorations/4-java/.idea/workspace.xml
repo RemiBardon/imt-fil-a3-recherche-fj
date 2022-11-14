@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/expression/FJCreateObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/expression/FJCreateObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/FJUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/FJUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/type/FJClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/type/FJClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/type/FJInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/type/FJInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/type/FJType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/type/FJType.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -56,54 +56,20 @@ public class FJUtils {
 
     public static Optional<List<FJSignature>> abstractMethods(
         final HashMap<String, FJType> classTable,
-        final String className
+        final String typeName
     ) {
-        if (className.equals("Object")) return Optional.of(Collections.emptyList());
-        if (!classTable.containsKey(className)) return Optional.empty();
-        return classTable.get(className).abstractMethods(classTable);
+        if (typeName.equals("Object")) return Optional.of(Collections.emptyList());
+        if (!classTable.containsKey(typeName)) return Optional.empty();
+        return classTable.get(typeName).abstractMethods(classTable);
     }
 
     public static Optional<List<FJMethod>> methods(
         final HashMap<String, FJType> classTable,
-        final String className
+        final String typeName
     ) {
-        if (className.equals("Object")) return Optional.empty();
-
-        final FJType fjType = classTable.get(className);
-
-        if (fjType instanceof final FJClass fjClass) {
-           //get methods from implemented interfaces
-            final Optional<List<FJMethod>> methodsFromImplemnts = fjClass.implementsNames.stream()
-                    .map(implementName -> methods(classTable, implementName))
-                    .flatMap(Optional::stream)
-                    .reduce((methods1, methods2) -> {
-                        methods1.addAll(methods2);
-                        return methods1;
-                    });
-
-            //get methods from class
-            final Optional<List<FJMethod>> methodsFromClass = Optional.of(fjClass.methods);
-
-            //merge all methods
-            return methodsFromImplemnts.map(methods -> {
-                methodsFromClass.ifPresent(methods::addAll);
-                return methods;
-            });
-        } else if (fjType instanceof final FJInterface fjInterface) {
-            //get super methods
-            final Optional<List<FJMethod>> methodsFromSuper = methods(classTable, className);
-
-            //get methods from interface
-            final Optional<List<FJMethod>> methodsFromInterface = Optional.of(fjInterface.methods);
-
-            //merge all methods
-            return methodsFromSuper.map(methods -> {
-                methodsFromInterface.ifPresent(methods::addAll);
-                return methods;
-            });
-        } else {
-            return Optional.empty();
-        }
+        if (typeName.equals("Object")) return Optional.of(Collections.emptyList());
+        if (!classTable.containsKey(typeName)) return Optional.empty();
+        return classTable.get(typeName).methods(classTable);
     }
 
     public static Optional<FJMethodTypeSignature> methodType(
