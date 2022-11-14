@@ -1,8 +1,10 @@
 package imt.fil.a3.recherche.fj.parser.type;
 
+import imt.fil.a3.recherche.fj.FJUtils;
 import imt.fil.a3.recherche.fj.parser.FJMethod;
 import imt.fil.a3.recherche.fj.parser.FJSignature;
 
+import java.util.HashMap;
 import java.util.List;
 
 public final class FJInterface implements FJType {
@@ -25,5 +27,17 @@ public final class FJInterface implements FJType {
         this.methods = methods;
         this.signatures = signatures;
         this.defaultMethods = defaultMethods;
+    }
+
+    /**
+     * Checks if an interface is well-formed.
+     * @return {@code Boolean.TRUE} for a well-formed interface, {@code Boolean.FALSE} otherwise.
+     */
+    public Boolean typeCheck(
+        final HashMap<String, FJType> classTable,
+        final HashMap<String, String> context
+    ) {
+        return FJUtils.abstractMethods(classTable, this.name).isPresent()
+            && this.defaultMethods.stream().allMatch(m -> m.typeCheck(classTable, context, this.name));
     }
 }
