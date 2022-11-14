@@ -166,6 +166,9 @@ public class FJUtils {
 //get methods
         final Optional<List<FJMethod>> methods = methods(classTable, className);
 
+        throw new RuntimeException("Not implemented yet.");
+
+        /*
         //get method
         final Optional<FJMethod> method = methods.flatMap(methods1 -> methods1.stream()
                 .filter(method1 -> method1.name.equals(methodName))
@@ -178,6 +181,7 @@ public class FJUtils {
                         .map(argument -> argument.type)
                         .toList()
         ));
+        */
     }
 
     public static Optional<FJMethodBodySignature> methodBody(
@@ -190,6 +194,9 @@ public class FJUtils {
         //get methods
         final Optional<List<FJMethod>> methods = methods(classTable, className);
 
+        throw new RuntimeException("Not implemented yet.");
+
+        /*
         //get method
         final Optional<FJMethod> method = methods.flatMap(methods1 -> methods1.stream()
                 .filter(method1 -> method1.name.equals(methodName))
@@ -201,5 +208,6 @@ public class FJUtils {
                 method1.arguments,
                 method1.block
         ));
+        */
     }
 }
