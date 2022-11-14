@@ -42,8 +42,6 @@ public final class FJCreateObject implements FJExpr {
         }
 
         // Check object creation arguments typing
-        // NOTE: This "Collection 'temp' is always empty" warning is a bogus
-        //       … or I didn't get something
         for (final TypeMismatch tm: temp) {
             final String type;
             try {
