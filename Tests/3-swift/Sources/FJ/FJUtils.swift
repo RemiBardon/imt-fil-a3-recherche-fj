@@ -166,10 +166,10 @@ func methodBody(
 
 /// Checks if an expression represents a value.
 /// - Returns: Boolean indicating if an expression is a value.
-func isValue(classTable: ClassTable, _ expression: FJExpr) -> Bool {
+func isValue(_ expression: FJExpr) -> Bool {
   switch expression {
   case .createObject(_, []): return true
-  case .createObject(_, let p): return p.allSatisfy { isValue(classTable: classTable, $0) }
+  case .createObject(_, let p): return p.allSatisfy(isValue(_:))
   case .lambda: return true
   case .cast(_, .lambda): return true
   default: return false
