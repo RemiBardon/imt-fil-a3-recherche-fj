@@ -4,6 +4,7 @@ import imt.fil.a3.recherche.fj.parser.*;
 import imt.fil.a3.recherche.fj.parser.type.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FJUtils {
 
@@ -47,32 +48,36 @@ public class FJUtils {
     public static Optional<FJMethodTypeSignature> methodType(
         final HashMap<String, FJType> classTable,
         final String methodName,
-        final String className
+        final String typeName
     ) {
-        if (className.equals("Object")) return Optional.empty();
+        if (typeName.equals("Object")) return Optional.empty();
 
-        //get abstract methods
-        final Optional<List<FJSignature>> abstractMethods = abstractMethods(classTable, className);
+        Optional<FJSignature> signature;
 
-//get methods
-        final Optional<List<FJMethod>> methods = methods(classTable, className);
+        // Search in abstract methods
+        final Optional<List<FJSignature>> abstractMethods = FJUtils.abstractMethods(classTable, typeName);
+        if (abstractMethods.isEmpty()) return Optional.empty();
+        signature = abstractMethods.get().stream().filter(m -> m.name.equals(methodName)).findFirst();
+        if (signature.isPresent()) {
+            return Optional.of(new FJMethodTypeSignature(
+                signature.get().args.stream().map(f -> f.type).collect(Collectors.toList()),
+                signature.get().returnTypeName
+            ));
+        }
 
-        throw new RuntimeException("Not implemented yet.");
+        // Search in concrete methods
+        final Optional<List<FJMethod>> methods = FJUtils.methods(classTable, typeName);
+        if (methods.isEmpty()) return Optional.empty();
+        signature = methods.get().stream().map(m -> m.signature).filter(m -> m.name.equals(methodName)).findFirst();
+        // noinspection OptionalIsPresent
+        if (signature.isPresent()) {
+            return Optional.of(new FJMethodTypeSignature(
+                signature.get().args.stream().map(f -> f.type).collect(Collectors.toList()),
+                signature.get().returnTypeName
+            ));
+        }
 
-        /*
-        //get method
-        final Optional<FJMethod> method = methods.flatMap(methods1 -> methods1.stream()
-                .filter(method1 -> method1.name.equals(methodName))
-                .findFirst());
-
-        //get method type
-        return method.map(method1 -> new FJMethodTypeSignature(
-                method1.returnType,
-                method1.arguments.stream()
-                        .map(argument -> argument.type)
-                        .toList()
-        ));
-        */
+        return Optional.empty();
     }
 
     public static Optional<FJMethodBodySignature> methodBody(
