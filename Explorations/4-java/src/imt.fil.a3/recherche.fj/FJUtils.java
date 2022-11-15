@@ -8,8 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-public class FJUtils {
-
+public abstract class FJUtils {
     public static Boolean isSubtype(
         final HashMap<String, FJType> classTable,
         final String typeAName,
@@ -41,13 +40,15 @@ public class FJUtils {
         // Search in abstract methods
         final Optional<List<FJSignature>> abstractMethods = FJUtils.abstractMethods(classTable, typeName);
         if (abstractMethods.isEmpty()) return Optional.empty();
-        signature = abstractMethods.get().stream().filter(m -> m.name.equals(methodName)).findFirst();
+        signature = abstractMethods.get().stream()
+            .filter(m -> m.name().equals(methodName)).findFirst();
         if (signature.isPresent()) return Optional.of(signature.get().getTypeSignature());
 
         // Search in concrete methods
         final Optional<List<FJMethod>> methods = FJUtils.methods(classTable, typeName);
         if (methods.isEmpty()) return Optional.empty();
-        signature = methods.get().stream().map(m -> m.signature).filter(m -> m.name.equals(methodName)).findFirst();
+        signature = methods.get().stream().map(FJMethod::signature)
+            .filter(m -> m.name().equals(methodName)).findFirst();
         return signature.map(FJSignature::getTypeSignature);
     }
 
@@ -80,7 +81,7 @@ public class FJUtils {
         if (methods.isEmpty()) return Optional.empty();
 
         return methods.get().stream()
-            .filter(m -> m.signature.name.equals(methodName)).findFirst()
+            .filter(m -> m.signature().name().equals(methodName)).findFirst()
             .map(FJMethod::getBodySignature);
     }
 }

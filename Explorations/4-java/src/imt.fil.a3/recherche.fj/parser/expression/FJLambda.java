@@ -11,15 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-public final class FJLambda implements FJExpr {
-    public final List<FJField> args;
-    public final FJExpr body;
-
-    public FJLambda(List<FJField> args, FJExpr body) {
-        this.args = args;
-        this.body = body;
-    }
-
+public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     @Override
     public String getTypeName(
         final HashMap<String, FJType> classTable,
@@ -48,7 +40,7 @@ public final class FJLambda implements FJExpr {
         final String returnType
     ) throws TypeError {
         HashMap<String, String> lambdaContext = new HashMap<>(context);
-        this.args.forEach(arg -> lambdaContext.putIfAbsent(arg.name, arg.type));
+        this.args.forEach(arg -> lambdaContext.putIfAbsent(arg.name(), arg.type()));
 
         final Optional<List<FJSignature>> abstractMethods =
             FJUtils.abstractMethods(classTable, returnType);
@@ -58,10 +50,10 @@ public final class FJLambda implements FJExpr {
         }
         final FJSignature method = abstractMethods.get().get(0);
 
-        final String expectedTypeName = this.lambdaMark(method.returnTypeName)
+        final String expectedTypeName = this.lambdaMark(method.returnTypeName())
             .getTypeName(classTable, lambdaContext);
-        final boolean returnTypeIsCorrect = FJUtils.isSubtype(classTable, expectedTypeName, method.returnTypeName);
-        final boolean argsTypesAreCorrect = method.args.get(0).equals(this.args.get(0));
+        final boolean returnTypeIsCorrect = FJUtils.isSubtype(classTable, expectedTypeName, method.returnTypeName());
+        final boolean argsTypesAreCorrect = method.args().get(0).equals(this.args.get(0));
 
         if (returnTypeIsCorrect && argsTypesAreCorrect) {
             return returnType;

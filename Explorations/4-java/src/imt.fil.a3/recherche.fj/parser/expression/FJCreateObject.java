@@ -13,18 +13,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-public final class FJCreateObject implements FJExpr {
-    public final String className;
-    public final List<FJExpr> args;
-
-    public FJCreateObject(
-        final String className,
-        final List<FJExpr> args
-    ) {
-        this.className = className;
-        this.args = args;
-    }
-
+public record FJCreateObject(
+    String className,
+    List<FJExpr> args
+) implements FJExpr {
     @Override
     public String getTypeName(
         final HashMap<String, FJType> classTable,
@@ -38,18 +30,18 @@ public final class FJCreateObject implements FJExpr {
         for (int i = 0; i < this.args.size(); i++) {
             final FJExpr arg = this.args.get(i);
             final FJField field = fields.get().get(i);
-            temp.add(new TypeMismatch(arg.lambdaMark(field.type), field.type));
+            temp.add(new TypeMismatch(arg.lambdaMark(field.type()), field.type()));
         }
 
         // Check object creation arguments typing
         for (final TypeMismatch tm : temp) {
             final String type;
             try {
-                type = tm.expression.getTypeName(classTable, context);
+                type = tm.expression().getTypeName(classTable, context);
             } catch (TypeError e) {
                 throw new ParamsTypeMismatch(temp);
             }
-            if (!FJUtils.isSubtype(classTable, type, tm.expectedTypeName)) {
+            if (!FJUtils.isSubtype(classTable, type, tm.expectedTypeName())) {
                 throw new ParamsTypeMismatch(temp);
             }
         }

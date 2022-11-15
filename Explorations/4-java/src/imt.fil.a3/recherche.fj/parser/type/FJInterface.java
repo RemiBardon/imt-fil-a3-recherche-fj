@@ -12,28 +12,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public final class FJInterface implements FJType {
-    public final String name;
-    public final List<String> extendsNames;
-
-    public final List<FJMethod> methods;
-    public final List<FJSignature> signatures;
-    public final List<FJMethod> defaultMethods;
-
-    public FJInterface(
-        String name,
-        List<String> extendsNames,
-        List<FJMethod> methods,
-        List<FJSignature> signatures,
-        List<FJMethod> defaultMethods
-    ) {
-        this.name = name;
-        this.extendsNames = extendsNames;
-        this.methods = methods;
-        this.signatures = signatures;
-        this.defaultMethods = defaultMethods;
-    }
-
+public record FJInterface(
+    String name, List<String> extendsNames,
+    List<FJMethod> methods,
+    List<FJSignature> signatures,
+    List<FJMethod> defaultMethods
+) implements FJType {
     /**
      * Checks if an interface is well-formed.
      *
@@ -61,7 +45,7 @@ public final class FJInterface implements FJType {
         final Stream<FJSignature> abstractMethods = Haskell.union(
             this.signatures.stream(),
             superAbstractMethods,
-            (s1, s2) -> s1.name.equals(s2.name)
+            (s1, s2) -> s1.name().equals(s2.name())
         );
 
         return Optional.of(abstractMethods.collect(Collectors.toList()));

@@ -2,40 +2,20 @@ package imt.fil.a3.recherche.fj.parser.type;
 
 import imt.fil.a3.recherche.fj.FJUtils;
 import imt.fil.a3.recherche.fj.haskell.Haskell;
-import imt.fil.a3.recherche.fj.parser.FJConstructor;
-import imt.fil.a3.recherche.fj.parser.FJField;
-import imt.fil.a3.recherche.fj.parser.FJMethod;
-import imt.fil.a3.recherche.fj.parser.FJSignature;
+import imt.fil.a3.recherche.fj.parser.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public final class FJClass implements FJType {
-    public final String name;
-    public final String extendsName;
-    public final List<String> implementsNames;
-
-    public final List<FJField> fields;
-    public final List<FJMethod> methods;
-    public final FJConstructor constructor;
-
-    public FJClass(
-        String name,
-        String extendsName,
-        List<String> implementsNames,
-        List<FJField> fields,
-        List<FJMethod> methods,
-        FJConstructor constructor
-    ) {
-        this.name = name;
-        this.extendsName = extendsName;
-        this.implementsNames = implementsNames;
-        this.fields = fields;
-        this.methods = methods;
-        this.constructor = constructor;
-    }
-
+public record FJClass(
+    String name,
+    String extendsName,
+    List<String> implementsNames,
+    List<FJField> fields,
+    List<FJMethod> methods,
+    FJConstructor constructor
+) implements FJType {
     /**
      * Checks if a class is well-formed.
      *
@@ -54,20 +34,20 @@ public final class FJClass implements FJType {
         // Make sure all fields are passed to the constructor.
         List<FJField> allFields = Stream.concat(superFields.get().stream(), this.fields.stream())
             .collect(Collectors.toList());
-        if (!constructor.args.equals(allFields)) return false;
+        if (!constructor.args().equals(allFields)) return false;
 
         // Make sure constructor argument names match field names.
-        if (constructor.fieldInits.stream().anyMatch(f -> !f.fieldName.equals(f.argumentName))) return false;
+        if (constructor.fieldInits().stream().anyMatch(f -> !f.fieldName().equals(f.argumentName()))) return false;
 
         final Optional<List<FJSignature>> abstractMethods = FJUtils.abstractMethods(classTable, this.name);
         if (abstractMethods.isEmpty()) return false; // Error obtaining abstract methods
 
         // Make sure all constructor arguments are used
-        final List<String> args = constructor.args.stream().map(a -> a.name)
+        final List<String> args = constructor.args().stream().map(FJField::name)
             .collect(Collectors.toList());
         final List<String> usedArgs = Stream.concat(
-            constructor.superArgs.stream(),
-            constructor.fieldInits.stream().map(fi -> fi.fieldName)
+            constructor.superArgs().stream(),
+            constructor.fieldInits().stream().map(FieldInit::fieldName)
         ).collect(Collectors.toList());
 
         return abstractMethods.get().isEmpty()
@@ -103,7 +83,7 @@ public final class FJClass implements FJType {
             final Stream<FJSignature> abstractMethods = Haskell.union(
                 superAbstractMethods.stream(),
                 implementsAbstractMethods,
-                (s1, s2) -> s1.name.equals(s2.name)
+                (s1, s2) -> s1.name().equals(s2.name())
             );
 
             final Stream<FJSignature> concreteMethods;
@@ -113,12 +93,12 @@ public final class FJClass implements FJType {
                 // noinspection OptionalIsPresent
                 if (methods.isPresent()) {
                     concreteMethods = Haskell.union(
-                        superMethods.get().stream().map(m -> m.signature),
-                        methods.get().stream().map(m -> m.signature),
-                        (s1, s2) -> s1.name.equals(s2.name)
+                        superMethods.get().stream().map(FJMethod::signature),
+                        methods.get().stream().map(FJMethod::signature),
+                        (s1, s2) -> s1.name().equals(s2.name())
                     );
                 } else {
-                    concreteMethods = superMethods.get().stream().map(m -> m.signature);
+                    concreteMethods = superMethods.get().stream().map(FJMethod::signature);
                 }
             } else {
                 concreteMethods = Stream.empty();

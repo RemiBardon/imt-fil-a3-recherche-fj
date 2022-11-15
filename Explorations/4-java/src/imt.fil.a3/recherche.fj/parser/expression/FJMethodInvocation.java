@@ -13,21 +13,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-public final class FJMethodInvocation implements FJExpr {
-    public final FJExpr source;
-    public final String methodName;
-    public final List<FJExpr> args;
-
-    public FJMethodInvocation(
-        final FJExpr source,
-        final String methodName,
-        final List<FJExpr> args
-    ) {
-        this.source = source;
-        this.methodName = methodName;
-        this.args = args;
-    }
-
+public record FJMethodInvocation(
+    FJExpr source,
+    String methodName,
+    List<FJExpr> args
+) implements FJExpr {
     @Override
     public String getTypeName(
         final HashMap<String, FJType> classTable,
@@ -38,7 +28,7 @@ public final class FJMethodInvocation implements FJExpr {
         final Optional<FJMethodTypeSignature> methodTypeSignature =
             FJUtils.methodType(classTable, this.methodName, typeName);
         if (methodTypeSignature.isEmpty()) throw new MethodNotFound(this.methodName, typeName);
-        final List<String> parameterTypes = methodTypeSignature.get().parameterTypeNames;
+        final List<String> parameterTypes = methodTypeSignature.get().parameterTypeNames();
 
         if (this.args.size() != parameterTypes.size()) throw new ParamsTypeMismatch(new ArrayList<>());
 
@@ -53,17 +43,17 @@ public final class FJMethodInvocation implements FJExpr {
         for (final TypeMismatch tm : temp) {
             final String type;
             try {
-                type = tm.expression.getTypeName(classTable, context);
+                type = tm.expression().getTypeName(classTable, context);
             } catch (TypeError e) {
                 throw new ParamsTypeMismatch(temp);
             }
-            if (!FJUtils.isSubtype(classTable, type, tm.expectedTypeName)) {
+            if (!FJUtils.isSubtype(classTable, type, tm.expectedTypeName())) {
                 throw new ParamsTypeMismatch(temp);
             }
         }
 
         // Method invocation is correctly typed
-        return methodTypeSignature.get().returnTypeName;
+        return methodTypeSignature.get().returnTypeName();
     }
 
     @Override

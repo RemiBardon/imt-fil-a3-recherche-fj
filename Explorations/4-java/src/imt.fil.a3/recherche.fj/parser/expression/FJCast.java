@@ -7,15 +7,10 @@ import imt.fil.a3.recherche.fj.parser.type.FJType;
 
 import java.util.HashMap;
 
-public final class FJCast implements FJExpr {
-    public final String typeName;
-    public final FJExpr body;
-
-    public FJCast(String typeName, FJExpr body) {
-        this.typeName = typeName;
-        this.body = body;
-    }
-
+public record FJCast(
+    String typeName,
+    FJExpr body
+) implements FJExpr {
     @Override
     public String getTypeName(
         final HashMap<String, FJType> classTable,

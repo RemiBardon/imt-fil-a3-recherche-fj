@@ -6,13 +6,7 @@ import imt.fil.a3.recherche.fj.parser.type.FJType;
 
 import java.util.HashMap;
 
-public final class FJVariable implements FJExpr {
-    public final String name;
-
-    public FJVariable(String name) {
-        this.name = name;
-    }
-
+public record FJVariable(String name) implements FJExpr {
     @Override
     public String getTypeName(
         final HashMap<String, FJType> classTable,

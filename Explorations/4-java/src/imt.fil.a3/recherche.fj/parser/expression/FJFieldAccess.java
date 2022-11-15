@@ -11,15 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-public final class FJFieldAccess implements FJExpr {
-    public final FJExpr object;
-    public final String fieldName;
-
-    public FJFieldAccess(FJExpr object, String fieldName) {
-        this.object = object;
-        this.fieldName = fieldName;
-    }
-
+public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
     @Override
     public String getTypeName(
         final HashMap<String, FJType> classTable,
@@ -33,10 +25,10 @@ public final class FJFieldAccess implements FJExpr {
         // NOTE: `filter` iterates over all elements while we could abort sooner if a value is found.
         // TODO: Find a way to avoid unnecessary filtering.
         final Optional<FJField> field = fields.get().stream()
-            .filter(f -> f.name.equals(this.fieldName))
+            .filter(f -> f.name().equals(this.fieldName))
             .findFirst();
         if (field.isPresent()) {
-            return field.get().type;
+            return field.get().type();
         } else {
             throw new FieldNotFound(this.fieldName);
         }
