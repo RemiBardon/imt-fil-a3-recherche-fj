@@ -3,7 +3,7 @@ package imt.fil.a3.recherche.fj.model.java.misc;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.expression.FJExpr;
 import imt.fil.a3.recherche.fj.model.java.type.FJType;
-import imt.fil.a3.recherche.fj.model.misc.FJMethodBodySignature;
+import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
 import imt.fil.a3.recherche.fj.util.FJUtils;
 
 import java.util.HashMap;
@@ -12,8 +12,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public record FJMethod(FJSignature signature, FJExpr body) {
-    public FJMethodBodySignature getBodySignature() {
-        return new FJMethodBodySignature(
+    public MethodBodySignature getBodySignature() {
+        return new MethodBodySignature(
             this.signature.args().stream().map(FJField::name).collect(Collectors.toList()),
             this.body
         );

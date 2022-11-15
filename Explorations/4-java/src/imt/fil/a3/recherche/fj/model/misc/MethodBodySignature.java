@@ -4,5 +4,5 @@ import imt.fil.a3.recherche.fj.model.java.expression.FJExpr;
 
 import java.util.List;
 
-public record FJMethodBodySignature(List<String> argumentNames, FJExpr body) {
+public record MethodBodySignature(List<String> argumentNames, FJExpr body) {
 }

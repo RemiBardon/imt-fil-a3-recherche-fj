@@ -4,8 +4,8 @@ import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.error.WrongCast;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.java.type.FJType;
-import imt.fil.a3.recherche.fj.model.misc.FJMethodBodySignature;
-import imt.fil.a3.recherche.fj.model.misc.FJMethodTypeSignature;
+import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
+import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 import imt.fil.a3.recherche.fj.util.FJUtils;
 
 import java.util.ArrayList;
@@ -91,7 +91,7 @@ public record FJCast(
         final FJMethodInvocation invocation
     ) {
         if (this.body instanceof final FJLambda lambda) {
-            final Optional<FJMethodTypeSignature> methodType =
+            final Optional<MethodTypeSignature> methodType =
                 FJUtils.methodType(classTable, invocation.methodName(), this.typeName);
             if (methodType.isEmpty()) return Optional.empty(); // No method type
 
@@ -103,7 +103,7 @@ public record FJCast(
                 args2.add(arg.lambdaMark(typeName));
             }
 
-            final Optional<FJMethodBodySignature> methodBody =
+            final Optional<MethodBodySignature> methodBody =
                 FJUtils.methodBody(classTable, invocation.methodName(), this.typeName);
             if (methodBody.isPresent()) { // R-Default
                 return methodBody.get().body()

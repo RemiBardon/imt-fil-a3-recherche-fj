@@ -4,8 +4,8 @@ import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.java.misc.FJMethod;
 import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
 import imt.fil.a3.recherche.fj.model.java.type.FJType;
-import imt.fil.a3.recherche.fj.model.misc.FJMethodBodySignature;
-import imt.fil.a3.recherche.fj.model.misc.FJMethodTypeSignature;
+import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
+import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public abstract class FJUtils {
         return classTable.get(typeName).classFields(classTable);
     }
 
-    public static Optional<FJMethodTypeSignature> methodType(
+    public static Optional<MethodTypeSignature> methodType(
         final HashMap<String, FJType> classTable,
         final String methodName,
         final String typeName
@@ -74,7 +74,7 @@ public abstract class FJUtils {
         return classTable.get(typeName).methods(classTable);
     }
 
-    public static Optional<FJMethodBodySignature> methodBody(
+    public static Optional<MethodBodySignature> methodBody(
         final HashMap<String, FJType> classTable,
         final String methodName,
         final String typeName

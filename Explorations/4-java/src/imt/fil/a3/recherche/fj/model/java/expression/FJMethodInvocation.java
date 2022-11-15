@@ -4,7 +4,7 @@ import imt.fil.a3.recherche.fj.model.error.MethodNotFound;
 import imt.fil.a3.recherche.fj.model.error.ParamsTypeMismatch;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.type.FJType;
-import imt.fil.a3.recherche.fj.model.misc.FJMethodTypeSignature;
+import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 import imt.fil.a3.recherche.fj.model.misc.TypeMismatch;
 import imt.fil.a3.recherche.fj.util.FJUtils;
 
@@ -25,7 +25,7 @@ public record FJMethodInvocation(
     ) throws TypeError { // T-Invk
         final String typeName = this.source.getTypeName(classTable, context);
 
-        final Optional<FJMethodTypeSignature> methodTypeSignature =
+        final Optional<MethodTypeSignature> methodTypeSignature =
             FJUtils.methodType(classTable, this.methodName, typeName);
         if (methodTypeSignature.isEmpty()) throw new MethodNotFound(this.methodName, typeName);
         final List<String> parameterTypes = methodTypeSignature.get().parameterTypeNames();

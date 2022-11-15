@@ -5,8 +5,8 @@ import imt.fil.a3.recherche.fj.model.error.ParamsTypeMismatch;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.java.type.FJType;
-import imt.fil.a3.recherche.fj.model.misc.FJMethodBodySignature;
-import imt.fil.a3.recherche.fj.model.misc.FJMethodTypeSignature;
+import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
+import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 import imt.fil.a3.recherche.fj.model.misc.TypeMismatch;
 import imt.fil.a3.recherche.fj.util.FJUtils;
 
@@ -84,11 +84,11 @@ public record FJCreateObject(
         final FJMethodInvocation invocation
     ) {
         // R-Invk
-        final Optional<FJMethodTypeSignature> methodType =
+        final Optional<MethodTypeSignature> methodType =
             FJUtils.methodType(classTable, invocation.methodName(), this.className);
         if (methodType.isEmpty()) return Optional.empty(); // No method type
 
-        final Optional<FJMethodBodySignature> methodBody =
+        final Optional<MethodBodySignature> methodBody =
             FJUtils.methodBody(classTable, invocation.methodName(), this.className);
         if (methodBody.isEmpty()) return Optional.empty(); // No method body
 
