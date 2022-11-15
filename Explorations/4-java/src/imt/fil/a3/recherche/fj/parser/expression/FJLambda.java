@@ -37,6 +37,11 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     @Override
     public Optional<FJExpr> _eval(HashMap<String, FJType> classTable) { return Optional.of(this); }
 
+    @Override
+    public Optional<FJExpr> substitute(List<String> parameterNames, List<FJExpr> args) {
+        return Optional.of(this); // Do nothing
+    }
+
     public String getTypeName(
         final HashMap<String, FJType> classTable,
         final HashMap<String, String> context,

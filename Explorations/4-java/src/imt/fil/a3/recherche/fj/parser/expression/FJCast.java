@@ -6,6 +6,7 @@ import imt.fil.a3.recherche.fj.parser.error.WrongCast;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 public record FJCast(
@@ -40,15 +41,15 @@ public record FJCast(
     }
 
     @Override
+    public FJCast removingRuntimeAnnotation() {
+        return new FJCast(this.typeName, this.body.removingRuntimeAnnotation());
+    }
+
+    @Override
     public Boolean isValue() {
         // NOTE: [Rémi BARDON] The original Haskell code says it should be
         //       only if `body instanceof FJLambda`, but I think it can be generalized.
         return body.isValue();
-    }
-
-    @Override
-    public FJCast removingRuntimeAnnotation() {
-        return new FJCast(this.typeName, this.body.removingRuntimeAnnotation());
     }
 
     @Override
@@ -72,5 +73,11 @@ public record FJCast(
         } else { // RC-Cast
             return this.body()._eval(classTable).map(e -> new FJCast(this.typeName(), e));
         }
+    }
+
+    @Override
+    public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
+        return this.body().substitute(parameterNames, args)
+            .map(e -> new FJCast(this.typeName(), e));
     }
 }

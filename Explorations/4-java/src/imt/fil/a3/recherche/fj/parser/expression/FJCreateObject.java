@@ -66,4 +66,12 @@ public record FJCreateObject(
         final List<FJExpr> args = this.args().stream().map(e -> e.eval(classTable)).toList();
         return Optional.of(new FJCreateObject(this.className(), args));
     }
+
+    @Override
+    public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
+        final List<FJExpr> _args = this.args().stream()
+            .map(a -> a.substitute(parameterNames, args))
+            .flatMap(Optional::stream).toList();
+        return Optional.of(new FJCreateObject(this.className(), _args));
+    }
 }

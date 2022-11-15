@@ -5,6 +5,7 @@ import imt.fil.a3.recherche.fj.parser.error.VariableNotFound;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 public record FJVariable(String name) implements FJExpr {
@@ -28,4 +29,14 @@ public record FJVariable(String name) implements FJExpr {
 
     @Override
     public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) { return Optional.empty(); }
+
+    @Override
+    public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
+        final int index = parameterNames.indexOf(this.name());
+        if (index >= 0 && args.size() > index) {
+            return Optional.of(args.get(index));
+        } else {
+            return Optional.empty();
+        }
+    }
 }

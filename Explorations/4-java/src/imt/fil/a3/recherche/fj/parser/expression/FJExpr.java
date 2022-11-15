@@ -4,6 +4,7 @@ import imt.fil.a3.recherche.fj.parser.error.TypeError;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -58,4 +59,10 @@ public interface FJExpr {
      */
     Optional<FJExpr> _eval(final HashMap<String, FJType> classTable);
 
+    /**
+     * Replaces actual parameters in method body expression.
+     *
+     * @return A new changed expression.
+     */
+    Optional<FJExpr> substitute(List<String> parameterNames, List<FJExpr> args);
 }

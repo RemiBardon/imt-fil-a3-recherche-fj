@@ -70,4 +70,10 @@ public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
             return this.object._eval(classTable).map(e -> new FJFieldAccess(e, this.fieldName()));
         }
     }
+
+    @Override
+    public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
+        return this.object().substitute(parameterNames, args)
+            .map(e -> new FJFieldAccess(e, this.fieldName()));
+    }
 }

@@ -9,7 +9,6 @@ import imt.fil.a3.recherche.fj.parser.error.MethodNotFound;
 import imt.fil.a3.recherche.fj.parser.error.ParamsTypeMismatch;
 import imt.fil.a3.recherche.fj.parser.error.TypeError;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
-import imt.fil.a3.recherche.fj.v2.FJInterpreter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,11 +102,9 @@ public record FJMethodInvocation(
                         methodBody.get().argumentNames().stream(),
                         Stream.of("this")
                     ).toList();
-                    return FJInterpreter.substitute(
-                        parameterNames,
-                        args,
-                        methodBody.get().body().lambdaMark(methodType.get().returnTypeName())
-                    );
+                    return methodBody.get().body()
+                        .lambdaMark(methodType.get().returnTypeName())
+                        .substitute(parameterNames, args);
                 } else if (
                     this.source() instanceof final FJCast fjCast
                         && fjCast.body() instanceof final FJLambda lambda
@@ -132,17 +129,13 @@ public record FJMethodInvocation(
                         fjCast.typeName()
                     );
                     if (methodBody.isPresent()) { // R-Default
-                        return FJInterpreter.substitute(
-                            methodBody.get().argumentNames(),
-                            args,
-                            methodBody.get().body().lambdaMark(methodType.get().returnTypeName())
-                        );
+                        return methodBody.get().body()
+                            .lambdaMark(methodType.get().returnTypeName())
+                            .substitute(methodBody.get().argumentNames(), args);
                     } else { // R-Lam
-                        return FJInterpreter.substitute(
-                            lambda.args().stream().map(FJField::name).toList(),
-                            args,
-                            lambda.body().lambdaMark(methodType.get().returnTypeName())
-                        );
+                        return lambda.body()
+                            .lambdaMark(methodType.get().returnTypeName())
+                            .substitute(lambda.args().stream().map(FJField::name).toList(), args);
                     }
                 } else {
                     return Optional.empty();
@@ -160,5 +153,16 @@ public record FJMethodInvocation(
             return this.source()._eval(classTable)
                 .map(e -> new FJMethodInvocation(e, this.methodName(), this.args()));
         }
+    }
+
+    @Override
+    public Optional<FJExpr> substitute(List<String> parameterNames, List<FJExpr> args) {
+        return this.source().substitute(parameterNames, args)
+            .map(e -> {
+                final List<FJExpr> _args = this.args().stream()
+                    .map(a -> a.substitute(parameterNames, args))
+                    .flatMap(Optional::stream).toList();
+                return new FJMethodInvocation(e, this.methodName(), _args);
+            });
     }
 }
