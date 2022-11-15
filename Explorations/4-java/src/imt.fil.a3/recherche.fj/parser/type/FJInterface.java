@@ -5,7 +5,6 @@ import imt.fil.a3.recherche.fj.haskell.Haskell;
 import imt.fil.a3.recherche.fj.parser.FJMethod;
 import imt.fil.a3.recherche.fj.parser.FJSignature;
 
-import javax.swing.text.html.Option;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;

@@ -5,12 +5,10 @@ import imt.fil.a3.recherche.fj.parser.FJField;
 import imt.fil.a3.recherche.fj.parser.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.parser.error.FieldNotFound;
 import imt.fil.a3.recherche.fj.parser.error.TypeError;
-import imt.fil.a3.recherche.fj.parser.error.VariableNotFound;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public final class FJFieldAccess implements FJExpr {

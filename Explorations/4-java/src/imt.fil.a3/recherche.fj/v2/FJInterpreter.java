@@ -1,11 +1,16 @@
 package imt.fil.a3.recherche.fj.v2;
 
 import imt.fil.a3.recherche.fj.FJUtils;
-import imt.fil.a3.recherche.fj.parser.*;
+import imt.fil.a3.recherche.fj.parser.FJField;
+import imt.fil.a3.recherche.fj.parser.FJMethodBodySignature;
+import imt.fil.a3.recherche.fj.parser.FJMethodTypeSignature;
 import imt.fil.a3.recherche.fj.parser.expression.*;
-import imt.fil.a3.recherche.fj.parser.type.*;
+import imt.fil.a3.recherche.fj.parser.type.FJType;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public final class FJInterpreter {

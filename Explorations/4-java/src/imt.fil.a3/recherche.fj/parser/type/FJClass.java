@@ -2,7 +2,10 @@ package imt.fil.a3.recherche.fj.parser.type;
 
 import imt.fil.a3.recherche.fj.FJUtils;
 import imt.fil.a3.recherche.fj.haskell.Haskell;
-import imt.fil.a3.recherche.fj.parser.*;
+import imt.fil.a3.recherche.fj.parser.FJConstructor;
+import imt.fil.a3.recherche.fj.parser.FJField;
+import imt.fil.a3.recherche.fj.parser.FJMethod;
+import imt.fil.a3.recherche.fj.parser.FJSignature;
 
 import java.util.*;
 import java.util.stream.Collectors;

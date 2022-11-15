@@ -3,7 +3,9 @@ package imt.fil.a3.recherche.fj.parser.expression;
 import imt.fil.a3.recherche.fj.FJUtils;
 import imt.fil.a3.recherche.fj.parser.FJField;
 import imt.fil.a3.recherche.fj.parser.TypeMismatch;
-import imt.fil.a3.recherche.fj.parser.error.*;
+import imt.fil.a3.recherche.fj.parser.error.ClassNotFound;
+import imt.fil.a3.recherche.fj.parser.error.ParamsTypeMismatch;
+import imt.fil.a3.recherche.fj.parser.error.TypeError;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
 import java.util.ArrayList;

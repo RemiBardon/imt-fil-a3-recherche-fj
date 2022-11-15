@@ -1,9 +1,12 @@
 package imt.fil.a3.recherche.fj;
 
 import imt.fil.a3.recherche.fj.parser.*;
-import imt.fil.a3.recherche.fj.parser.type.*;
+import imt.fil.a3.recherche.fj.parser.type.FJType;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 public class FJUtils {
 
