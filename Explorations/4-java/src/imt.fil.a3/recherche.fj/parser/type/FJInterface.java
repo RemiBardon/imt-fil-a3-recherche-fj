@@ -48,6 +48,12 @@ public final class FJInterface implements FJType {
     }
 
     @Override
+    public Boolean isSubtype(final HashMap<String, FJType> classTable, final String otherTypeName) {
+        return this.extendsNames.contains(otherTypeName)
+            || this.extendsNames.stream().anyMatch(t -> FJUtils.isSubtype(classTable, t, otherTypeName));
+    }
+
+    @Override
     public Optional<List<FJSignature>> abstractMethods(final HashMap<String, FJType> classTable) {
         final Stream<FJSignature> superAbstractMethods = this.extendsNames.stream()
             .flatMap(i -> FJUtils.abstractMethods(classTable, i).orElse(Collections.emptyList()).stream());

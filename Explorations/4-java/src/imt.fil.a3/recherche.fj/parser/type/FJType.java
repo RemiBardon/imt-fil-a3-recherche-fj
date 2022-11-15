@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FJType {
+    Boolean isSubtype(final HashMap<String, FJType> classTable, final String otherTypeName);
     Optional<List<FJSignature>> abstractMethods(final HashMap<String, FJType> classTable);
     Optional<List<FJMethod>> methods(final HashMap<String, FJType> classTable);
 }

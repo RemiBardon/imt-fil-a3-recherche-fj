@@ -1,39 +1,20 @@
 package imt.fil.a3.recherche.fj;
 
-import imt.fil.a3.recherche.fj.haskell.Haskell;
 import imt.fil.a3.recherche.fj.parser.*;
 import imt.fil.a3.recherche.fj.parser.type.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class FJUtils {
 
     public static Boolean isSubtype(
         final HashMap<String, FJType> classTable,
-        final String classA,
-        final String classB
+        final String typeAName,
+        final String typeBName
     ) {
-        if (classA.equals(classB)) return true;
-
-        final FJType fjType = classTable.get(classA);
-
-        if (fjType instanceof final FJClass fjClass) {
-            if (fjClass.extendsName.equals(classB) || fjClass.implementsNames.contains(classB)) {
-                return true;
-            } else {
-                return isSubtype(classTable, fjClass.extendsName, classB)
-                    || fjClass.implementsNames.stream()
-                        .anyMatch(implementName -> isSubtype(classTable, implementName, classB));
-            }
-        } else if (fjType instanceof final FJInterface fjInterface) {
-            return fjInterface.extendsNames.contains(classB)
-                || fjInterface.extendsNames.stream()
-                    .anyMatch(implementName -> isSubtype(classTable, implementName, classB));
-        } else {
-            return false;
-        }
+        if (typeAName.equals(typeBName)) return true;
+        if (!classTable.containsKey(typeAName)) return false;
+        return classTable.get(typeAName).isSubtype(classTable, typeBName);
     }
 
     public static Optional<List<FJField>> classFields(
