@@ -7,22 +7,17 @@ import imt.fil.a3.recherche.fj.parser.FJMethodTypeSignature;
 import imt.fil.a3.recherche.fj.parser.expression.*;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public final class FJInterpreter {
-
-    final HashMap<String, FJType> classTable;
-
-    public FJInterpreter(HashMap<String, FJType> classTable) {
-        this.classTable = classTable;
-    }
+public record FJInterpreter(HashMap<String, FJType> classTable) {
 
     /**
      * Evaluates an expression.
+     *
      * @param expr An expression.
      * @return An expression after processing one reduction step.
      */
@@ -64,20 +59,21 @@ public final class FJInterpreter {
                             methodInvocation.methodName,
                             createObject.className
                         );
-                        if (methodType.isEmpty()) { return Optional.empty(); } // No method type
+                        if (methodType.isEmpty()) return Optional.empty(); // No method type
 
                         final Optional<FJMethodBodySignature> methodBody = FJUtils.methodBody(
                             this.classTable,
                             methodInvocation.methodName,
                             createObject.className
                         );
-                        if (methodBody.isEmpty()) { return Optional.empty(); } // No method body
+                        if (methodBody.isEmpty()) return Optional.empty(); // No method body
 
-                        final List<FJExpr> args = Collections.emptyList();
+                        final List<FJExpr> args = new ArrayList<>();
                         // <=> zip(methodInvocation.args, methodType.parameterTypeNames)
                         for (int i = 0; i < methodInvocation.args.size(); i++) {
-                            args.add(methodInvocation.args.get(i)
-                                .lambdaMark(methodType.get().parameterTypeNames.get(i)));
+                            final FJExpr arg = methodInvocation.args.get(i);
+                            final String typeName = methodType.get().parameterTypeNames.get(i);
+                            args.add(arg.lambdaMark(typeName));
                         }
                         args.add(methodInvocation.source);
                         final List<String> parameterNames = Stream.concat(
@@ -98,12 +94,13 @@ public final class FJInterpreter {
                             methodInvocation.methodName,
                             fjCast.typeName
                         );
-                        if (methodType.isEmpty()) { return Optional.empty(); } // No method type
-                        final List<FJExpr> args = Collections.emptyList();
+                        if (methodType.isEmpty()) return Optional.empty(); // No method type
+                        final List<FJExpr> args = new ArrayList<>();
                         // <=> zip(methodInvocation.args, methodType.parameterTypeNames)
                         for (int i = 0; i < methodInvocation.args.size(); i++) {
-                            args.add(methodInvocation.args.get(i)
-                                .lambdaMark(methodType.get().parameterTypeNames.get(i)));
+                            final FJExpr arg = methodInvocation.args.get(i);
+                            final String typeName = methodType.get().parameterTypeNames.get(i);
+                            args.add(arg.lambdaMark(typeName));
                         }
 
                         final Optional<FJMethodBodySignature> methodBody = FJUtils.methodBody(
@@ -171,6 +168,7 @@ public final class FJInterpreter {
 
     /**
      * Evaluates an expression recursively.
+     *
      * @return A value after all the reduction steps.
      */
     public FJExpr eval(FJExpr expr) {
@@ -183,6 +181,7 @@ public final class FJInterpreter {
 
     /**
      * Replaces actual parameters in method body expression.
+     *
      * @return A new changed expression.
      */
     private Optional<FJExpr> substitute(List<String> parameterNames, List<FJExpr> args, FJExpr body) {

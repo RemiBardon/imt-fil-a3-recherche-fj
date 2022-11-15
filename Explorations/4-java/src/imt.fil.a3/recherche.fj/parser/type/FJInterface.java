@@ -21,11 +21,11 @@ public final class FJInterface implements FJType {
     public final List<FJMethod> defaultMethods;
 
     public FJInterface(
-            String name,
-            List<String> extendsNames,
-            List<FJMethod> methods,
-            List<FJSignature> signatures,
-            List<FJMethod> defaultMethods
+        String name,
+        List<String> extendsNames,
+        List<FJMethod> methods,
+        List<FJSignature> signatures,
+        List<FJMethod> defaultMethods
     ) {
         this.name = name;
         this.extendsNames = extendsNames;
@@ -36,6 +36,7 @@ public final class FJInterface implements FJType {
 
     /**
      * Checks if an interface is well-formed.
+     *
      * @return {@code Boolean.TRUE} for a well-formed interface, {@code Boolean.FALSE} otherwise.
      */
     public Boolean typeCheck(

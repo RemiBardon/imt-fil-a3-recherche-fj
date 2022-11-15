@@ -29,6 +29,19 @@ public final class FJLambda implements FJExpr {
         throw new WrongLambdaType("None", this);
     }
 
+    @Override
+    public Boolean isValue() { return true; }
+
+    @Override
+    public FJExpr lambdaMark(final String typeName) {
+        return new FJCast(typeName, this);
+    }
+
+    @Override
+    public FJLambda removingRuntimeAnnotation() {
+        return new FJLambda(this.args, this.body.removingRuntimeAnnotation());
+    }
+
     public String getTypeName(
         final HashMap<String, FJType> classTable,
         final HashMap<String, String> context,
@@ -55,18 +68,5 @@ public final class FJLambda implements FJExpr {
         } else {
             throw new WrongLambdaType(returnType, this);
         }
-    }
-
-    @Override
-    public Boolean isValue() { return true; }
-
-    @Override
-    public FJExpr lambdaMark(final String typeName) {
-        return new FJCast(typeName, this);
-    }
-
-    @Override
-    public FJLambda removingRuntimeAnnotation() {
-        return new FJLambda(this.args, this.body.removingRuntimeAnnotation());
     }
 }

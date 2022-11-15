@@ -38,6 +38,7 @@ public final class FJClass implements FJType {
 
     /**
      * Checks if a class is well-formed.
+     *
      * @return {@code Boolean.TRUE} for a well-formed class, {@code Boolean.FALSE} otherwise.
      */
     public Boolean typeCheck(
@@ -47,30 +48,19 @@ public final class FJClass implements FJType {
         final FJConstructor constructor = this.constructor;
 
         // Get superclass fields or return false if not found.
-        Optional<List<FJField>> _superFields = FJUtils.classFields(classTable, this.extendsName);
-        if (_superFields.isEmpty()) {
-            return false;
-        }
-        List<FJField> superFields = _superFields.get();
+        Optional<List<FJField>> superFields = FJUtils.classFields(classTable, this.extendsName);
+        if (superFields.isEmpty()) return false;
 
         // Make sure all fields are passed to the constructor.
-        List<FJField> allFields = Stream.concat(superFields.stream(), this.fields.stream())
+        List<FJField> allFields = Stream.concat(superFields.get().stream(), this.fields.stream())
             .collect(Collectors.toList());
-        if (!constructor.args.equals(allFields)) {
-            return false;
-        }
+        if (!constructor.args.equals(allFields)) return false;
 
         // Make sure constructor argument names match field names.
-        if (constructor.fieldInits.stream().anyMatch(f -> !f.fieldName.equals(f.argumentName))) {
-            return false;
-        }
+        if (constructor.fieldInits.stream().anyMatch(f -> !f.fieldName.equals(f.argumentName))) return false;
 
-        final Optional<List<FJSignature>> _abstractMethods =
-                FJUtils.abstractMethods(classTable, this.name);
-        if (_abstractMethods.isEmpty()) {
-            return false; // Error obtaining abstract methods
-        }
-        final List<FJSignature> abstractMethods = _abstractMethods.get();
+        final Optional<List<FJSignature>> abstractMethods = FJUtils.abstractMethods(classTable, this.name);
+        if (abstractMethods.isEmpty()) return false; // Error obtaining abstract methods
 
         // Make sure all constructor arguments are used
         final List<String> args = constructor.args.stream().map(a -> a.name)
@@ -80,7 +70,7 @@ public final class FJClass implements FJType {
             constructor.fieldInits.stream().map(fi -> fi.fieldName)
         ).collect(Collectors.toList());
 
-        return abstractMethods.isEmpty()
+        return abstractMethods.get().isEmpty()
             && (args.equals(usedArgs))
             && this.methods.stream().allMatch(m -> m.typeCheck(classTable, context, this.name));
     }

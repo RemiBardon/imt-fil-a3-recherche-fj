@@ -32,9 +32,7 @@ public final class FJCreateObject implements FJExpr {
     ) throws TypeError { // T-New
         final Optional<List<FJField>> fields = FJUtils.classFields(classTable, this.className);
         if (fields.isEmpty()) throw new ClassNotFound(this.className);
-        if (this.args.size() != fields.get().size()) {
-            throw new ParamsTypeMismatch(new ArrayList<>());
-        }
+        if (this.args.size() != fields.get().size()) throw new ParamsTypeMismatch(new ArrayList<>());
 
         var temp = new ArrayList<TypeMismatch>();
         for (int i = 0; i < this.args.size(); i++) {
@@ -44,7 +42,7 @@ public final class FJCreateObject implements FJExpr {
         }
 
         // Check object creation arguments typing
-        for (final TypeMismatch tm: temp) {
+        for (final TypeMismatch tm : temp) {
             final String type;
             try {
                 type = tm.expression.getTypeName(classTable, context);

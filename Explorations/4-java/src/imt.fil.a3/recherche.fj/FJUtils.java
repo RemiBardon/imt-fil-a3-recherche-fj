@@ -29,6 +29,28 @@ public class FJUtils {
         return classTable.get(typeName).classFields(classTable);
     }
 
+    public static Optional<FJMethodTypeSignature> methodType(
+        final HashMap<String, FJType> classTable,
+        final String methodName,
+        final String typeName
+    ) {
+        if (typeName.equals("Object")) return Optional.empty();
+
+        Optional<FJSignature> signature;
+
+        // Search in abstract methods
+        final Optional<List<FJSignature>> abstractMethods = FJUtils.abstractMethods(classTable, typeName);
+        if (abstractMethods.isEmpty()) return Optional.empty();
+        signature = abstractMethods.get().stream().filter(m -> m.name.equals(methodName)).findFirst();
+        if (signature.isPresent()) return Optional.of(signature.get().getTypeSignature());
+
+        // Search in concrete methods
+        final Optional<List<FJMethod>> methods = FJUtils.methods(classTable, typeName);
+        if (methods.isEmpty()) return Optional.empty();
+        signature = methods.get().stream().map(m -> m.signature).filter(m -> m.name.equals(methodName)).findFirst();
+        return signature.map(FJSignature::getTypeSignature);
+    }
+
     public static Optional<List<FJSignature>> abstractMethods(
         final HashMap<String, FJType> classTable,
         final String typeName
@@ -45,30 +67,6 @@ public class FJUtils {
         if (typeName.equals("Object")) return Optional.of(Collections.emptyList());
         if (!classTable.containsKey(typeName)) return Optional.empty();
         return classTable.get(typeName).methods(classTable);
-    }
-
-    public static Optional<FJMethodTypeSignature> methodType(
-        final HashMap<String, FJType> classTable,
-        final String methodName,
-        final String typeName
-    ) {
-        if (typeName.equals("Object")) return Optional.empty();
-
-        Optional<FJSignature> signature;
-
-        // Search in abstract methods
-        final Optional<List<FJSignature>> abstractMethods = FJUtils.abstractMethods(classTable, typeName);
-        if (abstractMethods.isEmpty()) return Optional.empty();
-        signature = abstractMethods.get().stream().filter(m -> m.name.equals(methodName)).findFirst();
-        if (signature.isPresent()) {
-            return Optional.of(signature.get().getTypeSignature());
-        }
-
-        // Search in concrete methods
-        final Optional<List<FJMethod>> methods = FJUtils.methods(classTable, typeName);
-        if (methods.isEmpty()) return Optional.empty();
-        signature = methods.get().stream().map(m -> m.signature).filter(m -> m.name.equals(methodName)).findFirst();
-        return signature.map(FJSignature::getTypeSignature);
     }
 
     public static Optional<FJMethodBodySignature> methodBody(

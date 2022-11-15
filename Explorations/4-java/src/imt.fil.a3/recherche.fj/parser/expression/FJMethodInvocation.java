@@ -36,15 +36,11 @@ public final class FJMethodInvocation implements FJExpr {
         final String typeName = this.source.getTypeName(classTable, context);
 
         final Optional<FJMethodTypeSignature> methodTypeSignature =
-                FJUtils.methodType(classTable, this.methodName, typeName);
-        if (methodTypeSignature.isEmpty()) {
-            throw new MethodNotFound(this.methodName, typeName);
-        }
+            FJUtils.methodType(classTable, this.methodName, typeName);
+        if (methodTypeSignature.isEmpty()) throw new MethodNotFound(this.methodName, typeName);
         final List<String> parameterTypes = methodTypeSignature.get().parameterTypeNames;
 
-        if (this.args.size() != parameterTypes.size()) {
-            throw new ParamsTypeMismatch(new ArrayList<>());
-        }
+        if (this.args.size() != parameterTypes.size()) throw new ParamsTypeMismatch(new ArrayList<>());
 
         var temp = new ArrayList<TypeMismatch>();
         for (int i = 0; i < this.args.size(); i++) {
@@ -54,7 +50,7 @@ public final class FJMethodInvocation implements FJExpr {
         }
 
         // Check method invocation arguments typing
-        for (final TypeMismatch tm: temp) {
+        for (final TypeMismatch tm : temp) {
             final String type;
             try {
                 type = tm.expression.getTypeName(classTable, context);

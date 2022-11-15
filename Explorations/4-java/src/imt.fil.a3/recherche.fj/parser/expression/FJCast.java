@@ -34,7 +34,7 @@ public final class FJCast implements FJExpr {
 
             if ((expectedTypeIsType) // T-UCast
                 || (typeIsExpectedType && !this.typeName.equals(expectedTypeName)) // T-DCast
-                || (!typeIsExpectedType && !expectedTypeIsType) // T-SCast
+                || (!typeIsExpectedType) /* && !expectedTypeIsType */ // T-SCast
             ) {
                 return this.typeName;
             } else {

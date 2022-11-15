@@ -31,7 +31,7 @@ public final class Haskell {
      */
     public static <E> List<E> difference(List<E> a, List<E> b) {
         List<E> res = new ArrayList<>(a);
-        for (final E e: b) {
+        for (final E e : b) {
             final int index = res.indexOf(e);
             if (index > -1) res.remove(index);
         }
