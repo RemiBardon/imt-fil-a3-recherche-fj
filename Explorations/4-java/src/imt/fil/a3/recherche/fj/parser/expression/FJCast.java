@@ -1,10 +1,14 @@
 package imt.fil.a3.recherche.fj.parser.expression;
 
 import imt.fil.a3.recherche.fj.FJUtils;
+import imt.fil.a3.recherche.fj.parser.FJField;
+import imt.fil.a3.recherche.fj.parser.FJMethodBodySignature;
+import imt.fil.a3.recherche.fj.parser.FJMethodTypeSignature;
 import imt.fil.a3.recherche.fj.parser.error.TypeError;
 import imt.fil.a3.recherche.fj.parser.error.WrongCast;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -54,16 +58,16 @@ public record FJCast(
 
     @Override
     public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) {
-        if (this.body().isValue()) {
-            if (this.body() instanceof final FJCreateObject createObject) {
+        if (this.body.isValue()) {
+            if (this.body instanceof final FJCreateObject createObject) {
                 if (FJUtils.isSubtype(classTable, createObject.className(), this.typeName())) { // R-Cast
-                    return Optional.of(this.body());
+                    return Optional.of(this.body);
                 } else {
                     return Optional.empty();
                 }
-            } else if (this.body() instanceof final FJCast fjCast && fjCast.body() instanceof FJLambda) {
+            } else if (this.body instanceof final FJCast fjCast && fjCast.body() instanceof FJLambda) {
                 if (FJUtils.isSubtype(classTable, fjCast.typeName(), this.typeName())) { // R-Cast-Lam
-                    return Optional.of(this.body());
+                    return Optional.of(this.body);
                 } else {
                     return Optional.empty();
                 }
@@ -71,13 +75,47 @@ public record FJCast(
                 return Optional.empty();
             }
         } else { // RC-Cast
-            return this.body()._eval(classTable).map(e -> new FJCast(this.typeName(), e));
+            return this.body._eval(classTable).map(e -> new FJCast(this.typeName(), e));
         }
     }
 
     @Override
     public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
-        return this.body().substitute(parameterNames, args)
+        return this.body.substitute(parameterNames, args)
             .map(e -> new FJCast(this.typeName(), e));
+    }
+
+    @Override
+    public Optional<FJExpr> evalMethodInvocation(
+        final HashMap<String, FJType> classTable,
+        final FJMethodInvocation invocation
+    ) {
+        if (this.body instanceof final FJLambda lambda) {
+            final Optional<FJMethodTypeSignature> methodType =
+                FJUtils.methodType(classTable, invocation.methodName(), this.typeName);
+            if (methodType.isEmpty()) return Optional.empty(); // No method type
+
+            final List<FJExpr> args2 = new ArrayList<>();
+            // <=> zip(invocation.args(), methodType.parameterTypeNames)
+            for (int i = 0; i < invocation.args().size(); i++) {
+                final FJExpr arg = invocation.args().get(i);
+                final String typeName = methodType.get().parameterTypeNames().get(i);
+                args2.add(arg.lambdaMark(typeName));
+            }
+
+            final Optional<FJMethodBodySignature> methodBody =
+                FJUtils.methodBody(classTable, invocation.methodName(), this.typeName);
+            if (methodBody.isPresent()) { // R-Default
+                return methodBody.get().body()
+                    .lambdaMark(methodType.get().returnTypeName())
+                    .substitute(methodBody.get().argumentNames(), args2);
+            } else { // R-Lam
+                return lambda.body()
+                    .lambdaMark(methodType.get().returnTypeName())
+                    .substitute(lambda.args().stream().map(FJField::name).toList(), args2);
+            }
+        } else {
+            return Optional.empty();
+        }
     }
 }

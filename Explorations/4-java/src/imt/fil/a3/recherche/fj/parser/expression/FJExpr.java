@@ -65,4 +65,11 @@ public interface FJExpr {
      * @return A new changed expression.
      */
     Optional<FJExpr> substitute(List<String> parameterNames, List<FJExpr> args);
+
+    default Optional<FJExpr> evalMethodInvocation(
+        final HashMap<String, FJType> classTable,
+        final FJMethodInvocation invocation
+    ) {
+        return Optional.empty();
+    }
 }

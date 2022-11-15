@@ -2,6 +2,8 @@ package imt.fil.a3.recherche.fj.parser.expression;
 
 import imt.fil.a3.recherche.fj.FJUtils;
 import imt.fil.a3.recherche.fj.parser.FJField;
+import imt.fil.a3.recherche.fj.parser.FJMethodBodySignature;
+import imt.fil.a3.recherche.fj.parser.FJMethodTypeSignature;
 import imt.fil.a3.recherche.fj.parser.TypeMismatch;
 import imt.fil.a3.recherche.fj.parser.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.parser.error.ParamsTypeMismatch;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public record FJCreateObject(
     String className,
@@ -63,15 +66,46 @@ public record FJCreateObject(
 
     @Override
     public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) { // RC-New-Arg
-        final List<FJExpr> args = this.args().stream().map(e -> e.eval(classTable)).toList();
-        return Optional.of(new FJCreateObject(this.className(), args));
+        final List<FJExpr> args = this.args.stream().map(e -> e.eval(classTable)).toList();
+        return Optional.of(new FJCreateObject(this.className, args));
     }
 
     @Override
     public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
-        final List<FJExpr> _args = this.args().stream()
+        final List<FJExpr> _args = this.args.stream()
             .map(a -> a.substitute(parameterNames, args))
             .flatMap(Optional::stream).toList();
-        return Optional.of(new FJCreateObject(this.className(), _args));
+        return Optional.of(new FJCreateObject(this.className, _args));
+    }
+
+    @Override
+    public Optional<FJExpr> evalMethodInvocation(
+        final HashMap<String, FJType> classTable,
+        final FJMethodInvocation invocation
+    ) {
+        // R-Invk
+        final Optional<FJMethodTypeSignature> methodType =
+            FJUtils.methodType(classTable, invocation.methodName(), this.className);
+        if (methodType.isEmpty()) return Optional.empty(); // No method type
+
+        final Optional<FJMethodBodySignature> methodBody =
+            FJUtils.methodBody(classTable, invocation.methodName(), this.className);
+        if (methodBody.isEmpty()) return Optional.empty(); // No method body
+
+        final List<FJExpr> args = new ArrayList<>();
+        // <=> zip(methodArgs, methodType.parameterTypeNames)
+        for (int i = 0; i < invocation.args().size(); i++) {
+            final FJExpr arg = invocation.args().get(i);
+            final String typeName = methodType.get().parameterTypeNames().get(i);
+            args.add(arg.lambdaMark(typeName));
+        }
+        args.add(invocation.source());
+        final List<String> parameterNames = Stream.concat(
+            methodBody.get().argumentNames().stream(),
+            Stream.of("this")
+        ).toList();
+        return methodBody.get().body()
+            .lambdaMark(methodType.get().returnTypeName())
+            .substitute(parameterNames, args);
     }
 }

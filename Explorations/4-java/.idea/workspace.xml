@@ -8,11 +8,7 @@
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCast.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCreateObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCreateObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJFieldAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJFieldAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJLambda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJLambda.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJMethodInvocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJMethodInvocation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJVariable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJVariable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/v2/FJInterpreter.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
