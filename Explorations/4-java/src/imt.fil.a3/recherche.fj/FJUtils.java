@@ -83,27 +83,16 @@ public class FJUtils {
     public static Optional<FJMethodBodySignature> methodBody(
         final HashMap<String, FJType> classTable,
         final String methodName,
-        final String className
+        final String typeName
     ) {
-        if (className.equals("Object")) return Optional.empty();
+        if (typeName.equals("Object")) return Optional.empty();
 
-        //get methods
-        final Optional<List<FJMethod>> methods = methods(classTable, className);
-
-        throw new RuntimeException("Not implemented yet.");
-
-        /*
-        //get method
-        final Optional<FJMethod> method = methods.flatMap(methods1 -> methods1.stream()
-                .filter(method1 -> method1.name.equals(methodName))
-                .findFirst());
-
-        //get method body
-        return method.map(method1 -> new FJMethodBodySignature(
-                method1.returnType,
-                method1.arguments,
-                method1.block
-        ));
-        */
+        final Optional<List<FJMethod>> methods = FJUtils.methods(classTable, typeName);
+        if (methods.isEmpty()) return Optional.empty();
+        return methods.get().stream().filter(m -> m.signature.name.equals(methodName)).findFirst()
+            .map(method -> new FJMethodBodySignature(
+                method.signature.args.stream().map(f -> f.name).collect(Collectors.toList()),
+                method.body
+            ));
     }
 }
