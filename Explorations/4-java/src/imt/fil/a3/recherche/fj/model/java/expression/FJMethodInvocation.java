@@ -1,12 +1,11 @@
 package imt.fil.a3.recherche.fj.model.java.expression;
 
+import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.MethodNotFound;
 import imt.fil.a3.recherche.fj.model.error.ParamsTypeMismatch;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
-import imt.fil.a3.recherche.fj.model.java.type.FJType;
 import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 import imt.fil.a3.recherche.fj.model.misc.TypeMismatch;
-import imt.fil.a3.recherche.fj.util.FJUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,13 +19,12 @@ public record FJMethodInvocation(
 ) implements FJExpr {
     @Override
     public String getTypeName(
-        final HashMap<String, FJType> classTable,
+        final TypeTable typeTable,
         final HashMap<String, String> context
     ) throws TypeError { // T-Invk
-        final String typeName = this.source.getTypeName(classTable, context);
+        final String typeName = this.source.getTypeName(typeTable, context);
 
-        final Optional<MethodTypeSignature> methodTypeSignature =
-            FJUtils.methodType(classTable, this.methodName, typeName);
+        final Optional<MethodTypeSignature> methodTypeSignature = typeTable.methodType(this.methodName, typeName);
         if (methodTypeSignature.isEmpty()) throw new MethodNotFound(this.methodName, typeName);
         final List<String> parameterTypes = methodTypeSignature.get().parameterTypeNames();
 
@@ -43,11 +41,11 @@ public record FJMethodInvocation(
         for (final TypeMismatch tm : temp) {
             final String type;
             try {
-                type = tm.expression().getTypeName(classTable, context);
+                type = tm.expression().getTypeName(typeTable, context);
             } catch (TypeError e) {
                 throw new ParamsTypeMismatch(temp);
             }
-            if (!FJUtils.isSubtype(classTable, type, tm.expectedTypeName())) {
+            if (!typeTable.isSubtype(type, tm.expectedTypeName())) {
                 throw new ParamsTypeMismatch(temp);
             }
         }
@@ -69,21 +67,20 @@ public record FJMethodInvocation(
     public Boolean isValue() { return false; }
 
     @Override
-    public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) {
+    public Optional<FJExpr> _eval(final TypeTable typeTable) {
         // If `this.source` has not been evaluated, evaluate it (recursivity).
         if (!this.source.isValue()) { // RC-Invk-Recv
-            return this.source._eval(classTable)
-                .map(e -> new FJMethodInvocation(e, this.methodName, this.args));
+            return this.source._eval(typeTable).map(e -> new FJMethodInvocation(e, this.methodName, this.args));
         }
 
         // If some arguments have not been evaluated, evaluate them and recursively evaluate the expression.
         if (!this.args.stream().allMatch(FJExpr::isValue)) { // RC-Invk-Arg
-            final List<FJExpr> args = this.args.stream().map(e -> e._eval(classTable))
+            final List<FJExpr> args = this.args.stream().map(e -> e._eval(typeTable))
                 .flatMap(Optional::stream).toList();
-            return Optional.of(new FJMethodInvocation(this.source, this.methodName, args).eval(classTable));
+            return Optional.of(new FJMethodInvocation(this.source, this.methodName, args).eval(typeTable));
         }
 
-        return this.source.evalMethodInvocation(classTable, this);
+        return this.source.evalMethodInvocation(typeTable, this);
     }
 
     @Override

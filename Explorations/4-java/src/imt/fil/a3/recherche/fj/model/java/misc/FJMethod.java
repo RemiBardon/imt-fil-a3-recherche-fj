@@ -1,10 +1,9 @@
 package imt.fil.a3.recherche.fj.model.java.misc;
 
+import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.expression.FJExpr;
-import imt.fil.a3.recherche.fj.model.java.type.FJType;
 import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
-import imt.fil.a3.recherche.fj.util.FJUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +24,7 @@ public record FJMethod(FJSignature signature, FJExpr body) {
      * @return {@code Boolean.TRUE} for a well formed method, {@code Boolean.FALSE} otherwise.
      **/
     public Boolean typeCheck(
-        final HashMap<String, FJType> classTable,
+        final TypeTable typeTable,
         final HashMap<String, String> context,
         final String className
     ) {
@@ -40,14 +39,14 @@ public record FJMethod(FJSignature signature, FJExpr body) {
         final String expectedReturnTypeName;
         try {
             expectedReturnTypeName = this.body.lambdaMark(this.signature.returnTypeName())
-                .getTypeName(classTable, methodContext);
+                .getTypeName(typeTable, methodContext);
         } catch (TypeError e) {
             return false; // Error obtaining type of expression
         }
 
-        final Optional<List<FJMethod>> methods = FJUtils.methods(classTable, expectedReturnTypeName);
+        final Optional<List<FJMethod>> methods = typeTable.methods(expectedReturnTypeName);
         if (methods.isEmpty()) return false; // Error obtaining methods
-        return FJUtils.isSubtype(classTable, expectedReturnTypeName, this.signature.returnTypeName())
+        return typeTable.isSubtype(expectedReturnTypeName, this.signature.returnTypeName())
             && methods.get().contains(this);
     }
 

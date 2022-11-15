@@ -1,8 +1,8 @@
 package imt.fil.a3.recherche.fj.model.java.expression;
 
+import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.error.VariableNotFound;
-import imt.fil.a3.recherche.fj.model.java.type.FJType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.Optional;
 public record FJVariable(String name) implements FJExpr {
     @Override
     public String getTypeName(
-        final HashMap<String, FJType> classTable,
+        final TypeTable typeTable,
         final HashMap<String, String> context
     ) throws TypeError { // T-Var
         if (context.containsKey(this.name)) {
@@ -28,7 +28,7 @@ public record FJVariable(String name) implements FJExpr {
     public Boolean isValue() { return false; }
 
     @Override
-    public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) { return Optional.empty(); }
+    public Optional<FJExpr> _eval(final TypeTable typeTable) { return Optional.empty(); }
 
     @Override
     public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {

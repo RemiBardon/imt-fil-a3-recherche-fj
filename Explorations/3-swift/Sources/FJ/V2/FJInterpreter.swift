@@ -126,8 +126,8 @@ public func eval(classTable: ClassTable, expr: FJExpr) -> FJExpr {
   if isValue(classTable: classTable, expr) {
     return expr
   } else {
-		return evalʹ(classTable: classTable, expr: expr)
-			.map { eval(classTable: classTable, expr: $0) } ?? expr
+    return evalʹ(classTable: classTable, expr: expr)
+      .map { eval(classTable: classTable, expr: $0) } ?? expr
   }
 }
 

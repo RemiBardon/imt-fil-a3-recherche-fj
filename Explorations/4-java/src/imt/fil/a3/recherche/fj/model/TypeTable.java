@@ -1,4 +1,4 @@
-package imt.fil.a3.recherche.fj.util;
+package imt.fil.a3.recherche.fj.model;
 
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.java.misc.FJMethod;
@@ -8,32 +8,32 @@ import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
 import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-public abstract class FJUtils {
-    public static Boolean isSubtype(
-        final HashMap<String, FJType> classTable,
-        final String typeAName,
-        final String typeBName
-    ) {
-        if (typeAName.equals(typeBName)) return true;
-        if (!classTable.containsKey(typeAName)) return false;
-        return classTable.get(typeAName).isSubtype(classTable, typeBName);
+public final class TypeTable {
+    private final Map<String, FJType> typeTable;
+
+    public TypeTable(final Map<String, FJType> typeTable) {
+        this.typeTable = typeTable;
     }
 
-    public static Optional<List<FJField>> classFields(
-        final HashMap<String, FJType> classTable,
+    public Boolean isSubtype(final String typeAName, final String typeBName) {
+        if (typeAName.equals(typeBName)) return true;
+        if (!this.typeTable.containsKey(typeAName)) return false;
+        return this.typeTable.get(typeAName).isSubtype(this, typeBName);
+    }
+
+    public Optional<List<FJField>> classFields(
         final String typeName
     ) {
         if (typeName.equals("Object")) return Optional.empty();
-        if (!classTable.containsKey(typeName)) return Optional.empty();
-        return classTable.get(typeName).classFields(classTable);
+        if (!this.typeTable.containsKey(typeName)) return Optional.empty();
+        return this.typeTable.get(typeName).classFields(this);
     }
 
-    public static Optional<MethodTypeSignature> methodType(
-        final HashMap<String, FJType> classTable,
+    public Optional<MethodTypeSignature> methodType(
         final String methodName,
         final String typeName
     ) {
@@ -42,46 +42,43 @@ public abstract class FJUtils {
         Optional<FJSignature> signature;
 
         // Search in abstract methods
-        final Optional<List<FJSignature>> abstractMethods = FJUtils.abstractMethods(classTable, typeName);
+        final Optional<List<FJSignature>> abstractMethods = this.abstractMethods(typeName);
         if (abstractMethods.isEmpty()) return Optional.empty();
         signature = abstractMethods.get().stream()
             .filter(m -> m.name().equals(methodName)).findFirst();
         if (signature.isPresent()) return Optional.of(signature.get().getTypeSignature());
 
         // Search in concrete methods
-        final Optional<List<FJMethod>> methods = FJUtils.methods(classTable, typeName);
+        final Optional<List<FJMethod>> methods = this.methods(typeName);
         if (methods.isEmpty()) return Optional.empty();
         signature = methods.get().stream().map(FJMethod::signature)
             .filter(m -> m.name().equals(methodName)).findFirst();
         return signature.map(FJSignature::getTypeSignature);
     }
 
-    public static Optional<List<FJSignature>> abstractMethods(
-        final HashMap<String, FJType> classTable,
+    public Optional<List<FJSignature>> abstractMethods(
         final String typeName
     ) {
         if (typeName.equals("Object")) return Optional.of(Collections.emptyList());
-        if (!classTable.containsKey(typeName)) return Optional.empty();
-        return classTable.get(typeName).abstractMethods(classTable);
+        if (!this.typeTable.containsKey(typeName)) return Optional.empty();
+        return this.typeTable.get(typeName).abstractMethods(this);
     }
 
-    public static Optional<List<FJMethod>> methods(
-        final HashMap<String, FJType> classTable,
+    public Optional<List<FJMethod>> methods(
         final String typeName
     ) {
         if (typeName.equals("Object")) return Optional.of(Collections.emptyList());
-        if (!classTable.containsKey(typeName)) return Optional.empty();
-        return classTable.get(typeName).methods(classTable);
+        if (!this.typeTable.containsKey(typeName)) return Optional.empty();
+        return this.typeTable.get(typeName).methods(this);
     }
 
-    public static Optional<MethodBodySignature> methodBody(
-        final HashMap<String, FJType> classTable,
+    public Optional<MethodBodySignature> methodBody(
         final String methodName,
         final String typeName
     ) {
         if (typeName.equals("Object")) return Optional.empty();
 
-        final Optional<List<FJMethod>> methods = FJUtils.methods(classTable, typeName);
+        final Optional<List<FJMethod>> methods = this.methods(typeName);
         if (methods.isEmpty()) return Optional.empty();
 
         return methods.get().stream()

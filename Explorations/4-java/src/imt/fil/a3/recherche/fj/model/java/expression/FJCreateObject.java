@@ -1,14 +1,13 @@
 package imt.fil.a3.recherche.fj.model.java.expression;
 
+import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.error.ParamsTypeMismatch;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
-import imt.fil.a3.recherche.fj.model.java.type.FJType;
 import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
 import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 import imt.fil.a3.recherche.fj.model.misc.TypeMismatch;
-import imt.fil.a3.recherche.fj.util.FJUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,10 +21,10 @@ public record FJCreateObject(
 ) implements FJExpr {
     @Override
     public String getTypeName(
-        final HashMap<String, FJType> classTable,
+        final TypeTable typeTable,
         final HashMap<String, String> context
     ) throws TypeError { // T-New
-        final Optional<List<FJField>> fields = FJUtils.classFields(classTable, this.className);
+        final Optional<List<FJField>> fields = typeTable.classFields(this.className);
         if (fields.isEmpty()) throw new ClassNotFound(this.className);
         if (this.args.size() != fields.get().size()) throw new ParamsTypeMismatch(new ArrayList<>());
 
@@ -40,11 +39,11 @@ public record FJCreateObject(
         for (final TypeMismatch tm : temp) {
             final String type;
             try {
-                type = tm.expression().getTypeName(classTable, context);
+                type = tm.expression().getTypeName(typeTable, context);
             } catch (TypeError e) {
                 throw new ParamsTypeMismatch(temp);
             }
-            if (!FJUtils.isSubtype(classTable, type, tm.expectedTypeName())) {
+            if (!typeTable.isSubtype(type, tm.expectedTypeName())) {
                 throw new ParamsTypeMismatch(temp);
             }
         }
@@ -65,8 +64,8 @@ public record FJCreateObject(
     }
 
     @Override
-    public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) { // RC-New-Arg
-        final List<FJExpr> args = this.args.stream().map(e -> e.eval(classTable)).toList();
+    public Optional<FJExpr> _eval(final TypeTable typeTable) { // RC-New-Arg
+        final List<FJExpr> args = this.args.stream().map(e -> e.eval(typeTable)).toList();
         return Optional.of(new FJCreateObject(this.className, args));
     }
 
@@ -80,16 +79,14 @@ public record FJCreateObject(
 
     @Override
     public Optional<FJExpr> evalMethodInvocation(
-        final HashMap<String, FJType> classTable,
+        final TypeTable typeTable,
         final FJMethodInvocation invocation
     ) {
         // R-Invk
-        final Optional<MethodTypeSignature> methodType =
-            FJUtils.methodType(classTable, invocation.methodName(), this.className);
+        final Optional<MethodTypeSignature> methodType = typeTable.methodType(invocation.methodName(), this.className);
         if (methodType.isEmpty()) return Optional.empty(); // No method type
 
-        final Optional<MethodBodySignature> methodBody =
-            FJUtils.methodBody(classTable, invocation.methodName(), this.className);
+        final Optional<MethodBodySignature> methodBody = typeTable.methodBody(invocation.methodName(), this.className);
         if (methodBody.isEmpty()) return Optional.empty(); // No method body
 
         final List<FJExpr> args = new ArrayList<>();

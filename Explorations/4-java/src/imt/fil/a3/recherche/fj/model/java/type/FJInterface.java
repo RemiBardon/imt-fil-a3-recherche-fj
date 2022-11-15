@@ -1,8 +1,8 @@
 package imt.fil.a3.recherche.fj.model.java.type;
 
+import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.java.misc.FJMethod;
 import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
-import imt.fil.a3.recherche.fj.util.FJUtils;
 import imt.fil.a3.recherche.fj.util.haskell.Haskell;
 
 import java.util.Collections;
@@ -24,23 +24,23 @@ public record FJInterface(
      * @return {@code Boolean.TRUE} for a well-formed interface, {@code Boolean.FALSE} otherwise.
      */
     public Boolean typeCheck(
-        final HashMap<String, FJType> classTable,
+        final TypeTable typeTable,
         final HashMap<String, String> context
     ) {
-        return FJUtils.abstractMethods(classTable, this.name).isPresent()
-            && this.defaultMethods.stream().allMatch(m -> m.typeCheck(classTable, context, this.name));
+        return typeTable.abstractMethods(this.name).isPresent()
+            && this.defaultMethods.stream().allMatch(m -> m.typeCheck(typeTable, context, this.name));
     }
 
     @Override
-    public Boolean isSubtype(final HashMap<String, FJType> classTable, final String otherTypeName) {
+    public Boolean isSubtype(final TypeTable typeTable, final String otherTypeName) {
         return this.extendsNames.contains(otherTypeName)
-            || this.extendsNames.stream().anyMatch(t -> FJUtils.isSubtype(classTable, t, otherTypeName));
+            || this.extendsNames.stream().anyMatch(t -> typeTable.isSubtype(t, otherTypeName));
     }
 
     @Override
-    public Optional<List<FJSignature>> abstractMethods(final HashMap<String, FJType> classTable) {
+    public Optional<List<FJSignature>> abstractMethods(final TypeTable typeTable) {
         final Stream<FJSignature> superAbstractMethods = this.extendsNames.stream()
-            .flatMap(i -> FJUtils.abstractMethods(classTable, i).orElse(Collections.emptyList()).stream());
+            .flatMap(i -> typeTable.abstractMethods(i).orElse(Collections.emptyList()).stream());
 
         final Stream<FJSignature> abstractMethods = Haskell.union(
             this.signatures.stream(),
@@ -52,9 +52,9 @@ public record FJInterface(
     }
 
     @Override
-    public Optional<List<FJMethod>> methods(final HashMap<String, FJType> classTable) {
+    public Optional<List<FJMethod>> methods(final TypeTable typeTable) {
         final Stream<FJMethod> superMethods = this.extendsNames.stream()
-            .flatMap(i -> FJUtils.methods(classTable, i).orElse(Collections.emptyList()).stream());
+            .flatMap(i -> typeTable.methods(i).orElse(Collections.emptyList()).stream());
         final Stream<FJMethod> methods = Haskell.union(
             this.defaultMethods.stream(),
             superMethods,

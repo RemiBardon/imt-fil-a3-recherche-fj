@@ -1,7 +1,7 @@
 package imt.fil.a3.recherche.fj.model.java.expression;
 
+import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
-import imt.fil.a3.recherche.fj.model.java.type.FJType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +17,7 @@ public interface FJExpr {
      * @return The type of a given term or a type error.
      */
     String getTypeName(
-        final HashMap<String, FJType> classTable,
+        final TypeTable typeTable,
         final HashMap<String, String> context
     ) throws TypeError;
 
@@ -41,8 +41,8 @@ public interface FJExpr {
      *
      * @return A value after all the reduction steps.
      */
-    default FJExpr eval(final HashMap<String, FJType> classTable) {
-        return this.isValue() ? this : this._eval(classTable).orElse(this);
+    default FJExpr eval(final TypeTable typeTable) {
+        return this.isValue() ? this : this._eval(typeTable).orElse(this);
     }
 
     /**
@@ -57,7 +57,7 @@ public interface FJExpr {
      *
      * @return An expression after processing one reduction step.
      */
-    Optional<FJExpr> _eval(final HashMap<String, FJType> classTable);
+    Optional<FJExpr> _eval(final TypeTable typeTable);
 
     /**
      * Replaces actual parameters in method body expression.
@@ -67,7 +67,7 @@ public interface FJExpr {
     Optional<FJExpr> substitute(List<String> parameterNames, List<FJExpr> args);
 
     default Optional<FJExpr> evalMethodInvocation(
-        final HashMap<String, FJType> classTable,
+        final TypeTable typeTable,
         final FJMethodInvocation invocation
     ) {
         return Optional.empty();

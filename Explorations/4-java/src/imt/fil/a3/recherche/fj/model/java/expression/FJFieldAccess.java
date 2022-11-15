@@ -1,11 +1,10 @@
 package imt.fil.a3.recherche.fj.model.java.expression;
 
+import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.error.FieldNotFound;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
-import imt.fil.a3.recherche.fj.model.java.type.FJType;
-import imt.fil.a3.recherche.fj.util.FJUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,12 +13,12 @@ import java.util.Optional;
 public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
     @Override
     public String getTypeName(
-        final HashMap<String, FJType> classTable,
+        final TypeTable typeTable,
         final HashMap<String, String> context
     ) throws TypeError { // T-Field
-        final String typeName = this.object.getTypeName(classTable, context);
+        final String typeName = this.object.getTypeName(typeTable, context);
 
-        final Optional<List<FJField>> fields = FJUtils.classFields(classTable, typeName);
+        final Optional<List<FJField>> fields = typeTable.classFields(typeName);
         if (fields.isEmpty()) throw new ClassNotFound(typeName);
 
         // NOTE: `filter` iterates over all elements while we could abort sooner if a value is found.
@@ -43,11 +42,10 @@ public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
     public Boolean isValue() { return false; }
 
     @Override
-    public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) { // R-Field
-        if (this.object.isValue()) {
+    public Optional<FJExpr> _eval(final TypeTable typeTable) {
+        if (this.object.isValue()) { // R-Field
             if (this.object instanceof final FJCreateObject createObject) {
-                final Optional<List<FJField>> _fields =
-                    FJUtils.classFields(classTable, createObject.className());
+                final Optional<List<FJField>> _fields = typeTable.classFields(createObject.className());
                 if (_fields.isEmpty()) return Optional.empty();
                 final List<FJField> fields = _fields.get();
 
@@ -67,7 +65,7 @@ public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
                 return Optional.empty(); // Not an object instance
             }
         } else { // RC-Field
-            return this.object._eval(classTable).map(e -> new FJFieldAccess(e, this.fieldName));
+            return this.object._eval(typeTable).map(e -> new FJFieldAccess(e, this.fieldName));
         }
     }
 

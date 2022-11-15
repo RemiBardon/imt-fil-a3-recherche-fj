@@ -1,11 +1,10 @@
 package imt.fil.a3.recherche.fj.model.java.expression;
 
+import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.error.WrongLambdaType;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
-import imt.fil.a3.recherche.fj.model.java.type.FJType;
-import imt.fil.a3.recherche.fj.util.FJUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.Optional;
 public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     @Override
     public String getTypeName(
-        final HashMap<String, FJType> classTable,
+        final TypeTable typeTable,
         final HashMap<String, String> context
     ) throws TypeError {
         // Error: Lambda expression without a type
@@ -35,7 +34,7 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     public Boolean isValue() { return true; }
 
     @Override
-    public Optional<FJExpr> _eval(HashMap<String, FJType> classTable) { return Optional.of(this); }
+    public Optional<FJExpr> _eval(TypeTable typeTable) { return Optional.of(this); }
 
     @Override
     public Optional<FJExpr> substitute(List<String> parameterNames, List<FJExpr> args) {
@@ -43,24 +42,22 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     }
 
     public String getTypeName(
-        final HashMap<String, FJType> classTable,
+        final TypeTable typeTable,
         final HashMap<String, String> context,
         final String returnType
     ) throws TypeError {
         HashMap<String, String> lambdaContext = new HashMap<>(context);
         this.args.forEach(arg -> lambdaContext.putIfAbsent(arg.name(), arg.type()));
 
-        final Optional<List<FJSignature>> abstractMethods =
-            FJUtils.abstractMethods(classTable, returnType);
+        final Optional<List<FJSignature>> abstractMethods = typeTable.abstractMethods(returnType);
         // Lambdas have only one abstract method: themselves
         if (abstractMethods.isEmpty() || abstractMethods.get().size() != 1) {
             throw new WrongLambdaType(returnType, this);
         }
         final FJSignature method = abstractMethods.get().get(0);
 
-        final String expectedTypeName = this.lambdaMark(method.returnTypeName())
-            .getTypeName(classTable, lambdaContext);
-        final boolean returnTypeIsCorrect = FJUtils.isSubtype(classTable, expectedTypeName, method.returnTypeName());
+        final String expectedTypeName = this.lambdaMark(method.returnTypeName()).getTypeName(typeTable, lambdaContext);
+        final boolean returnTypeIsCorrect = typeTable.isSubtype(expectedTypeName, method.returnTypeName());
         final boolean argsTypesAreCorrect = method.args().get(0).equals(this.args.get(0));
 
         if (returnTypeIsCorrect && argsTypesAreCorrect) {

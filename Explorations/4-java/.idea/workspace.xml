@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/TypeTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3-swift/Sources/FJ/V2/FJInterpreter.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../3-swift/Sources/FJ/V2/FJInterpreter.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJCast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJCast.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJCreateObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJCreateObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJFieldAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJFieldAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJMethodInvocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJMethodInvocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJVariable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJVariable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/misc/FJMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/misc/FJMethod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/misc/FJSignature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/misc/FJSignature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/misc/FJMethodBodySignature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/misc/MethodBodySignature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/misc/FJMethodTypeSignature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/misc/MethodTypeSignature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/util/FJUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/util/FJUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/type/FJType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/type/FJType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/util/FJUtils.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +33,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Record" />
       </list>
     </option>
   </component>
@@ -63,6 +70,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.spelling" />
     <property name="settings.editor.splitter.proportion" value="0.22880659" />
