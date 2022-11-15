@@ -8,6 +8,7 @@ import imt.fil.a3.recherche.fj.parser.type.FJType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public final class FJMethod {
     public final FJSignature signature;
@@ -16,6 +17,13 @@ public final class FJMethod {
     public FJMethod(FJSignature signature, FJExpr body) {
         this.signature = signature;
         this.body = body;
+    }
+
+    public FJMethodBodySignature getBodySignature() {
+        return new FJMethodBodySignature(
+            this.signature.args.stream().map(f -> f.name).collect(Collectors.toList()),
+            this.body
+        );
     }
 
     /**

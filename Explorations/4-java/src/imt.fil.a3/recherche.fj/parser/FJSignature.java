@@ -1,6 +1,7 @@
 package imt.fil.a3.recherche.fj.parser;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class FJSignature {
     public final String returnTypeName;
@@ -11,5 +12,12 @@ public final class FJSignature {
         this.returnTypeName = returnTypeName;
         this.name = name;
         this.args = args;
+    }
+
+    public FJMethodTypeSignature getTypeSignature() {
+        return new FJMethodTypeSignature(
+            this.args.stream().map(f -> f.type).collect(Collectors.toList()),
+            this.returnTypeName
+        );
     }
 }

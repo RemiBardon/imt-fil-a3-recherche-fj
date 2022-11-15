@@ -4,7 +4,6 @@ import imt.fil.a3.recherche.fj.parser.*;
 import imt.fil.a3.recherche.fj.parser.type.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class FJUtils {
 
@@ -59,25 +58,14 @@ public class FJUtils {
         if (abstractMethods.isEmpty()) return Optional.empty();
         signature = abstractMethods.get().stream().filter(m -> m.name.equals(methodName)).findFirst();
         if (signature.isPresent()) {
-            return Optional.of(new FJMethodTypeSignature(
-                signature.get().args.stream().map(f -> f.type).collect(Collectors.toList()),
-                signature.get().returnTypeName
-            ));
+            return Optional.of(signature.get().getTypeSignature());
         }
 
         // Search in concrete methods
         final Optional<List<FJMethod>> methods = FJUtils.methods(classTable, typeName);
         if (methods.isEmpty()) return Optional.empty();
         signature = methods.get().stream().map(m -> m.signature).filter(m -> m.name.equals(methodName)).findFirst();
-        // noinspection OptionalIsPresent
-        if (signature.isPresent()) {
-            return Optional.of(new FJMethodTypeSignature(
-                signature.get().args.stream().map(f -> f.type).collect(Collectors.toList()),
-                signature.get().returnTypeName
-            ));
-        }
-
-        return Optional.empty();
+        return signature.map(FJSignature::getTypeSignature);
     }
 
     public static Optional<FJMethodBodySignature> methodBody(
@@ -89,10 +77,9 @@ public class FJUtils {
 
         final Optional<List<FJMethod>> methods = FJUtils.methods(classTable, typeName);
         if (methods.isEmpty()) return Optional.empty();
-        return methods.get().stream().filter(m -> m.signature.name.equals(methodName)).findFirst()
-            .map(method -> new FJMethodBodySignature(
-                method.signature.args.stream().map(f -> f.name).collect(Collectors.toList()),
-                method.body
-            ));
+
+        return methods.get().stream()
+            .filter(m -> m.signature.name.equals(methodName)).findFirst()
+            .map(FJMethod::getBodySignature);
     }
 }
