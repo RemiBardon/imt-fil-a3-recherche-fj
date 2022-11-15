@@ -60,13 +60,13 @@ public record FJCast(
     public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) {
         if (this.body.isValue()) {
             if (this.body instanceof final FJCreateObject createObject) {
-                if (FJUtils.isSubtype(classTable, createObject.className(), this.typeName())) { // R-Cast
+                if (FJUtils.isSubtype(classTable, createObject.className(), this.typeName)) { // R-Cast
                     return Optional.of(this.body);
                 } else {
                     return Optional.empty();
                 }
             } else if (this.body instanceof final FJCast fjCast && fjCast.body() instanceof FJLambda) {
-                if (FJUtils.isSubtype(classTable, fjCast.typeName(), this.typeName())) { // R-Cast-Lam
+                if (FJUtils.isSubtype(classTable, fjCast.typeName(), this.typeName)) { // R-Cast-Lam
                     return Optional.of(this.body);
                 } else {
                     return Optional.empty();
@@ -75,14 +75,14 @@ public record FJCast(
                 return Optional.empty();
             }
         } else { // RC-Cast
-            return this.body._eval(classTable).map(e -> new FJCast(this.typeName(), e));
+            return this.body._eval(classTable).map(e -> new FJCast(this.typeName, e));
         }
     }
 
     @Override
     public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
         return this.body.substitute(parameterNames, args)
-            .map(e -> new FJCast(this.typeName(), e));
+            .map(e -> new FJCast(this.typeName, e));
     }
 
     @Override

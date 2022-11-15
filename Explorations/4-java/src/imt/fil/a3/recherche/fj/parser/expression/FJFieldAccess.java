@@ -44,8 +44,8 @@ public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
 
     @Override
     public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) { // R-Field
-        if (this.object().isValue()) {
-            if (this.object() instanceof final FJCreateObject createObject) {
+        if (this.object.isValue()) {
+            if (this.object instanceof final FJCreateObject createObject) {
                 final Optional<List<FJField>> _fields =
                     FJUtils.classFields(classTable, createObject.className());
                 if (_fields.isEmpty()) return Optional.empty();
@@ -53,7 +53,7 @@ public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
 
                 Optional<Integer> index = Optional.empty();
                 for (int i = 0; i < fields.size(); i++) {
-                    if (fields.get(i).name().equals(this.fieldName())) {
+                    if (fields.get(i).name().equals(this.fieldName)) {
                         index = Optional.of(i);
                         break;
                     }
@@ -67,13 +67,13 @@ public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
                 return Optional.empty(); // Not an object instance
             }
         } else { // RC-Field
-            return this.object._eval(classTable).map(e -> new FJFieldAccess(e, this.fieldName()));
+            return this.object._eval(classTable).map(e -> new FJFieldAccess(e, this.fieldName));
         }
     }
 
     @Override
     public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
-        return this.object().substitute(parameterNames, args)
-            .map(e -> new FJFieldAccess(e, this.fieldName()));
+        return this.object.substitute(parameterNames, args)
+            .map(e -> new FJFieldAccess(e, this.fieldName));
     }
 }

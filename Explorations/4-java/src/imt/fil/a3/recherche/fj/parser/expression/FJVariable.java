@@ -32,7 +32,7 @@ public record FJVariable(String name) implements FJExpr {
 
     @Override
     public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
-        final int index = parameterNames.indexOf(this.name());
+        final int index = parameterNames.indexOf(this.name);
         if (index >= 0 && args.size() > index) {
             return Optional.of(args.get(index));
         } else {

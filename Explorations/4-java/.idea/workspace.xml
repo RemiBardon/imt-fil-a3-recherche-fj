@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCreateObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCreateObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJMethodInvocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJMethodInvocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJFieldAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJFieldAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJVariable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJVariable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +40,7 @@
     <setting file="file://$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJMethodInvocation.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="7" />
+    <option name="selectedIndex" value="8" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
