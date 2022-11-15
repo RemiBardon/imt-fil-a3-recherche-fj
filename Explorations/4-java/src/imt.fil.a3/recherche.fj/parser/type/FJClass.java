@@ -4,10 +4,7 @@ import imt.fil.a3.recherche.fj.FJUtils;
 import imt.fil.a3.recherche.fj.haskell.Haskell;
 import imt.fil.a3.recherche.fj.parser.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -93,6 +90,15 @@ public final class FJClass implements FJType {
             return FJUtils.isSubtype(classTable, this.extendsName, otherTypeName)
                 || this.implementsNames.stream().anyMatch(t -> FJUtils.isSubtype(classTable, t, otherTypeName));
         }
+    }
+
+    @Override
+    public Optional<List<FJField>> classFields(final HashMap<String, FJType> classTable) {
+        return FJUtils.classFields(classTable, this.extendsName).map(fields -> {
+            List<FJField> res = new ArrayList<>(fields);
+            res.addAll(this.fields);
+            return res;
+        });
     }
 
     @Override

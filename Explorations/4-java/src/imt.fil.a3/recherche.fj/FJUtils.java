@@ -19,20 +19,11 @@ public class FJUtils {
 
     public static Optional<List<FJField>> classFields(
         final HashMap<String, FJType> classTable,
-        final String className
+        final String typeName
     ) {
-        if (className.equals("Object")) return Optional.empty();
-
-        FJType fjType = classTable.get(className);
-
-        if (fjType instanceof final FJClass fjClass) {
-            return classFields(classTable, fjClass.extendsName).map(fields -> {
-                fields.addAll(fjClass.fields);
-                return fields;
-            });
-        } else {
-            return Optional.empty();
-        }
+        if (typeName.equals("Object")) return Optional.empty();
+        if (!classTable.containsKey(typeName)) return Optional.empty();
+        return classTable.get(typeName).classFields(classTable);
     }
 
     public static Optional<List<FJSignature>> abstractMethods(
