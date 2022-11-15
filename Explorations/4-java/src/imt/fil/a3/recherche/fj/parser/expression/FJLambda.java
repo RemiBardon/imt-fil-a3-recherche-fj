@@ -22,9 +22,6 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     }
 
     @Override
-    public Boolean isValue() { return true; }
-
-    @Override
     public FJExpr lambdaMark(final String typeName) {
         return new FJCast(typeName, this);
     }
@@ -33,6 +30,12 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     public FJLambda removingRuntimeAnnotation() {
         return new FJLambda(this.args, this.body.removingRuntimeAnnotation());
     }
+
+    @Override
+    public Boolean isValue() { return true; }
+
+    @Override
+    public Optional<FJExpr> _eval(HashMap<String, FJType> classTable) { return Optional.of(this); }
 
     public String getTypeName(
         final HashMap<String, FJType> classTable,

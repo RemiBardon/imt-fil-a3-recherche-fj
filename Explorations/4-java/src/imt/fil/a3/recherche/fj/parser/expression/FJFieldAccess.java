@@ -35,10 +35,39 @@ public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
     }
 
     @Override
+    public FJFieldAccess removingRuntimeAnnotation() {
+        return new FJFieldAccess(this.object.removingRuntimeAnnotation(), this.fieldName);
+    }
+
+    @Override
     public Boolean isValue() { return false; }
 
     @Override
-    public FJFieldAccess removingRuntimeAnnotation() {
-        return new FJFieldAccess(this.object.removingRuntimeAnnotation(), this.fieldName);
+    public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) { // R-Field
+        if (this.object().isValue()) {
+            if (this.object() instanceof final FJCreateObject createObject) {
+                final Optional<List<FJField>> _fields =
+                    FJUtils.classFields(classTable, createObject.className());
+                if (_fields.isEmpty()) return Optional.empty();
+                final List<FJField> fields = _fields.get();
+
+                Optional<Integer> index = Optional.empty();
+                for (int i = 0; i < fields.size(); i++) {
+                    if (fields.get(i).name().equals(this.fieldName())) {
+                        index = Optional.of(i);
+                        break;
+                    }
+                }
+                if (index.isEmpty()) return Optional.empty();
+
+                final FJExpr arg = createObject.args().get(index.get());
+                final String lambdaTypeName = fields.get(index.get()).name();
+                return Optional.of(arg.lambdaMark(lambdaTypeName));
+            } else {
+                return Optional.empty(); // Not an object instance
+            }
+        } else { // RC-Field
+            return this.object._eval(classTable).map(e -> new FJFieldAccess(e, this.fieldName()));
+        }
     }
 }

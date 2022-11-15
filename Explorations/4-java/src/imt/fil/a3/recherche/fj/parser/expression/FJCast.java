@@ -6,6 +6,7 @@ import imt.fil.a3.recherche.fj.parser.error.WrongCast;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 public record FJCast(
     String typeName,
@@ -48,5 +49,28 @@ public record FJCast(
     @Override
     public FJCast removingRuntimeAnnotation() {
         return new FJCast(this.typeName, this.body.removingRuntimeAnnotation());
+    }
+
+    @Override
+    public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) {
+        if (this.body().isValue()) {
+            if (this.body() instanceof final FJCreateObject createObject) {
+                if (FJUtils.isSubtype(classTable, createObject.className(), this.typeName())) { // R-Cast
+                    return Optional.of(this.body());
+                } else {
+                    return Optional.empty();
+                }
+            } else if (this.body() instanceof final FJCast fjCast && fjCast.body() instanceof FJLambda) {
+                if (FJUtils.isSubtype(classTable, fjCast.typeName(), this.typeName())) { // R-Cast-Lam
+                    return Optional.of(this.body());
+                } else {
+                    return Optional.empty();
+                }
+            } else {
+                return Optional.empty();
+            }
+        } else { // RC-Cast
+            return this.body()._eval(classTable).map(e -> new FJCast(this.typeName(), e));
+        }
     }
 }

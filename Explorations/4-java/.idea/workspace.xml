@@ -5,36 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/4-java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/4-java.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/FJUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/FJUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/haskell/Haskell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/haskell/Haskell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/FJConstructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/FJConstructor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/FJField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/FJField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/FJMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/FJMethod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/FJMethodBodySignature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/FJMethodBodySignature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/FJMethodTypeSignature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/FJMethodTypeSignature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/FJSignature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/FJSignature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/FieldInit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/FieldInit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/TypeMismatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/TypeMismatch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/error/ClassNotFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/error/ClassNotFound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/error/FieldNotFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/error/FieldNotFound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/error/MethodNotFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/error/MethodNotFound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/error/ParamsTypeMismatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/error/ParamsTypeMismatch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/error/TypeError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/error/TypeError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/error/VariableNotFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/error/VariableNotFound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/error/WrongCast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/error/WrongCast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/error/WrongLambdaType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/error/WrongLambdaType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/expression/FJCast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/expression/FJCreateObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCreateObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/expression/FJExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/expression/FJFieldAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJFieldAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/expression/FJLambda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJLambda.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/expression/FJMethodInvocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJMethodInvocation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/expression/FJVariable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJVariable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/type/FJClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/type/FJClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/type/FJInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/type/FJInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/parser/type/FJType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/type/FJType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt.fil.a3/recherche.fj/v2/FJInterpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/v2/FJInterpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3-swift/Sources/FJ/V2/FJInterpreter.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../3-swift/Sources/FJ/V2/FJInterpreter.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCreateObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJCreateObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJFieldAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJFieldAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJLambda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJLambda.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJMethodInvocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJMethodInvocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJVariable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJVariable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/v2/FJInterpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/v2/FJInterpreter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,9 +45,6 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/parser/expression/FJMethodInvocation.java" root0="SKIP_INSPECTION" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="6" />
-  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
@@ -86,7 +62,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.spelling" />
     <property name="settings.editor.splitter.proportion" value="0.22880659" />
   </component>
   <component name="RecentsManager">

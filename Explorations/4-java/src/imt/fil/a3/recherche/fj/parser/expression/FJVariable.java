@@ -5,6 +5,7 @@ import imt.fil.a3.recherche.fj.parser.error.VariableNotFound;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 public record FJVariable(String name) implements FJExpr {
     @Override
@@ -20,8 +21,11 @@ public record FJVariable(String name) implements FJExpr {
     }
 
     @Override
+    public FJVariable removingRuntimeAnnotation() { return this; }
+
+    @Override
     public Boolean isValue() { return false; }
 
     @Override
-    public FJVariable removingRuntimeAnnotation() { return this; }
+    public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) { return Optional.empty(); }
 }

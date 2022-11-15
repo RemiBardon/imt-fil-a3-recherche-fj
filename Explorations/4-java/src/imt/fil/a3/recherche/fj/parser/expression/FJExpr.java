@@ -4,6 +4,7 @@ import imt.fil.a3.recherche.fj.parser.error.TypeError;
 import imt.fil.a3.recherche.fj.parser.type.FJType;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 /**
  * Expression.
@@ -19,14 +20,6 @@ public interface FJExpr {
         final HashMap<String, String> context
     ) throws TypeError;
 
-
-    /**
-     * Checks if an expression represents a value.
-     *
-     * @return Boolean indicating if an expression is a value.
-     */
-    Boolean isValue();
-
     /**
      * Annotates the types for lambda expressions.
      *
@@ -41,4 +34,28 @@ public interface FJExpr {
      * @return An expression without the runtime type annotations.
      */
     FJExpr removingRuntimeAnnotation();
+
+    /**
+     * Evaluates an expression recursively.
+     *
+     * @return A value after all the reduction steps.
+     */
+    default FJExpr eval(final HashMap<String, FJType> classTable) {
+        return this.isValue() ? this : this._eval(classTable).orElse(this);
+    }
+
+    /**
+     * Checks if an expression represents a value.
+     *
+     * @return Boolean indicating if an expression is a value.
+     */
+    Boolean isValue();
+
+    /**
+     * Evaluates an expression.
+     *
+     * @return An expression after processing one reduction step.
+     */
+    Optional<FJExpr> _eval(final HashMap<String, FJType> classTable);
+
 }

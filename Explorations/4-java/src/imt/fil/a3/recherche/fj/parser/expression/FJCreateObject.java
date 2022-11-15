@@ -51,13 +51,19 @@ public record FJCreateObject(
     }
 
     @Override
+    public FJCreateObject removingRuntimeAnnotation() {
+        return new FJCreateObject(this.className, this.args.stream().map(FJExpr::removingRuntimeAnnotation).toList());
+    }
+
+    @Override
     public Boolean isValue() {
         // NOTE: `allMatch` returns `true` if `args.isEmpty()`.
         return args.stream().allMatch(FJExpr::isValue);
     }
 
     @Override
-    public FJCreateObject removingRuntimeAnnotation() {
-        return new FJCreateObject(this.className, this.args.stream().map(FJExpr::removingRuntimeAnnotation).toList());
+    public Optional<FJExpr> _eval(final HashMap<String, FJType> classTable) { // RC-New-Arg
+        final List<FJExpr> args = this.args().stream().map(e -> e.eval(classTable)).toList();
+        return Optional.of(new FJCreateObject(this.className(), args));
     }
 }
