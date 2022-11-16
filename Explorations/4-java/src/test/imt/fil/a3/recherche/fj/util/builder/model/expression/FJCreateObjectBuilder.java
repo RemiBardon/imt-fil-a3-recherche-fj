@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public final class FJCreateObjectBuilder implements FJBuilder<FJCreateObject> {
+public final class FJCreateObjectBuilder implements IFJExprBuilder {
     private String className;
     private final List<FJExprBuilder> args = new ArrayList<>();
 

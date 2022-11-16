@@ -6,7 +6,7 @@ import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
 
 import java.util.function.Function;
 
-public final class FJFieldAccessBuilder implements FJBuilder<FJFieldAccess> {
+public final class FJFieldAccessBuilder implements IFJExprBuilder {
     private FJExprBuilder object;
     private String fieldName;
 

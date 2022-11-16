@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public final class FJLambdaBuilder implements FJBuilder<FJLambda> {
+public final class FJLambdaBuilder implements IFJExprBuilder {
     private final List<FJFieldBuilder> args = new ArrayList<>();
     private FJExprBuilder body;
 

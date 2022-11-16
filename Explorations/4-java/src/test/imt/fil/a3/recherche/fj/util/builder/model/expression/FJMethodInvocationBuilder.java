@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public final class FJMethodInvocationBuilder implements FJBuilder<FJMethodInvocation> {
+public final class FJMethodInvocationBuilder implements IFJExprBuilder {
     private FJExprBuilder source;
     private String methodName;
     private final List<FJExprBuilder> args = new ArrayList<>();
@@ -28,8 +28,8 @@ public final class FJMethodInvocationBuilder implements FJBuilder<FJMethodInvoca
         return this;
     }
 
-    public <T extends FJExprBuilder> FJMethodInvocationBuilder arg(Function<T,T> arg) {
-        this.args.add(arg.apply(new T()));
+    public FJMethodInvocationBuilder arg(Function<FJExprBuilder,FJExprBuilder> arg) {
+        this.args.add(arg.apply(new FJExprBuilder()));
         return this;
     }
 }

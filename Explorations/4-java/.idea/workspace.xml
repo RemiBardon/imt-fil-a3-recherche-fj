@@ -5,25 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/FJBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/FJProgramBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/error/FJBuilderException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJCastBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJCreateObjectBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJFieldAccessBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJLambdaBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJMethodInvocationBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJVariableBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJConstructorBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJFieldBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJMethodBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJSignatureBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJClassBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJInterfaceBuilder.java" afterDir="false" />
-    </list>
-    <list id="7ca3f133-c685-413e-9b4e-b7e4e709cb27" name="Changes by lucas" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/misc/FieldInitBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/IFJExprBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJCastBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJCastBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJCreateObjectBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJCreateObjectBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJFieldAccessBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJFieldAccessBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJLambdaBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJLambdaBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJMethodInvocationBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJMethodInvocationBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJVariableBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJVariableBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,8 +26,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Record" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>

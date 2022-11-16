@@ -7,13 +7,13 @@ import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
 import java.util.function.Function;
 
 
-final public class FJCastBuilder implements FJBuilder<FJCast> {
+final public class FJCastBuilder implements IFJExprBuilder {
     private String typeName;
     private FJExprBuilder body;
 
     @Override
     public FJCast build() throws FJBuilderException {
-        throw new RuntimeException();
+        return new FJCast(this.typeName, this.body.build());
     }
 
     public FJCastBuilder typeName(String typeName){
