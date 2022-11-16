@@ -1,5 +1,6 @@
 package imt.fil.a3.recherche.fj.model.java.expression;
 
+import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.MethodNotFound;
 import imt.fil.a3.recherche.fj.model.error.ParamsTypeMismatch;
@@ -8,7 +9,6 @@ import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 import imt.fil.a3.recherche.fj.model.misc.TypeMismatch;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,13 +18,11 @@ public record FJMethodInvocation(
     List<FJExpr> args
 ) implements FJExpr {
     @Override
-    public String getTypeName(
-        final TypeTable typeTable,
-        final HashMap<String, String> context
-    ) throws TypeError { // T-Invk
-        final String typeName = this.source.getTypeName(typeTable, context);
+    public String getTypeName(final TypeCheckingContext context) throws TypeError { // T-Invk
+        final String typeName = this.source.getTypeName(context);
 
-        final Optional<MethodTypeSignature> methodTypeSignature = typeTable.methodType(this.methodName, typeName);
+        final Optional<MethodTypeSignature> methodTypeSignature =
+            context.typeTable.methodType(this.methodName, typeName);
         if (methodTypeSignature.isEmpty()) throw new MethodNotFound(this.methodName, typeName);
         final List<String> parameterTypes = methodTypeSignature.get().parameterTypeNames();
 
@@ -41,11 +39,11 @@ public record FJMethodInvocation(
         for (final TypeMismatch tm : temp) {
             final String type;
             try {
-                type = tm.expression().getTypeName(typeTable, context);
+                type = tm.expression().getTypeName(context);
             } catch (TypeError e) {
                 throw new ParamsTypeMismatch(temp);
             }
-            if (!typeTable.isSubtype(type, tm.expectedTypeName())) {
+            if (!context.typeTable.isSubtype(type, tm.expectedTypeName())) {
                 throw new ParamsTypeMismatch(temp);
             }
         }

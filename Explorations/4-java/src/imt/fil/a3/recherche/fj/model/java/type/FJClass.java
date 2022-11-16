@@ -1,5 +1,6 @@
 package imt.fil.a3.recherche.fj.model.java.type;
 
+import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.java.misc.FJConstructor;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
@@ -8,7 +9,10 @@ import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
 import imt.fil.a3.recherche.fj.model.misc.FieldInit;
 import imt.fil.a3.recherche.fj.util.haskell.Haskell;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,14 +29,11 @@ public record FJClass(
      *
      * @return {@code Boolean.TRUE} for a well-formed class, {@code Boolean.FALSE} otherwise.
      */
-    public Boolean typeCheck(
-        final TypeTable typeTable,
-        final HashMap<String, String> context
-    ) {
+    public Boolean typeCheck(final TypeCheckingContext context) {
         final FJConstructor constructor = this.constructor;
 
         // Get superclass fields or return false if not found.
-        Optional<List<FJField>> superFields = typeTable.classFields(this.extendsName);
+        Optional<List<FJField>> superFields = context.typeTable.classFields(this.extendsName);
         if (superFields.isEmpty()) return false;
 
         // Make sure all fields are passed to the constructor.
@@ -43,7 +44,7 @@ public record FJClass(
         // Make sure constructor argument names match field names.
         if (constructor.fieldInits().stream().anyMatch(f -> !f.fieldName().equals(f.argumentName()))) return false;
 
-        final Optional<List<FJSignature>> abstractMethods = typeTable.abstractMethods(this.name);
+        final Optional<List<FJSignature>> abstractMethods = context.typeTable.abstractMethods(this.name);
         if (abstractMethods.isEmpty()) return false; // Error obtaining abstract methods
 
         // Make sure all constructor arguments are used
@@ -56,7 +57,7 @@ public record FJClass(
 
         return abstractMethods.get().isEmpty()
             && (args.equals(usedArgs))
-            && this.methods.stream().allMatch(m -> m.typeCheck(typeTable, context, this.name));
+            && this.methods.stream().allMatch(m -> m.typeCheck(context, this.name));
     }
 
     @Override

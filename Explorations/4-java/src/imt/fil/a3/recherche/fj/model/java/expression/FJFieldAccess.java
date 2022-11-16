@@ -1,24 +1,21 @@
 package imt.fil.a3.recherche.fj.model.java.expression;
 
+import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.error.FieldNotFound;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
     @Override
-    public String getTypeName(
-        final TypeTable typeTable,
-        final HashMap<String, String> context
-    ) throws TypeError { // T-Field
-        final String typeName = this.object.getTypeName(typeTable, context);
+    public String getTypeName(final TypeCheckingContext context) throws TypeError { // T-Field
+        final String typeName = this.object.getTypeName(context);
 
-        final Optional<List<FJField>> fields = typeTable.classFields(typeName);
+        final Optional<List<FJField>> fields = context.typeTable.classFields(typeName);
         if (fields.isEmpty()) throw new ClassNotFound(typeName);
 
         // NOTE: `filter` iterates over all elements while we could abort sooner if a value is found.

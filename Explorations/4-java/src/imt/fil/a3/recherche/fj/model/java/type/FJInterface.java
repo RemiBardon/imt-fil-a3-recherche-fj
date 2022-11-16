@@ -1,12 +1,12 @@
 package imt.fil.a3.recherche.fj.model.java.type;
 
+import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.java.misc.FJMethod;
 import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
 import imt.fil.a3.recherche.fj.util.haskell.Haskell;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,12 +23,9 @@ public record FJInterface(
      *
      * @return {@code Boolean.TRUE} for a well-formed interface, {@code Boolean.FALSE} otherwise.
      */
-    public Boolean typeCheck(
-        final TypeTable typeTable,
-        final HashMap<String, String> context
-    ) {
-        return typeTable.abstractMethods(this.name).isPresent()
-            && this.defaultMethods.stream().allMatch(m -> m.typeCheck(typeTable, context, this.name));
+    public Boolean typeCheck(final TypeCheckingContext context) {
+        return context.typeTable.abstractMethods(this.name).isPresent()
+            && this.defaultMethods.stream().allMatch(m -> m.typeCheck(context, this.name));
     }
 
     @Override

@@ -1,9 +1,9 @@
 package imt.fil.a3.recherche.fj.model.java.expression;
 
+import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +16,7 @@ public interface FJExpr {
      *
      * @return The type of a given term or a type error.
      */
-    String getTypeName(
-        final TypeTable typeTable,
-        final HashMap<String, String> context
-    ) throws TypeError;
+    String getTypeName(final TypeCheckingContext context) throws TypeError;
 
     /**
      * Annotates the types for lambda expressions.

@@ -1,5 +1,6 @@
 package imt.fil.a3.recherche.fj.model.java.expression;
 
+import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.error.WrongCast;
@@ -8,7 +9,6 @@ import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
 import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,17 +17,14 @@ public record FJCast(
     FJExpr body
 ) implements FJExpr {
     @Override
-    public String getTypeName(
-        final TypeTable typeTable,
-        final HashMap<String, String> context
-    ) throws TypeError {
+    public String getTypeName(final TypeCheckingContext context) throws TypeError {
         if (this.body instanceof final FJLambda lambda) { // T-Lam
-            return lambda.getTypeName(typeTable, context, this.typeName);
+            return lambda.getTypeName(context, this.typeName);
         } else {
-            final String expectedTypeName = this.body.lambdaMark(this.typeName).getTypeName(typeTable, context);
+            final String expectedTypeName = this.body.lambdaMark(this.typeName).getTypeName(context);
 
-            final boolean expectedTypeIsType = typeTable.isSubtype(expectedTypeName, this.typeName);
-            final boolean typeIsExpectedType = typeTable.isSubtype(this.typeName, expectedTypeName);
+            final boolean expectedTypeIsType = context.typeTable.isSubtype(expectedTypeName, this.typeName);
+            final boolean typeIsExpectedType = context.typeTable.isSubtype(this.typeName, expectedTypeName);
 
             if ((expectedTypeIsType) // T-UCast
                 || (typeIsExpectedType && !this.typeName.equals(expectedTypeName)) // T-DCast

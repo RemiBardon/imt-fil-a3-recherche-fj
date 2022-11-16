@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/TypeTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../3-swift/Sources/FJ/V2/FJInterpreter.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../3-swift/Sources/FJ/V2/FJInterpreter.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/TypeCheckingContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/TypeTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/TypeTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJCast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJCast.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJCreateObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJCreateObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJExpr.java" afterDir="false" />
@@ -17,8 +17,6 @@
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/misc/FJMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/misc/FJMethod.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/type/FJType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/type/FJType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/util/FJUtils.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +30,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Record" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -52,7 +50,7 @@
     <setting file="file://$PROJECT_DIR$/src/imt/fil/a3/recherche/fj/model/java/expression/FJMethodInvocation.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="9" />
+    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -83,6 +81,7 @@
       <recent name="$PROJECT_DIR$/src/imt/fil/a3" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="imt.fil.a3.recherche.fj.model" />
       <recent name="imt.fil.a3.recherche.fj.model.java.misc" />
       <recent name="imt.fil.a3.recherche.fj.model.java" />
       <recent name="imt.fil.a3.recherche.fj.model.misc" />

@@ -1,20 +1,19 @@
 package imt.fil.a3.recherche.fj.model.java.expression;
 
+import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.error.WrongLambdaType;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     @Override
     public String getTypeName(
-        final TypeTable typeTable,
-        final HashMap<String, String> context
+        final TypeCheckingContext context
     ) throws TypeError {
         // Error: Lambda expression without a type
         throw new WrongLambdaType("None", this);
@@ -41,23 +40,18 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
         return Optional.of(this); // Do nothing
     }
 
-    public String getTypeName(
-        final TypeTable typeTable,
-        final HashMap<String, String> context,
-        final String returnType
-    ) throws TypeError {
-        HashMap<String, String> lambdaContext = new HashMap<>(context);
-        this.args.forEach(arg -> lambdaContext.putIfAbsent(arg.name(), arg.type()));
+    public String getTypeName(final TypeCheckingContext context, final String returnType) throws TypeError {
+        final TypeCheckingContext lambdaContext = context.with(this.args);
 
-        final Optional<List<FJSignature>> abstractMethods = typeTable.abstractMethods(returnType);
+        final Optional<List<FJSignature>> abstractMethods = context.typeTable.abstractMethods(returnType);
         // Lambdas have only one abstract method: themselves
         if (abstractMethods.isEmpty() || abstractMethods.get().size() != 1) {
             throw new WrongLambdaType(returnType, this);
         }
         final FJSignature method = abstractMethods.get().get(0);
 
-        final String expectedTypeName = this.lambdaMark(method.returnTypeName()).getTypeName(typeTable, lambdaContext);
-        final boolean returnTypeIsCorrect = typeTable.isSubtype(expectedTypeName, method.returnTypeName());
+        final String expectedTypeName = this.lambdaMark(method.returnTypeName()).getTypeName(lambdaContext);
+        final boolean returnTypeIsCorrect = context.typeTable.isSubtype(expectedTypeName, method.returnTypeName());
         final boolean argsTypesAreCorrect = method.args().get(0).equals(this.args.get(0));
 
         if (returnTypeIsCorrect && argsTypesAreCorrect) {

@@ -7,16 +7,17 @@ import imt.fil.a3.recherche.fj.model.java.type.FJType;
 import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
 import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public final class TypeTable {
     private final Map<String, FJType> typeTable;
 
     public TypeTable(final Map<String, FJType> typeTable) {
         this.typeTable = typeTable;
+    }
+
+    public TypeTable copy() {
+        return new TypeTable(new HashMap<>(this.typeTable));
     }
 
     public Boolean isSubtype(final String typeAName, final String typeBName) {

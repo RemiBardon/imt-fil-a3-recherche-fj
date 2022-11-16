@@ -1,5 +1,6 @@
 package imt.fil.a3.recherche.fj.model.java.expression;
 
+import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.error.ParamsTypeMismatch;
@@ -10,7 +11,6 @@ import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 import imt.fil.a3.recherche.fj.model.misc.TypeMismatch;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -20,11 +20,8 @@ public record FJCreateObject(
     List<FJExpr> args
 ) implements FJExpr {
     @Override
-    public String getTypeName(
-        final TypeTable typeTable,
-        final HashMap<String, String> context
-    ) throws TypeError { // T-New
-        final Optional<List<FJField>> fields = typeTable.classFields(this.className);
+    public String getTypeName(final TypeCheckingContext context) throws TypeError { // T-New
+        final Optional<List<FJField>> fields = context.typeTable.classFields(this.className);
         if (fields.isEmpty()) throw new ClassNotFound(this.className);
         if (this.args.size() != fields.get().size()) throw new ParamsTypeMismatch(new ArrayList<>());
 
@@ -39,11 +36,11 @@ public record FJCreateObject(
         for (final TypeMismatch tm : temp) {
             final String type;
             try {
-                type = tm.expression().getTypeName(typeTable, context);
+                type = tm.expression().getTypeName(context);
             } catch (TypeError e) {
                 throw new ParamsTypeMismatch(temp);
             }
-            if (!typeTable.isSubtype(type, tm.expectedTypeName())) {
+            if (!context.typeTable.isSubtype(type, tm.expectedTypeName())) {
                 throw new ParamsTypeMismatch(temp);
             }
         }
