@@ -1,6 +1,7 @@
 package imt.fil.a3.recherche.fj.util.builder.model.type;
 
-import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
+import imt.fil.a3.recherche.fj.model.java.misc.FJField;
+import imt.fil.a3.recherche.fj.model.java.misc.FJMethod;
 import imt.fil.a3.recherche.fj.model.java.type.FJClass;
 import imt.fil.a3.recherche.fj.util.builder.FJBuilder;
 import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
@@ -13,44 +14,59 @@ import java.util.List;
 import java.util.function.Function;
 
 public class FJClassBuilder implements FJBuilder<FJClass> {
-    private String name;
-    private String extendsName;
     private final List<String> implementsNames = new ArrayList<>();
     private final List<FJFieldBuilder> fields = new ArrayList<>();
     private final List<FJMethodBuilder> methods = new ArrayList<>();
+    private String name;
+    private String extendsName = "Object";
     private FJConstructorBuilder constructor;
 
     @Override
     public FJClass build() throws FJBuilderException {
-        throw new RuntimeException();
+        final List<FJField> fields = new ArrayList<>();
+        for (final FJFieldBuilder arg : this.fields) {
+            fields.add(arg.build());
+        }
+        final List<FJMethod> methods = new ArrayList<>();
+        for (final FJMethodBuilder method : this.methods) {
+            methods.add(method.build());
+        }
+        return new FJClass(
+            this.name,
+            this.extendsName,
+            this.implementsNames,
+            fields,
+            methods,
+            this.constructor.build()
+        );
     }
 
-    public FJClassBuilder name(String name){
+    public FJClassBuilder name(String name) {
         this.name = name;
         return this;
     }
 
-    public FJClassBuilder extendsName(String extendsName){
+    public FJClassBuilder extendsName(String extendsName) {
         this.extendsName = extendsName;
         return this;
     }
 
-    FJClassBuilder implement(String interfaceName) {
+    public FJClassBuilder implement(String interfaceName) {
         implementsNames.add(interfaceName);
         return this;
     }
 
-    FJClassBuilder field(Function<FJFieldBuilder, FJFieldBuilder> update) {
+    public FJClassBuilder field(Function<FJFieldBuilder, FJFieldBuilder> update) {
         fields.add(update.apply(new FJFieldBuilder()));
         return this;
     }
 
-    FJClassBuilder method(Function<FJMethodBuilder, FJMethodBuilder> update) {
+    public FJClassBuilder method(Function<FJMethodBuilder, FJMethodBuilder> update) {
         this.methods.add(update.apply(new FJMethodBuilder()));
         return this;
     }
 
-    FJClassBuilder constructor(Function<FJConstructorBuilder, FJConstructorBuilder> update) {
+    public FJClassBuilder constructor(Function<FJConstructorBuilder, FJConstructorBuilder> update) {
         this.constructor = new FJConstructorBuilder();
         update.apply(this.constructor);
         return this;

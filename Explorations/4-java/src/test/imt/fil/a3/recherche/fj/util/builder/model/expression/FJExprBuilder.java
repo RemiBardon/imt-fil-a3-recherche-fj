@@ -11,35 +11,35 @@ public final class FJExprBuilder implements FJBuilder<FJExpr> {
 
     @Override
     public FJExpr build() throws FJBuilderException {
-        return this.builder.build();
+        return builder.build();
     }
 
-    FJExprBuilder cast(Function<FJCastBuilder, FJCastBuilder> update) {
+    public FJExprBuilder cast(Function<FJCastBuilder, FJCastBuilder> update) {
         this.builder = update.apply(new FJCastBuilder());
         return this;
     }
 
-    FJExprBuilder createObject(Function<FJCreateObjectBuilder, FJCreateObjectBuilder> update) {
+    public FJExprBuilder createObject(Function<FJCreateObjectBuilder, FJCreateObjectBuilder> update) {
         this.builder = update.apply(new FJCreateObjectBuilder());
         return this;
     }
 
-    FJExprBuilder fieldAccess(Function<FJFieldAccessBuilder, FJFieldAccessBuilder> update) {
+    public FJExprBuilder fieldAccess(Function<FJFieldAccessBuilder, FJFieldAccessBuilder> update) {
         this.builder = update.apply(new FJFieldAccessBuilder());
         return this;
     }
 
-    FJExprBuilder lambda(Function<FJLambdaBuilder, FJLambdaBuilder> update) {
+    public FJExprBuilder lambda(Function<FJLambdaBuilder, FJLambdaBuilder> update) {
         this.builder = update.apply(new FJLambdaBuilder());
         return this;
     }
 
-    FJExprBuilder methodInvocation(Function<FJMethodInvocationBuilder, FJMethodInvocationBuilder> update) {
+    public FJExprBuilder methodInvocation(Function<FJMethodInvocationBuilder, FJMethodInvocationBuilder> update) {
         this.builder = update.apply(new FJMethodInvocationBuilder());
         return this;
     }
 
-    FJExprBuilder variable(Function<FJVariableBuilder, FJVariableBuilder> update) {
+    public FJExprBuilder variable(Function<FJVariableBuilder, FJVariableBuilder> update) {
         this.builder = update.apply(new FJVariableBuilder());
         return this;
     }

@@ -13,7 +13,7 @@ public final class FJMethodBuilder implements FJBuilder<FJMethod> {
 
     @Override
     public FJMethod build() throws FJBuilderException {
-        throw new RuntimeException();
+        return new FJMethod(this.signature.build(), this.body.build());
     }
 
     public FJMethodBuilder signature(Function<FJSignatureBuilder, FJSignatureBuilder> update) {

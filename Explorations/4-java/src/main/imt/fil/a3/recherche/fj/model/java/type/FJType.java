@@ -1,5 +1,6 @@
 package imt.fil.a3.recherche.fj.model.java.type;
 
+import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.java.misc.FJMethod;
@@ -9,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FJType {
+    public Boolean typeCheck(final TypeCheckingContext context);
+
     Boolean isSubtype(final TypeTable typeTable, final String otherTypeName);
 
     default Optional<List<FJField>> classFields(final TypeTable typeTable) {

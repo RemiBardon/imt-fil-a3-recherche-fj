@@ -10,15 +10,15 @@ public final class FJFieldBuilder implements FJBuilder<FJField> {
 
     @Override
     public FJField build() throws FJBuilderException {
-        throw new RuntimeException();
+        return new FJField(this.type, this.name);
     }
 
-    public FJFieldBuilder name(String name){
+    public FJFieldBuilder name(String name) {
         this.name = name;
         return this;
     }
 
-    public FJFieldBuilder type(String type){
+    public FJFieldBuilder type(String type) {
         this.type = type;
         return this;
     }

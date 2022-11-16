@@ -1,5 +1,6 @@
 package imt.fil.a3.recherche.fj.util.builder.model.type;
 
+import imt.fil.a3.recherche.fj.model.java.misc.FJMethod;
 import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
 import imt.fil.a3.recherche.fj.model.java.type.FJInterface;
 import imt.fil.a3.recherche.fj.util.builder.FJBuilder;
@@ -12,39 +13,40 @@ import java.util.List;
 import java.util.function.Function;
 
 public class FJInterfaceBuilder implements FJBuilder<FJInterface> {
-
+    private final List<String> extendsNames = new ArrayList<>();
+    private final List<FJSignatureBuilder> signatures = new ArrayList<>();
+    private final List<FJMethodBuilder> defaultMethods = new ArrayList<>();
     private String name;
-    private List<String> extendsNames = new ArrayList<>();
-    private List<FJMethodBuilder> methods = new ArrayList<>();
-    private List<FJSignatureBuilder> signatures = new ArrayList<>();
-    private List<FJMethodBuilder> defaultMethods = new ArrayList<>();
 
     @Override
     public FJInterface build() throws FJBuilderException {
-        throw new RuntimeException();
+        final List<FJSignature> signatures = new ArrayList<>();
+        for (final FJSignatureBuilder s : this.signatures) {
+            signatures.add(s.build());
+        }
+        final List<FJMethod> defaultMethods = new ArrayList<>();
+        for (final FJMethodBuilder method : this.defaultMethods) {
+            defaultMethods.add(method.build());
+        }
+        return new FJInterface(this.name, this.extendsNames, signatures, defaultMethods);
     }
 
-    public FJInterfaceBuilder name(String name){
+    public FJInterfaceBuilder name(String name) {
         this.name = name;
         return this;
     }
 
-    public FJInterfaceBuilder extendsName(List<String> extendsNames){
-        this.extendsNames = extendsNames;
+    public FJInterfaceBuilder extendsName(String extendsName) {
+        this.extendsNames.add(extendsName);
         return this;
     }
 
-    public FJInterfaceBuilder method(Function<FJMethodBuilder, FJMethodBuilder> method){
-        this.methods.add(method.apply(new FJMethodBuilder()));
-        return this;
-    }
-
-    public FJInterfaceBuilder signature(Function<FJSignatureBuilder, FJSignatureBuilder> signature){
+    public FJInterfaceBuilder signature(Function<FJSignatureBuilder, FJSignatureBuilder> signature) {
         this.signatures.add(signature.apply(new FJSignatureBuilder()));
         return this;
     }
 
-    public FJInterfaceBuilder defaultMethod(Function<FJMethodBuilder, FJMethodBuilder> defaultMethod){
+    public FJInterfaceBuilder defaultMethod(Function<FJMethodBuilder, FJMethodBuilder> defaultMethod) {
         this.defaultMethods.add(defaultMethod.apply(new FJMethodBuilder()));
         return this;
     }

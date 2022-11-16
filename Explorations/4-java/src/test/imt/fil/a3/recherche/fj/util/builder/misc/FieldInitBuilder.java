@@ -1,6 +1,5 @@
 package imt.fil.a3.recherche.fj.util.builder.misc;
 
-import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
 import imt.fil.a3.recherche.fj.model.misc.FieldInit;
 import imt.fil.a3.recherche.fj.util.builder.FJBuilder;
 import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;

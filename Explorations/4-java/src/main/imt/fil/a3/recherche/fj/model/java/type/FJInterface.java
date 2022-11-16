@@ -13,16 +13,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public record FJInterface(
-    String name, List<String> extendsNames,
-    List<FJMethod> methods,
+    String name,
+    List<String> extendsNames,
     List<FJSignature> signatures,
     List<FJMethod> defaultMethods
 ) implements FJType {
-    /**
-     * Checks if an interface is well-formed.
-     *
-     * @return {@code Boolean.TRUE} for a well-formed interface, {@code Boolean.FALSE} otherwise.
-     */
+
+    @Override
     public Boolean typeCheck(final TypeCheckingContext context) {
         return context.typeTable.abstractMethods(this.name).isPresent()
             && this.defaultMethods.stream().allMatch(m -> m.typeCheck(context, this.name));

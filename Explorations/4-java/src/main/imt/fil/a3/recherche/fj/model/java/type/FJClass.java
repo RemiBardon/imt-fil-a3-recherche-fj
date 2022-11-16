@@ -24,11 +24,8 @@ public record FJClass(
     List<FJMethod> methods,
     FJConstructor constructor
 ) implements FJType {
-    /**
-     * Checks if a class is well-formed.
-     *
-     * @return {@code Boolean.TRUE} for a well-formed class, {@code Boolean.FALSE} otherwise.
-     */
+
+    @Override
     public Boolean typeCheck(final TypeCheckingContext context) {
         final FJConstructor constructor = this.constructor;
 
