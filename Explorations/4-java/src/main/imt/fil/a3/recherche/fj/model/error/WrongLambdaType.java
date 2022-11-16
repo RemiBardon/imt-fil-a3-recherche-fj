@@ -10,4 +10,9 @@ public final class WrongLambdaType extends TypeError {
         this.targetTypeName = targetTypeName;
         this.lambda = lambda;
     }
+
+    @Override
+    public String getMessage() {
+        return "Incorrect lambda return type (expected `" + this.targetTypeName + "`).";
+    }
 }

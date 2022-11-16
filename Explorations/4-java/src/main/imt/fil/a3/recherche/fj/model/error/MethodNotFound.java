@@ -8,4 +8,9 @@ public final class MethodNotFound extends TypeError {
         this.name = name;
         this.returnTypeName = returnTypeName;
     }
+
+    @Override
+    public String getMessage() {
+        return "Method `" + this.name + "` not found.";
+    }
 }

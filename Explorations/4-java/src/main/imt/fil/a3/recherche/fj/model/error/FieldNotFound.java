@@ -6,4 +6,9 @@ public final class FieldNotFound extends TypeError {
     public FieldNotFound(String name) {
         this.name = name;
     }
+
+    @Override
+    public String getMessage() {
+        return "Field `" + this.name + "` not found.";
+    }
 }

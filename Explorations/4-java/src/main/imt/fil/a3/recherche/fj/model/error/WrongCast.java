@@ -10,4 +10,9 @@ public final class WrongCast extends TypeError {
         this.castType = castType;
         this.expression = expression;
     }
+
+    @Override
+    public String getMessage() {
+        return "Expression cannot be casted to `" + this.castType + "`.";
+    }
 }

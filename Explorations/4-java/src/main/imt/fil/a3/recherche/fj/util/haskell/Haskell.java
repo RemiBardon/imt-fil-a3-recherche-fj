@@ -10,20 +10,20 @@ public final class Haskell {
     /**
      * Translation of <a href="https://hackage.haskell.org/package/base-4.14.1.0/docs/Data-List.html#v:union">Haskell's union function</a>.
      */
-    public static <E> Stream<E> union(Stream<E> a, Stream<E> b) {
+    public static <E> List<E> union(List<E> a, List<E> b) {
         return union(a, b, E::equals);
     }
 
     /**
      * Translation of <a href="https://hackage.haskell.org/package/base-4.14.1.0/docs/Data-List.html#v:unionBy">Haskell's unionBy function</a>.
      */
-    public static <E> Stream<E> union(Stream<E> a, Stream<E> b, BiPredicate<E, E> predicate) {
+    public static <E> List<E> union(List<E> a, List<E> b, BiPredicate<E, E> predicate) {
         // > Duplicates are removed from the the second list
-        List<E> b1 = b.distinct().collect(Collectors.toList());
+        List<E> b1 = b.stream().distinct().collect(Collectors.toList());
         // > elements of the first list are removed from the the second list
-        a.distinct().forEach(e1 -> b1.removeIf(e2 -> predicate.test(e1, e2)));
+        a.stream().distinct().forEach(e1 -> b1.removeIf(e2 -> predicate.test(e1, e2)));
         // > if the first list contains duplicates, so will the result
-        return Stream.concat(a, b1.stream());
+        return Stream.concat(a.stream(), b1.stream()).toList();
     }
 
     /**

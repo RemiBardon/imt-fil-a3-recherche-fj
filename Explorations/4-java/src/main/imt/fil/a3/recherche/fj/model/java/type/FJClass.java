@@ -24,25 +24,40 @@ public record FJClass(
     List<FJMethod> methods,
     FJConstructor constructor
 ) implements FJType {
-
     @Override
     public Boolean typeCheck(final TypeCheckingContext context) {
         final FJConstructor constructor = this.constructor;
 
         // Get superclass fields or return false if not found.
         Optional<List<FJField>> superFields = context.typeTable.classFields(this.extendsName);
-        if (superFields.isEmpty()) return false;
+        if (superFields.isEmpty()) {
+            TypeCheckingContext.logger.info("Superclass fields not found.");
+            return false;
+        }
 
         // Make sure all fields are passed to the constructor.
         List<FJField> allFields = Stream.concat(superFields.get().stream(), this.fields.stream())
             .collect(Collectors.toList());
-        if (!constructor.args().equals(allFields)) return false;
+        if (!constructor.args().equals(allFields)) {
+            TypeCheckingContext.logger.info("Not all fields are passed to the constructor.");
+            return false;
+        }
 
         // Make sure constructor argument names match field names.
-        if (constructor.fieldInits().stream().anyMatch(f -> !f.fieldName().equals(f.argumentName()))) return false;
+        if (constructor.fieldInits().stream().anyMatch(f -> !f.fieldName().equals(f.argumentName()))) {
+            TypeCheckingContext.logger.info("Constructor argument names do not match field names.");
+            return false;
+        }
 
         final Optional<List<FJSignature>> abstractMethods = context.typeTable.abstractMethods(this.name);
-        if (abstractMethods.isEmpty()) return false; // Error obtaining abstract methods
+        if (abstractMethods.isEmpty()) {
+            TypeCheckingContext.logger.info("Error obtaining abstract methods.");
+            return false;
+        }
+        if (!abstractMethods.get().isEmpty()) {
+            TypeCheckingContext.logger.info("Not all abstract methods are implemented.");
+            return false;
+        }
 
         // Make sure all constructor arguments are used
         final List<String> args = constructor.args().stream().map(FJField::name)
@@ -51,10 +66,18 @@ public record FJClass(
             constructor.superArgs().stream(),
             constructor.fieldInits().stream().map(FieldInit::fieldName)
         ).collect(Collectors.toList());
+        if (!args.equals(usedArgs)) {
+            TypeCheckingContext.logger.info("Not all constructor arguments are used.");
+            return false;
+        }
 
-        return abstractMethods.get().isEmpty()
-            && (args.equals(usedArgs))
-            && this.methods.stream().allMatch(m -> m.typeCheck(context, this.name));
+        final boolean methodsAreTypedCorrectly = this.methods.stream().allMatch(m -> m.typeCheck(context, this.name));
+        if (!methodsAreTypedCorrectly) {
+            TypeCheckingContext.logger.info("Methods are not correctly typed.");
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -79,53 +102,53 @@ public record FJClass(
     @Override
     public Optional<List<FJSignature>> abstractMethods(final TypeTable typeTable) {
         return typeTable.abstractMethods(this.extendsName).map(superAbstractMethods -> {
-            final Stream<FJSignature> implementsAbstractMethods = this.implementsNames.stream()
-                .flatMap(t -> typeTable.abstractMethods(t).orElse(Collections.emptyList()).stream());
+            final List<FJSignature> implementsAbstractMethods = this.implementsNames.stream()
+                .flatMap(t -> typeTable.abstractMethods(t).orElse(Collections.emptyList()).stream())
+                .toList();
 
-            final Stream<FJSignature> abstractMethods = Haskell.union(
-                superAbstractMethods.stream(),
+            final List<FJSignature> abstractMethods = Haskell.union(
+                superAbstractMethods,
                 implementsAbstractMethods,
                 (s1, s2) -> s1.name().equals(s2.name())
             );
 
-            final Stream<FJSignature> concreteMethods;
+            final List<FJSignature> concreteMethods;
             final Optional<List<FJMethod>> superMethods = typeTable.methods(this.extendsName);
             if (superMethods.isPresent()) {
                 final Optional<List<FJMethod>> methods = typeTable.methods(this.name);
-                // noinspection OptionalIsPresent
                 if (methods.isPresent()) {
                     concreteMethods = Haskell.union(
-                        superMethods.get().stream().map(FJMethod::signature),
-                        methods.get().stream().map(FJMethod::signature),
+                        superMethods.get().stream().map(FJMethod::signature).toList(),
+                        methods.get().stream().map(FJMethod::signature).toList(),
                         (s1, s2) -> s1.name().equals(s2.name())
                     );
                 } else {
-                    concreteMethods = superMethods.get().stream().map(FJMethod::signature);
+                    concreteMethods = superMethods.get().stream().map(FJMethod::signature).toList();
                 }
             } else {
-                concreteMethods = Stream.empty();
+                concreteMethods = Collections.emptyList();
             }
 
-            return Haskell.difference(abstractMethods.toList(), concreteMethods.toList());
+            return Haskell.difference(abstractMethods, concreteMethods);
         });
     }
 
     @Override
     public Optional<List<FJMethod>> methods(final TypeTable typeTable) {
         return typeTable.methods(this.extendsName).map(superMethods -> {
-            final Stream<FJMethod> thisPlusSuperMethods = Haskell.union(
-                this.methods.stream(),
-                superMethods.stream(),
+            final List<FJMethod> thisPlusSuperMethods = Haskell.union(
+                this.methods,
+                superMethods,
                 FJMethod::signatureEquals
             );
-            final Stream<FJMethod> interfacesMethods = this.implementsNames.stream()
-                .flatMap(t -> typeTable.methods(t).orElse(Collections.emptyList()).stream());
-            final Stream<FJMethod> allMethods = Haskell.union(
+            final List<FJMethod> interfacesMethods = this.implementsNames.stream()
+                .flatMap(t -> typeTable.methods(t).orElse(Collections.emptyList()).stream())
+                .toList();
+            return Haskell.union(
                 thisPlusSuperMethods,
                 interfacesMethods,
                 FJMethod::signatureEquals
             );
-            return allMethods.collect(Collectors.toList());
         });
     }
 }

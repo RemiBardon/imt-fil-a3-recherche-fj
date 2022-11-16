@@ -6,8 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 public final class TypeCheckingContext {
+    public final static Logger logger = Logger.getLogger("imt.fil.a3.recherche.fj.type-checker");
+
     public final TypeTable typeTable;
     private final Map<String, String> context;
 

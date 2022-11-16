@@ -6,4 +6,9 @@ public final class ClassNotFound extends TypeError {
     public ClassNotFound(String name) {
         this.name = name;
     }
+
+    @Override
+    public String getMessage() {
+        return "Class `" + this.name + "` not found.";
+    }
 }

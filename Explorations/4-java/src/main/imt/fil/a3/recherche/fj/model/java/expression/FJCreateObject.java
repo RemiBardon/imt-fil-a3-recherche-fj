@@ -2,8 +2,9 @@ package imt.fil.a3.recherche.fj.model.java.expression;
 
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
+import imt.fil.a3.recherche.fj.model.error.ArgTypeMismatch;
+import imt.fil.a3.recherche.fj.model.error.ArgsTypesMismatch;
 import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
-import imt.fil.a3.recherche.fj.model.error.ParamsTypeMismatch;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
@@ -23,7 +24,9 @@ public record FJCreateObject(
     public String getTypeName(final TypeCheckingContext context) throws TypeError { // T-New
         final Optional<List<FJField>> fields = context.typeTable.classFields(this.className);
         if (fields.isEmpty()) throw new ClassNotFound(this.className);
-        if (this.args.size() != fields.get().size()) throw new ParamsTypeMismatch(new ArrayList<>());
+        if (this.args.size() != fields.get().size()) {
+            throw new ArgsTypesMismatch(fields.get().stream().map(FJField::type).toList(), this.args, context);
+        }
 
         var temp = new ArrayList<TypeMismatch>();
         for (int i = 0; i < this.args.size(); i++) {
@@ -34,14 +37,9 @@ public record FJCreateObject(
 
         // Check object creation arguments typing
         for (final TypeMismatch tm : temp) {
-            final String type;
-            try {
-                type = tm.expression().getTypeName(context);
-            } catch (TypeError e) {
-                throw new ParamsTypeMismatch(temp);
-            }
+            final String type = tm.expression().getTypeName(context);
             if (!context.typeTable.isSubtype(type, tm.expectedTypeName())) {
-                throw new ParamsTypeMismatch(temp);
+                throw new ArgTypeMismatch(tm.expectedTypeName(), type);
             }
         }
 

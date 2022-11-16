@@ -2,8 +2,9 @@ package imt.fil.a3.recherche.fj.model.java.expression;
 
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
+import imt.fil.a3.recherche.fj.model.error.ArgTypeMismatch;
+import imt.fil.a3.recherche.fj.model.error.ArgsTypesMismatch;
 import imt.fil.a3.recherche.fj.model.error.MethodNotFound;
-import imt.fil.a3.recherche.fj.model.error.ParamsTypeMismatch;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 import imt.fil.a3.recherche.fj.model.misc.TypeMismatch;
@@ -26,7 +27,9 @@ public record FJMethodInvocation(
         if (methodTypeSignature.isEmpty()) throw new MethodNotFound(this.methodName, typeName);
         final List<String> parameterTypes = methodTypeSignature.get().parameterTypeNames();
 
-        if (this.args.size() != parameterTypes.size()) throw new ParamsTypeMismatch(new ArrayList<>());
+        if (this.args.size() != parameterTypes.size()) {
+            throw new ArgsTypesMismatch(parameterTypes, this.args, context);
+        }
 
         var temp = new ArrayList<TypeMismatch>();
         for (int i = 0; i < this.args.size(); i++) {
@@ -37,14 +40,9 @@ public record FJMethodInvocation(
 
         // Check method invocation arguments typing
         for (final TypeMismatch tm : temp) {
-            final String type;
-            try {
-                type = tm.expression().getTypeName(context);
-            } catch (TypeError e) {
-                throw new ParamsTypeMismatch(temp);
-            }
+            final String type = tm.expression().getTypeName(context);
             if (!context.typeTable.isSubtype(type, tm.expectedTypeName())) {
-                throw new ParamsTypeMismatch(temp);
+                throw new ArgTypeMismatch(tm.expectedTypeName(), type);
             }
         }
 

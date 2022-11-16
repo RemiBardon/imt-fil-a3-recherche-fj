@@ -4,7 +4,6 @@ import imt.fil.a3.recherche.fj.model.java.misc.FJConstructor;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.misc.FieldInit;
 import imt.fil.a3.recherche.fj.util.builder.FJBuilder;
-import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
 import imt.fil.a3.recherche.fj.util.builder.misc.FieldInitBuilder;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public final class FJConstructorBuilder implements FJBuilder<FJConstructor> {
     private String name;
 
     @Override
-    public FJConstructor build() throws FJBuilderException {
+    public FJConstructor build() {
         final List<FJField> args = new ArrayList<>();
         for (final FJFieldBuilder arg : this.args) {
             args.add(arg.build());

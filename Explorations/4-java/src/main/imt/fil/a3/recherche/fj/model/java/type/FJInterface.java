@@ -9,8 +9,6 @@ import imt.fil.a3.recherche.fj.util.haskell.Haskell;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public record FJInterface(
     String name,
@@ -18,11 +16,22 @@ public record FJInterface(
     List<FJSignature> signatures,
     List<FJMethod> defaultMethods
 ) implements FJType {
-
     @Override
     public Boolean typeCheck(final TypeCheckingContext context) {
-        return context.typeTable.abstractMethods(this.name).isPresent()
-            && this.defaultMethods.stream().allMatch(m -> m.typeCheck(context, this.name));
+        final var abstractMethods = context.typeTable.abstractMethods(this.name);
+        if (abstractMethods.isEmpty()) {
+            TypeCheckingContext.logger.warning("Interface not found in the type table.");
+            return false;
+        }
+        if (abstractMethods.get().isEmpty()) {
+            TypeCheckingContext.logger.info("The interface does not have any abstract method.");
+            return false;
+        }
+        if (!this.defaultMethods.stream().allMatch(m -> m.typeCheck(context, this.name))) {
+            TypeCheckingContext.logger.info("Not all default methods are correctly typed.");
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -33,27 +42,29 @@ public record FJInterface(
 
     @Override
     public Optional<List<FJSignature>> abstractMethods(final TypeTable typeTable) {
-        final Stream<FJSignature> superAbstractMethods = this.extendsNames.stream()
-            .flatMap(i -> typeTable.abstractMethods(i).orElse(Collections.emptyList()).stream());
+        final List<FJSignature> superAbstractMethods = this.extendsNames.stream()
+            .flatMap(i -> typeTable.abstractMethods(i).orElse(Collections.emptyList()).stream())
+            .toList();
 
-        final Stream<FJSignature> abstractMethods = Haskell.union(
-            this.signatures.stream(),
+        final List<FJSignature> abstractMethods = Haskell.union(
+            this.signatures,
             superAbstractMethods,
             (s1, s2) -> s1.name().equals(s2.name())
         );
 
-        return Optional.of(abstractMethods.collect(Collectors.toList()));
+        return Optional.of(abstractMethods);
     }
 
     @Override
     public Optional<List<FJMethod>> methods(final TypeTable typeTable) {
-        final Stream<FJMethod> superMethods = this.extendsNames.stream()
-            .flatMap(i -> typeTable.methods(i).orElse(Collections.emptyList()).stream());
-        final Stream<FJMethod> methods = Haskell.union(
-            this.defaultMethods.stream(),
+        final List<FJMethod> superMethods = this.extendsNames.stream()
+            .flatMap(i -> typeTable.methods(i).orElse(Collections.emptyList()).stream())
+            .toList();
+        final List<FJMethod> methods = Haskell.union(
+            this.defaultMethods,
             superMethods,
             FJMethod::signatureEquals
         );
-        return Optional.of(methods.collect(Collectors.toList()));
+        return Optional.of(methods);
     }
 }

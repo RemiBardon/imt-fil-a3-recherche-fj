@@ -29,7 +29,7 @@ public final class TypeTable {
     public Optional<List<FJField>> classFields(
         final String typeName
     ) {
-        if (typeName.equals("Object")) return Optional.empty();
+        if (typeName.equals("Object")) return Optional.of(Collections.emptyList());
         if (!this.typeTable.containsKey(typeName)) return Optional.empty();
         return this.typeTable.get(typeName).classFields(this);
     }

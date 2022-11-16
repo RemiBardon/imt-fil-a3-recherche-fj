@@ -3,7 +3,6 @@ package imt.fil.a3.recherche.fj.util.builder.model.misc;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
 import imt.fil.a3.recherche.fj.util.builder.FJBuilder;
-import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ public class FJSignatureBuilder implements FJBuilder<FJSignature> {
     private String name;
 
     @Override
-    public FJSignature build() throws FJBuilderException {
+    public FJSignature build() {
         final List<FJField> args = new ArrayList<>();
         for (final FJFieldBuilder arg : this.args) {
             args.add(arg.build());

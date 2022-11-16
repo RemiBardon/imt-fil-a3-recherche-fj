@@ -34,13 +34,31 @@ public record FJMethod(FJSignature signature, FJExpr body) {
         try {
             expectedReturnTypeName = this.body.lambdaMark(this.signature.returnTypeName()).getTypeName(methodContext);
         } catch (TypeError e) {
-            return false; // Error obtaining type of expression
+            TypeCheckingContext.logger.warning("Error obtaining type of expression: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+        final boolean returnTypeIsCorrect = context.typeTable
+            .isSubtype(expectedReturnTypeName, this.signature.returnTypeName());
+        if (!returnTypeIsCorrect) {
+            TypeCheckingContext.logger.info("Method return type is incorrect.");
+            return false;
         }
 
         final Optional<List<FJMethod>> methods = context.typeTable.methods(expectedReturnTypeName);
-        if (methods.isEmpty()) return false; // Error obtaining methods
-        return context.typeTable.isSubtype(expectedReturnTypeName, this.signature.returnTypeName())
-            && methods.get().contains(this);
+        if (methods.isEmpty()) {
+            TypeCheckingContext.logger.warning("Error obtaining methods.");
+            return false;
+        }
+        if (!methods.get().contains(this)) {
+            TypeCheckingContext.logger.info(
+                "Type `" + this.signature.returnTypeName()
+                    + "` has no method called `" + this.signature.name() + "`."
+            );
+            return false;
+        }
+
+        return true;
     }
 
     // NOTE: This warning is a bogus, the method is used, through a reference.

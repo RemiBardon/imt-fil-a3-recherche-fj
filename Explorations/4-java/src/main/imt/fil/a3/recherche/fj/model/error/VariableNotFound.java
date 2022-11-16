@@ -6,4 +6,9 @@ public final class VariableNotFound extends TypeError {
     public VariableNotFound(String name) {
         this.name = name;
     }
+
+    @Override
+    public String getMessage() {
+        return "Variable `" + this.name + "` not found.";
+    }
 }
