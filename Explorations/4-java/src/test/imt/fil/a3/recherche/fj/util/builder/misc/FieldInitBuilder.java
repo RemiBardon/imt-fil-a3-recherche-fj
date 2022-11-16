@@ -10,7 +10,7 @@ public class FieldInitBuilder implements FJBuilder<FieldInit> {
 
     @Override
     public FieldInit build() throws FJBuilderException {
-        throw new RuntimeException();
+        return new FieldInit(this.fieldName, this.argumentName);
     }
 
     public FieldInitBuilder fieldName(String fieldName) {

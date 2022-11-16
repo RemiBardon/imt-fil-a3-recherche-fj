@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.function.Function;
 
 public class FJProgramBuilder implements FJBuilder<FJProgram> {
-    private List<FJClassBuilder> classes;
-    private List<FJInterfaceBuilder> interfaces;
+    private final List<FJClassBuilder> classes = new ArrayList<>();
+    private final List<FJInterfaceBuilder> interfaces = new ArrayList<>();
 
     @Override
     public FJProgram build() throws FJBuilderException {

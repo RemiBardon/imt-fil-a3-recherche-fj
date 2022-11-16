@@ -5,32 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/misc/FieldInitBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/misc/FieldInitBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJCastBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJCastBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJCreateObjectBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJCreateObjectBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJFieldAccessBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJFieldAccessBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJLambdaBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJLambdaBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJMethodInvocationBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJMethodInvocationBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJVariableBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJVariableBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/IFJExprBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/IFJExprBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJConstructorBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJConstructorBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJFieldBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJFieldBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJMethodBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJMethodBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJSignatureBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJSignatureBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJClassBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJClassBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJInterfaceBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJInterfaceBuilder.java" afterDir="false" />
     </list>
     <list id="805de80f-515c-456c-81e5-b9c1d29206d1" name="Changes by lucas" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJProgram.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/FJProgramBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/FJProgramBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJClassBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJClassBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,39 +43,6 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJMethodInvocation.java" root0="SKIP_INSPECTION" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java">
-      <ranges>
-        <range start1="15" end1="17" start2="15" end2="17" changelist="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" />
-        <range start1="20" end1="25" start2="20" end2="22" changelist="805de80f-515c-456c-81e5-b9c1d29206d1" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJClassBuilder.java">
-      <ranges>
-        <range start1="2" end1="3" start2="2" end2="4" changelist="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" />
-        <range start1="15" end1="17" start2="16" end2="16" changelist="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" />
-        <range start1="20" end1="20" start2="19" end2="21" changelist="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" />
-        <range start1="24" end1="25" start2="25" end2="41" changelist="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" />
-        <range start1="27" end1="28" start2="43" end2="44" changelist="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" />
-        <range start1="32" end1="33" start2="48" end2="49" changelist="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" />
-        <range start1="37" end1="38" start2="53" end2="54" changelist="805de80f-515c-456c-81e5-b9c1d29206d1" />
-        <range start1="42" end1="43" start2="58" end2="59" changelist="805de80f-515c-456c-81e5-b9c1d29206d1" />
-        <range start1="47" end1="48" start2="63" end2="64" changelist="805de80f-515c-456c-81e5-b9c1d29206d1" />
-        <range start1="52" end1="53" start2="68" end2="69" changelist="805de80f-515c-456c-81e5-b9c1d29206d1" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java">
-      <ranges>
-        <range start1="13" end1="14" start2="13" end2="14" changelist="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" />
-        <range start1="16" end1="17" start2="16" end2="17" changelist="805de80f-515c-456c-81e5-b9c1d29206d1" />
-        <range start1="21" end1="22" start2="21" end2="22" changelist="805de80f-515c-456c-81e5-b9c1d29206d1" />
-        <range start1="26" end1="27" start2="26" end2="27" changelist="805de80f-515c-456c-81e5-b9c1d29206d1" />
-        <range start1="31" end1="32" start2="31" end2="32" changelist="805de80f-515c-456c-81e5-b9c1d29206d1" />
-        <range start1="36" end1="37" start2="36" end2="37" changelist="805de80f-515c-456c-81e5-b9c1d29206d1" />
-        <range start1="41" end1="42" start2="41" end2="42" changelist="805de80f-515c-456c-81e5-b9c1d29206d1" />
-      </ranges>
-    </file>
-  </component>
   <component name="ProblemsViewState">
     <option name="selectedIndex" value="2" />
   </component>
@@ -120,7 +67,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.spelling" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
     <property name="settings.editor.splitter.proportion" value="0.22880659" />
   </component>
   <component name="RecentsManager">
@@ -136,6 +83,20 @@
       <recent name="imt.fil.a3.recherche.fj.model.misc" />
       <recent name="imt.fil.a3.recherche.fj.util" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="FJTests" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.FJTests" />
+      <module name="4-java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.FJTests" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
