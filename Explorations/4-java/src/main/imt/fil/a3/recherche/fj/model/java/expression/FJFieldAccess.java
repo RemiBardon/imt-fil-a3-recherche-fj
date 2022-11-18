@@ -12,8 +12,8 @@ import java.util.Optional;
 
 public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
     @Override
-    public String getTypeName(final TypeCheckingContext context) throws TypeError { // T-Field
-        final String typeName = this.object.getTypeName(context);
+    public String getTypeNameApproach2(final TypeCheckingContext context) throws TypeError { // T-Field
+        final String typeName = this.object.getTypeNameApproach2(context);
 
         final Optional<List<FJField>> fields = context.typeTable.classFields(typeName);
         if (fields.isEmpty()) throw new ClassNotFound(typeName);
@@ -39,7 +39,7 @@ public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
     public Boolean isValue() { return false; }
 
     @Override
-    public Optional<FJExpr> _eval(final TypeTable typeTable) {
+    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) {
         if (this.object.isValue()) { // R-Field
             if (this.object instanceof final FJCreateObject createObject) {
                 final Optional<List<FJField>> _fields = typeTable.classFields(createObject.className());
@@ -62,13 +62,13 @@ public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
                 return Optional.empty(); // Not an object instance
             }
         } else { // RC-Field
-            return this.object._eval(typeTable).map(e -> new FJFieldAccess(e, this.fieldName));
+            return this.object._evalApproach2(typeTable).map(e -> new FJFieldAccess(e, this.fieldName));
         }
     }
 
     @Override
-    public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
-        return this.object.substitute(parameterNames, args)
+    public Optional<FJExpr> substituteApproach2(final List<String> parameterNames, final List<FJExpr> args) {
+        return this.object.substituteApproach2(parameterNames, args)
             .map(e -> new FJFieldAccess(e, this.fieldName));
     }
 }

@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     @Override
-    public String getTypeName(
+    public String getTypeNameApproach2(
         final TypeCheckingContext context
     ) throws TypeError {
         // Error: Lambda expression without a type
@@ -33,10 +33,10 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     public Boolean isValue() { return true; }
 
     @Override
-    public Optional<FJExpr> _eval(TypeTable typeTable) { return Optional.of(this); }
+    public Optional<FJExpr> _evalApproach2(TypeTable typeTable) { return Optional.of(this); }
 
     @Override
-    public Optional<FJExpr> substitute(List<String> parameterNames, List<FJExpr> args) {
+    public Optional<FJExpr> substituteApproach2(List<String> parameterNames, List<FJExpr> args) {
         return Optional.of(this); // Do nothing
     }
 
@@ -50,7 +50,7 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
         }
         final FJSignature method = abstractMethods.get().get(0);
 
-        final String expectedTypeName = this.lambdaMark(method.returnTypeName()).getTypeName(lambdaContext);
+        final String expectedTypeName = this.lambdaMark(method.returnTypeName()).getTypeNameApproach2(lambdaContext);
         final boolean returnTypeIsCorrect = context.typeTable.isSubtype(expectedTypeName, method.returnTypeName());
         final boolean argsTypesAreCorrect = method.args().get(0).equals(this.args.get(0));
 

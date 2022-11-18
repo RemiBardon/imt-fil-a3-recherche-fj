@@ -25,7 +25,7 @@ public record FJClass(
     FJConstructor constructor
 ) implements FJType {
     @Override
-    public Boolean typeCheck(final TypeCheckingContext context) {
+    public Boolean typeCheckApproach2(final TypeCheckingContext context) {
         final FJConstructor constructor = this.constructor;
 
         // Get superclass fields or return false if not found.
@@ -71,7 +71,7 @@ public record FJClass(
             return false;
         }
 
-        final boolean methodsAreTypedCorrectly = this.methods.stream().allMatch(m -> m.typeCheck(context, this.name));
+        final boolean methodsAreTypedCorrectly = this.methods.stream().allMatch(m -> m.typeCheckApproach2(context, this.name));
         if (!methodsAreTypedCorrectly) {
             TypeCheckingContext.logger.info("Methods are not correctly typed.");
             return false;

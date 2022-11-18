@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public record FJProgram(List<FJType> types) {
-    public Boolean typeCheck(final TypeCheckingContext context) {
-        return this.types.stream().allMatch(type -> type.typeCheck(context));
+    public Boolean typeCheckApproach2(final TypeCheckingContext context) {
+        return this.types.stream().allMatch(type -> type.typeCheckApproach2(context));
     }
 
     public TypeTable getTypeTable() {

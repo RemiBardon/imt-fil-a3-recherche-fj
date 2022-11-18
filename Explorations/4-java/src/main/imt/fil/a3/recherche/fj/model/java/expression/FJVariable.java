@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public record FJVariable(String name) implements FJExpr {
     @Override
-    public String getTypeName(final TypeCheckingContext context) throws TypeError { // T-Var
+    public String getTypeNameApproach2(final TypeCheckingContext context) throws TypeError { // T-Var
         final Optional<String> typeName = context.typeName(this.name);
         if (typeName.isPresent()) {
             return typeName.get();
@@ -26,10 +26,10 @@ public record FJVariable(String name) implements FJExpr {
     public Boolean isValue() { return false; }
 
     @Override
-    public Optional<FJExpr> _eval(final TypeTable typeTable) { return Optional.empty(); }
+    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) { return Optional.empty(); }
 
     @Override
-    public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
+    public Optional<FJExpr> substituteApproach2(final List<String> parameterNames, final List<FJExpr> args) {
         final int index = parameterNames.indexOf(this.name);
         if (index >= 0 && args.size() > index) {
             return Optional.of(args.get(index));

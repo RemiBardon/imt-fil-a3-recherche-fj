@@ -16,7 +16,7 @@ public interface FJExpr {
      *
      * @return The type of a given term or a type error.
      */
-    String getTypeName(final TypeCheckingContext context) throws TypeError;
+    String getTypeNameApproach2(final TypeCheckingContext context) throws TypeError;
 
     /**
      * Annotates the types for lambda expressions.
@@ -38,8 +38,8 @@ public interface FJExpr {
      *
      * @return A value after all the reduction steps.
      */
-    default FJExpr eval(final TypeTable typeTable) {
-        return this.isValue() ? this : this._eval(typeTable).orElse(this);
+    default FJExpr evalApproach2(final TypeTable typeTable) {
+        return this.isValue() ? this : this._evalApproach2(typeTable).orElse(this);
     }
 
     /**
@@ -54,16 +54,16 @@ public interface FJExpr {
      *
      * @return An expression after processing one reduction step.
      */
-    Optional<FJExpr> _eval(final TypeTable typeTable);
+    Optional<FJExpr> _evalApproach2(final TypeTable typeTable);
 
     /**
      * Replaces actual parameters in method body expression.
      *
      * @return A new changed expression.
      */
-    Optional<FJExpr> substitute(List<String> parameterNames, List<FJExpr> args);
+    Optional<FJExpr> substituteApproach2(List<String> parameterNames, List<FJExpr> args);
 
-    default Optional<FJExpr> evalMethodInvocation(
+    default Optional<FJExpr> evalMethodInvocationApproach2(
         final TypeTable typeTable,
         final FJMethodInvocation invocation
     ) {

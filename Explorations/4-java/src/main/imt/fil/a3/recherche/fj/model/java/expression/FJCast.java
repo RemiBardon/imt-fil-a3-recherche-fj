@@ -17,11 +17,11 @@ public record FJCast(
     FJExpr body
 ) implements FJExpr {
     @Override
-    public String getTypeName(final TypeCheckingContext context) throws TypeError {
+    public String getTypeNameApproach2(final TypeCheckingContext context) throws TypeError {
         if (this.body instanceof final FJLambda lambda) { // T-Lam
             return lambda.getTypeName(context, this.typeName);
         } else {
-            final String expectedTypeName = this.body.lambdaMark(this.typeName).getTypeName(context);
+            final String expectedTypeName = this.body.lambdaMark(this.typeName).getTypeNameApproach2(context);
 
             final boolean expectedTypeIsType = context.typeTable.isSubtype(expectedTypeName, this.typeName);
             final boolean typeIsExpectedType = context.typeTable.isSubtype(this.typeName, expectedTypeName);
@@ -50,7 +50,7 @@ public record FJCast(
     }
 
     @Override
-    public Optional<FJExpr> _eval(final TypeTable typeTable) {
+    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) {
         if (this.body.isValue()) {
             if (this.body instanceof final FJCreateObject createObject) {
                 if (typeTable.isSubtype(createObject.className(), this.typeName)) { // R-Cast
@@ -68,17 +68,17 @@ public record FJCast(
                 return Optional.empty();
             }
         } else { // RC-Cast
-            return this.body._eval(typeTable).map(e -> new FJCast(this.typeName, e));
+            return this.body._evalApproach2(typeTable).map(e -> new FJCast(this.typeName, e));
         }
     }
 
     @Override
-    public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
-        return this.body.substitute(parameterNames, args).map(e -> new FJCast(this.typeName, e));
+    public Optional<FJExpr> substituteApproach2(final List<String> parameterNames, final List<FJExpr> args) {
+        return this.body.substituteApproach2(parameterNames, args).map(e -> new FJCast(this.typeName, e));
     }
 
     @Override
-    public Optional<FJExpr> evalMethodInvocation(
+    public Optional<FJExpr> evalMethodInvocationApproach2(
         final TypeTable typeTable,
         final FJMethodInvocation invocation
     ) {
@@ -100,11 +100,11 @@ public record FJCast(
             if (methodBody.isPresent()) { // R-Default
                 return methodBody.get().body()
                     .lambdaMark(methodType.get().returnTypeName())
-                    .substitute(methodBody.get().argumentNames(), args2);
+                    .substituteApproach2(methodBody.get().argumentNames(), args2);
             } else { // R-Lam
                 return lambda.body()
                     .lambdaMark(methodType.get().returnTypeName())
-                    .substitute(lambda.args().stream().map(FJField::name).toList(), args2);
+                    .substituteApproach2(lambda.args().stream().map(FJField::name).toList(), args2);
             }
         } else {
             return Optional.empty();

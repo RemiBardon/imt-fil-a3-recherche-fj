@@ -79,7 +79,7 @@ final class FJTests {
         try {
             FJProgram program = programBuilder.build();
             final var context = new TypeCheckingContext(program.getTypeTable(), new HashMap<>());
-            Assertions.assertTrue(program.typeCheck(context));
+            Assertions.assertTrue(program.typeCheckApproach2(context.copy()));
         } catch (FJBuilderException e) {
             Assertions.fail(e);
         }

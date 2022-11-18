@@ -17,7 +17,7 @@ public record FJInterface(
     List<FJMethod> defaultMethods
 ) implements FJType {
     @Override
-    public Boolean typeCheck(final TypeCheckingContext context) {
+    public Boolean typeCheckApproach2(final TypeCheckingContext context) {
         final var abstractMethods = context.typeTable.abstractMethods(this.name);
         if (abstractMethods.isEmpty()) {
             TypeCheckingContext.logger.warning("Interface not found in the type table.");
@@ -27,7 +27,7 @@ public record FJInterface(
             TypeCheckingContext.logger.info("The interface does not have any abstract method.");
             return false;
         }
-        if (!this.defaultMethods.stream().allMatch(m -> m.typeCheck(context, this.name))) {
+        if (!this.defaultMethods.stream().allMatch(m -> m.typeCheckApproach2(context, this.name))) {
             TypeCheckingContext.logger.info("Not all default methods are correctly typed.");
             return false;
         }

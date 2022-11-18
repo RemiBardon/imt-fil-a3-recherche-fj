@@ -14,7 +14,7 @@ public final class ArgsTypesMismatch extends TypeError {
             expectedTypes,
             args.stream().map(a -> {
                 try {
-                    return a.getTypeName(context);
+                    return a.getTypeNameApproach2(context);
                 } catch (TypeError e) {
                     e.printStackTrace();
                     return "<null>";

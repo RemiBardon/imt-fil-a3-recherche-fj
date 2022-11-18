@@ -21,7 +21,7 @@ public record FJCreateObject(
     List<FJExpr> args
 ) implements FJExpr {
     @Override
-    public String getTypeName(final TypeCheckingContext context) throws TypeError { // T-New
+    public String getTypeNameApproach2(final TypeCheckingContext context) throws TypeError { // T-New
         final Optional<List<FJField>> fields = context.typeTable.classFields(this.className);
         if (fields.isEmpty()) throw new ClassNotFound(this.className);
         if (this.args.size() != fields.get().size()) {
@@ -37,7 +37,7 @@ public record FJCreateObject(
 
         // Check object creation arguments typing
         for (final TypeMismatch tm : temp) {
-            final String type = tm.expression().getTypeName(context);
+            final String type = tm.expression().getTypeNameApproach2(context);
             if (!context.typeTable.isSubtype(type, tm.expectedTypeName())) {
                 throw new ArgTypeMismatch(tm.expectedTypeName(), type);
             }
@@ -59,21 +59,21 @@ public record FJCreateObject(
     }
 
     @Override
-    public Optional<FJExpr> _eval(final TypeTable typeTable) { // RC-New-Arg
-        final List<FJExpr> args = this.args.stream().map(e -> e.eval(typeTable)).toList();
+    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) { // RC-New-Arg
+        final List<FJExpr> args = this.args.stream().map(e -> e.evalApproach2(typeTable)).toList();
         return Optional.of(new FJCreateObject(this.className, args));
     }
 
     @Override
-    public Optional<FJExpr> substitute(final List<String> parameterNames, final List<FJExpr> args) {
+    public Optional<FJExpr> substituteApproach2(final List<String> parameterNames, final List<FJExpr> args) {
         final List<FJExpr> _args = this.args.stream()
-            .map(a -> a.substitute(parameterNames, args))
+            .map(a -> a.substituteApproach2(parameterNames, args))
             .flatMap(Optional::stream).toList();
         return Optional.of(new FJCreateObject(this.className, _args));
     }
 
     @Override
-    public Optional<FJExpr> evalMethodInvocation(
+    public Optional<FJExpr> evalMethodInvocationApproach2(
         final TypeTable typeTable,
         final FJMethodInvocation invocation
     ) {
@@ -98,6 +98,6 @@ public record FJCreateObject(
         ).toList();
         return methodBody.get().body()
             .lambdaMark(methodType.get().returnTypeName())
-            .substitute(parameterNames, args);
+            .substituteApproach2(parameterNames, args);
     }
 }

@@ -19,8 +19,8 @@ public record FJMethodInvocation(
     List<FJExpr> args
 ) implements FJExpr {
     @Override
-    public String getTypeName(final TypeCheckingContext context) throws TypeError { // T-Invk
-        final String typeName = this.source.getTypeName(context);
+    public String getTypeNameApproach2(final TypeCheckingContext context) throws TypeError { // T-Invk
+        final String typeName = this.source.getTypeNameApproach2(context);
 
         final Optional<MethodTypeSignature> methodTypeSignature =
             context.typeTable.methodType(this.methodName, typeName);
@@ -40,7 +40,7 @@ public record FJMethodInvocation(
 
         // Check method invocation arguments typing
         for (final TypeMismatch tm : temp) {
-            final String type = tm.expression().getTypeName(context);
+            final String type = tm.expression().getTypeNameApproach2(context);
             if (!context.typeTable.isSubtype(type, tm.expectedTypeName())) {
                 throw new ArgTypeMismatch(tm.expectedTypeName(), type);
             }
@@ -63,28 +63,28 @@ public record FJMethodInvocation(
     public Boolean isValue() { return false; }
 
     @Override
-    public Optional<FJExpr> _eval(final TypeTable typeTable) {
+    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) {
         // If `this.source` has not been evaluated, evaluate it (recursivity).
         if (!this.source.isValue()) { // RC-Invk-Recv
-            return this.source._eval(typeTable).map(e -> new FJMethodInvocation(e, this.methodName, this.args));
+            return this.source._evalApproach2(typeTable).map(e -> new FJMethodInvocation(e, this.methodName, this.args));
         }
 
         // If some arguments have not been evaluated, evaluate them and recursively evaluate the expression.
         if (!this.args.stream().allMatch(FJExpr::isValue)) { // RC-Invk-Arg
-            final List<FJExpr> args = this.args.stream().map(e -> e._eval(typeTable))
+            final List<FJExpr> args = this.args.stream().map(e -> e._evalApproach2(typeTable))
                 .flatMap(Optional::stream).toList();
-            return Optional.of(new FJMethodInvocation(this.source, this.methodName, args).eval(typeTable));
+            return Optional.of(new FJMethodInvocation(this.source, this.methodName, args).evalApproach2(typeTable));
         }
 
-        return this.source.evalMethodInvocation(typeTable, this);
+        return this.source.evalMethodInvocationApproach2(typeTable, this);
     }
 
     @Override
-    public Optional<FJExpr> substitute(List<String> parameterNames, List<FJExpr> args) {
-        return this.source.substitute(parameterNames, args)
+    public Optional<FJExpr> substituteApproach2(List<String> parameterNames, List<FJExpr> args) {
+        return this.source.substituteApproach2(parameterNames, args)
             .map(e -> {
                 final List<FJExpr> _args = this.args.stream()
-                    .map(a -> a.substitute(parameterNames, args))
+                    .map(a -> a.substituteApproach2(parameterNames, args))
                     .flatMap(Optional::stream).toList();
                 return new FJMethodInvocation(e, this.methodName, _args);
             });

@@ -22,7 +22,7 @@ public record FJMethod(FJSignature signature, FJExpr body) {
      *
      * @return {@code Boolean.TRUE} for a well formed method, {@code Boolean.FALSE} otherwise.
      **/
-    public Boolean typeCheck(
+    public Boolean typeCheckApproach2(
         final TypeCheckingContext context,
         final String className
     ) {
@@ -32,7 +32,7 @@ public record FJMethod(FJSignature signature, FJExpr body) {
 
         final String expectedReturnTypeName;
         try {
-            expectedReturnTypeName = this.body.lambdaMark(this.signature.returnTypeName()).getTypeName(methodContext);
+            expectedReturnTypeName = this.body.lambdaMark(this.signature.returnTypeName()).getTypeNameApproach2(methodContext);
         } catch (TypeError e) {
             TypeCheckingContext.logger.warning("Error obtaining type of expression: " + e.getMessage());
             e.printStackTrace();
