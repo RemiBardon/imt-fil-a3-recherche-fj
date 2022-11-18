@@ -1,0 +1,208 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > FJCreateObject</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">imt.fil.a3.recherche.fj.model.java.expression</a>
+</div>
+
+<h1>Coverage Summary for Class: FJCreateObject (imt.fil.a3.recherche.fj.model.java.expression)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FJCreateObject</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    28.6%
+  </span>
+  <span class="absValue">
+    (2/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    34.1%
+  </span>
+  <span class="absValue">
+    (14/41)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package imt.fil.a3.recherche.fj.model.java.expression;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
+<i class="no-highlight">4</i>&nbsp;import imt.fil.a3.recherche.fj.model.TypeTable;
+<i class="no-highlight">5</i>&nbsp;import imt.fil.a3.recherche.fj.model.error.ArgTypeMismatch;
+<i class="no-highlight">6</i>&nbsp;import imt.fil.a3.recherche.fj.model.error.ArgsTypesMismatch;
+<i class="no-highlight">7</i>&nbsp;import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
+<i class="no-highlight">8</i>&nbsp;import imt.fil.a3.recherche.fj.model.error.TypeError;
+<i class="no-highlight">9</i>&nbsp;import imt.fil.a3.recherche.fj.model.java.misc.FJField;
+<i class="no-highlight">10</i>&nbsp;import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
+<i class="no-highlight">11</i>&nbsp;import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
+<i class="no-highlight">12</i>&nbsp;import imt.fil.a3.recherche.fj.model.misc.TypeMismatch;
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;import java.util.ArrayList;
+<i class="no-highlight">15</i>&nbsp;import java.util.List;
+<i class="no-highlight">16</i>&nbsp;import java.util.Optional;
+<i class="no-highlight">17</i>&nbsp;import java.util.stream.Stream;
+<i class="no-highlight">18</i>&nbsp;
+<b class="fc"><i class="no-highlight">19</i>&nbsp;public record FJCreateObject(</b>
+<i class="no-highlight">20</i>&nbsp;    String className,
+<i class="no-highlight">21</i>&nbsp;    List&lt;FJExpr&gt; args
+<i class="no-highlight">22</i>&nbsp;) implements FJExpr {
+<i class="no-highlight">23</i>&nbsp;    @Override
+<i class="no-highlight">24</i>&nbsp;    public String getTypeName(final TypeCheckingContext context) throws TypeError { // T-New
+<b class="fc"><i class="no-highlight">25</i>&nbsp;        final Optional&lt;List&lt;FJField&gt;&gt; fields = context.typeTable.classFields(this.className);</b>
+<b class="fc"><i class="no-highlight">26</i>&nbsp;        if (fields.isEmpty()) throw new ClassNotFound(this.className);</b>
+<b class="fc"><i class="no-highlight">27</i>&nbsp;        if (this.args.size() != fields.get().size()) {</b>
+<b class="nc"><i class="no-highlight">28</i>&nbsp;            throw new ArgsTypesMismatch(fields.get().stream().map(FJField::type).toList(), this.args, context);</b>
+<i class="no-highlight">29</i>&nbsp;        }
+<i class="no-highlight">30</i>&nbsp;
+<b class="fc"><i class="no-highlight">31</i>&nbsp;        var temp = new ArrayList&lt;TypeMismatch&gt;();</b>
+<b class="fc"><i class="no-highlight">32</i>&nbsp;        for (int i = 0; i &lt; this.args.size(); i++) {</b>
+<b class="fc"><i class="no-highlight">33</i>&nbsp;            final FJExpr arg = this.args.get(i);</b>
+<b class="fc"><i class="no-highlight">34</i>&nbsp;            final FJField field = fields.get().get(i);</b>
+<b class="fc"><i class="no-highlight">35</i>&nbsp;            temp.add(new TypeMismatch(arg.lambdaMark(field.type()), field.type()));</b>
+<i class="no-highlight">36</i>&nbsp;        }
+<i class="no-highlight">37</i>&nbsp;
+<i class="no-highlight">38</i>&nbsp;        // Check object creation arguments typing
+<b class="fc"><i class="no-highlight">39</i>&nbsp;        for (final TypeMismatch tm : temp) {</b>
+<b class="fc"><i class="no-highlight">40</i>&nbsp;            final String type = tm.expression().getTypeName(context);</b>
+<b class="fc"><i class="no-highlight">41</i>&nbsp;            if (!context.typeTable.isSubtype(type, tm.expectedTypeName())) {</b>
+<b class="nc"><i class="no-highlight">42</i>&nbsp;                throw new ArgTypeMismatch(tm.expectedTypeName(), type);</b>
+<i class="no-highlight">43</i>&nbsp;            }
+<b class="fc"><i class="no-highlight">44</i>&nbsp;        }</b>
+<i class="no-highlight">45</i>&nbsp;
+<i class="no-highlight">46</i>&nbsp;        // Object creation is correctly typed
+<b class="fc"><i class="no-highlight">47</i>&nbsp;        return this.className;</b>
+<i class="no-highlight">48</i>&nbsp;    }
+<i class="no-highlight">49</i>&nbsp;
+<i class="no-highlight">50</i>&nbsp;    @Override
+<i class="no-highlight">51</i>&nbsp;    public FJCreateObject removingRuntimeAnnotation() {
+<b class="nc"><i class="no-highlight">52</i>&nbsp;        return new FJCreateObject(this.className, this.args.stream().map(FJExpr::removingRuntimeAnnotation).toList());</b>
+<i class="no-highlight">53</i>&nbsp;    }
+<i class="no-highlight">54</i>&nbsp;
+<i class="no-highlight">55</i>&nbsp;    @Override
+<i class="no-highlight">56</i>&nbsp;    public Boolean isValue() {
+<i class="no-highlight">57</i>&nbsp;        // NOTE: `allMatch` returns `true` if `args.isEmpty()`.
+<b class="nc"><i class="no-highlight">58</i>&nbsp;        return args.stream().allMatch(FJExpr::isValue);</b>
+<i class="no-highlight">59</i>&nbsp;    }
+<i class="no-highlight">60</i>&nbsp;
+<i class="no-highlight">61</i>&nbsp;    @Override
+<i class="no-highlight">62</i>&nbsp;    public Optional&lt;FJExpr&gt; _eval(final TypeTable typeTable) { // RC-New-Arg
+<b class="nc"><i class="no-highlight">63</i>&nbsp;        final List&lt;FJExpr&gt; args = this.args.stream().map(e -&gt; e.eval(typeTable)).toList();</b>
+<b class="nc"><i class="no-highlight">64</i>&nbsp;        return Optional.of(new FJCreateObject(this.className, args));</b>
+<i class="no-highlight">65</i>&nbsp;    }
+<i class="no-highlight">66</i>&nbsp;
+<i class="no-highlight">67</i>&nbsp;    @Override
+<i class="no-highlight">68</i>&nbsp;    public Optional&lt;FJExpr&gt; substitute(final List&lt;String&gt; parameterNames, final List&lt;FJExpr&gt; args) {
+<b class="nc"><i class="no-highlight">69</i>&nbsp;        final List&lt;FJExpr&gt; _args = this.args.stream()</b>
+<b class="nc"><i class="no-highlight">70</i>&nbsp;            .map(a -&gt; a.substitute(parameterNames, args))</b>
+<b class="nc"><i class="no-highlight">71</i>&nbsp;            .flatMap(Optional::stream).toList();</b>
+<b class="nc"><i class="no-highlight">72</i>&nbsp;        return Optional.of(new FJCreateObject(this.className, _args));</b>
+<i class="no-highlight">73</i>&nbsp;    }
+<i class="no-highlight">74</i>&nbsp;
+<i class="no-highlight">75</i>&nbsp;    @Override
+<i class="no-highlight">76</i>&nbsp;    public Optional&lt;FJExpr&gt; evalMethodInvocation(
+<i class="no-highlight">77</i>&nbsp;        final TypeTable typeTable,
+<i class="no-highlight">78</i>&nbsp;        final FJMethodInvocation invocation
+<i class="no-highlight">79</i>&nbsp;    ) {
+<i class="no-highlight">80</i>&nbsp;        // R-Invk
+<b class="nc"><i class="no-highlight">81</i>&nbsp;        final Optional&lt;MethodTypeSignature&gt; methodType = typeTable.methodType(invocation.methodName(), this.className);</b>
+<b class="nc"><i class="no-highlight">82</i>&nbsp;        if (methodType.isEmpty()) return Optional.empty(); // No method type</b>
+<i class="no-highlight">83</i>&nbsp;
+<b class="nc"><i class="no-highlight">84</i>&nbsp;        final Optional&lt;MethodBodySignature&gt; methodBody = typeTable.methodBody(invocation.methodName(), this.className);</b>
+<b class="nc"><i class="no-highlight">85</i>&nbsp;        if (methodBody.isEmpty()) return Optional.empty(); // No method body</b>
+<i class="no-highlight">86</i>&nbsp;
+<b class="nc"><i class="no-highlight">87</i>&nbsp;        final List&lt;FJExpr&gt; args = new ArrayList&lt;&gt;();</b>
+<i class="no-highlight">88</i>&nbsp;        // &lt;=&gt; zip(methodArgs, methodType.parameterTypeNames)
+<b class="nc"><i class="no-highlight">89</i>&nbsp;        for (int i = 0; i &lt; invocation.args().size(); i++) {</b>
+<b class="nc"><i class="no-highlight">90</i>&nbsp;            final FJExpr arg = invocation.args().get(i);</b>
+<b class="nc"><i class="no-highlight">91</i>&nbsp;            final String typeName = methodType.get().parameterTypeNames().get(i);</b>
+<b class="nc"><i class="no-highlight">92</i>&nbsp;            args.add(arg.lambdaMark(typeName));</b>
+<i class="no-highlight">93</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">94</i>&nbsp;        args.add(invocation.source());</b>
+<b class="nc"><i class="no-highlight">95</i>&nbsp;        final List&lt;String&gt; parameterNames = Stream.concat(</b>
+<b class="nc"><i class="no-highlight">96</i>&nbsp;            methodBody.get().argumentNames().stream(),</b>
+<b class="nc"><i class="no-highlight">97</i>&nbsp;            Stream.of(&quot;this&quot;)</b>
+<b class="nc"><i class="no-highlight">98</i>&nbsp;        ).toList();</b>
+<b class="nc"><i class="no-highlight">99</i>&nbsp;        return methodBody.get().body()</b>
+<b class="nc"><i class="no-highlight">100</i>&nbsp;            .lambdaMark(methodType.get().returnTypeName())</b>
+<b class="nc"><i class="no-highlight">101</i>&nbsp;            .substitute(parameterNames, args);</b>
+<i class="no-highlight">102</i>&nbsp;    }
+<i class="no-highlight">103</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-11-18 12:10</div>
+</div>
+</body>
+</html>

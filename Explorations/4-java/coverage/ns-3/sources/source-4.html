@@ -1,0 +1,179 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > FJFieldAccess</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">imt.fil.a3.recherche.fj.model.java.expression</a>
+</div>
+
+<h1>Coverage Summary for Class: FJFieldAccess (imt.fil.a3.recherche.fj.model.java.expression)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FJFieldAccess</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (2/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    30%
+  </span>
+  <span class="absValue">
+    (9/30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package imt.fil.a3.recherche.fj.model.java.expression;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
+<i class="no-highlight">4</i>&nbsp;import imt.fil.a3.recherche.fj.model.TypeTable;
+<i class="no-highlight">5</i>&nbsp;import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
+<i class="no-highlight">6</i>&nbsp;import imt.fil.a3.recherche.fj.model.error.FieldNotFound;
+<i class="no-highlight">7</i>&nbsp;import imt.fil.a3.recherche.fj.model.error.TypeError;
+<i class="no-highlight">8</i>&nbsp;import imt.fil.a3.recherche.fj.model.java.misc.FJField;
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;import java.util.List;
+<i class="no-highlight">11</i>&nbsp;import java.util.Optional;
+<i class="no-highlight">12</i>&nbsp;
+<b class="fc"><i class="no-highlight">13</i>&nbsp;public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {</b>
+<i class="no-highlight">14</i>&nbsp;    @Override
+<i class="no-highlight">15</i>&nbsp;    public String getTypeName(final TypeCheckingContext context) throws TypeError { // T-Field
+<b class="fc"><i class="no-highlight">16</i>&nbsp;        final String typeName = this.object.getTypeName(context);</b>
+<i class="no-highlight">17</i>&nbsp;
+<b class="fc"><i class="no-highlight">18</i>&nbsp;        final Optional&lt;List&lt;FJField&gt;&gt; fields = context.typeTable.classFields(typeName);</b>
+<b class="fc"><i class="no-highlight">19</i>&nbsp;        if (fields.isEmpty()) throw new ClassNotFound(typeName);</b>
+<i class="no-highlight">20</i>&nbsp;
+<i class="no-highlight">21</i>&nbsp;        // NOTE: `filter` iterates over all elements while we could abort sooner if a value is found.
+<i class="no-highlight">22</i>&nbsp;        // TODO: Find a way to avoid unnecessary filtering.
+<b class="fc"><i class="no-highlight">23</i>&nbsp;        final Optional&lt;FJField&gt; field = fields.get().stream()</b>
+<b class="fc"><i class="no-highlight">24</i>&nbsp;            .filter(f -&gt; f.name().equals(this.fieldName))</b>
+<b class="fc"><i class="no-highlight">25</i>&nbsp;            .findFirst();</b>
+<b class="fc"><i class="no-highlight">26</i>&nbsp;        if (field.isPresent()) {</b>
+<b class="fc"><i class="no-highlight">27</i>&nbsp;            return field.get().type();</b>
+<i class="no-highlight">28</i>&nbsp;        } else {
+<b class="nc"><i class="no-highlight">29</i>&nbsp;            throw new FieldNotFound(this.fieldName);</b>
+<i class="no-highlight">30</i>&nbsp;        }
+<i class="no-highlight">31</i>&nbsp;    }
+<i class="no-highlight">32</i>&nbsp;
+<i class="no-highlight">33</i>&nbsp;    @Override
+<i class="no-highlight">34</i>&nbsp;    public FJFieldAccess removingRuntimeAnnotation() {
+<b class="nc"><i class="no-highlight">35</i>&nbsp;        return new FJFieldAccess(this.object.removingRuntimeAnnotation(), this.fieldName);</b>
+<i class="no-highlight">36</i>&nbsp;    }
+<i class="no-highlight">37</i>&nbsp;
+<i class="no-highlight">38</i>&nbsp;    @Override
+<b class="nc"><i class="no-highlight">39</i>&nbsp;    public Boolean isValue() { return false; }</b>
+<i class="no-highlight">40</i>&nbsp;
+<i class="no-highlight">41</i>&nbsp;    @Override
+<i class="no-highlight">42</i>&nbsp;    public Optional&lt;FJExpr&gt; _eval(final TypeTable typeTable) {
+<b class="nc"><i class="no-highlight">43</i>&nbsp;        if (this.object.isValue()) { // R-Field</b>
+<b class="nc"><i class="no-highlight">44</i>&nbsp;            if (this.object instanceof final FJCreateObject createObject) {</b>
+<b class="nc"><i class="no-highlight">45</i>&nbsp;                final Optional&lt;List&lt;FJField&gt;&gt; _fields = typeTable.classFields(createObject.className());</b>
+<b class="nc"><i class="no-highlight">46</i>&nbsp;                if (_fields.isEmpty()) return Optional.empty();</b>
+<b class="nc"><i class="no-highlight">47</i>&nbsp;                final List&lt;FJField&gt; fields = _fields.get();</b>
+<i class="no-highlight">48</i>&nbsp;
+<b class="nc"><i class="no-highlight">49</i>&nbsp;                Optional&lt;Integer&gt; index = Optional.empty();</b>
+<b class="nc"><i class="no-highlight">50</i>&nbsp;                for (int i = 0; i &lt; fields.size(); i++) {</b>
+<b class="nc"><i class="no-highlight">51</i>&nbsp;                    if (fields.get(i).name().equals(this.fieldName)) {</b>
+<b class="nc"><i class="no-highlight">52</i>&nbsp;                        index = Optional.of(i);</b>
+<b class="nc"><i class="no-highlight">53</i>&nbsp;                        break;</b>
+<i class="no-highlight">54</i>&nbsp;                    }
+<i class="no-highlight">55</i>&nbsp;                }
+<b class="nc"><i class="no-highlight">56</i>&nbsp;                if (index.isEmpty()) return Optional.empty();</b>
+<i class="no-highlight">57</i>&nbsp;
+<b class="nc"><i class="no-highlight">58</i>&nbsp;                final FJExpr arg = createObject.args().get(index.get());</b>
+<b class="nc"><i class="no-highlight">59</i>&nbsp;                final String lambdaTypeName = fields.get(index.get()).name();</b>
+<b class="nc"><i class="no-highlight">60</i>&nbsp;                return Optional.of(arg.lambdaMark(lambdaTypeName));</b>
+<i class="no-highlight">61</i>&nbsp;            } else {
+<b class="nc"><i class="no-highlight">62</i>&nbsp;                return Optional.empty(); // Not an object instance</b>
+<i class="no-highlight">63</i>&nbsp;            }
+<i class="no-highlight">64</i>&nbsp;        } else { // RC-Field
+<b class="nc"><i class="no-highlight">65</i>&nbsp;            return this.object._eval(typeTable).map(e -&gt; new FJFieldAccess(e, this.fieldName));</b>
+<i class="no-highlight">66</i>&nbsp;        }
+<i class="no-highlight">67</i>&nbsp;    }
+<i class="no-highlight">68</i>&nbsp;
+<i class="no-highlight">69</i>&nbsp;    @Override
+<i class="no-highlight">70</i>&nbsp;    public Optional&lt;FJExpr&gt; substitute(final List&lt;String&gt; parameterNames, final List&lt;FJExpr&gt; args) {
+<b class="nc"><i class="no-highlight">71</i>&nbsp;        return this.object.substitute(parameterNames, args)</b>
+<b class="nc"><i class="no-highlight">72</i>&nbsp;            .map(e -&gt; new FJFieldAccess(e, this.fieldName));</b>
+<i class="no-highlight">73</i>&nbsp;    }
+<i class="no-highlight">74</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-11-18 12:10</div>
+</div>
+</body>
+</html>

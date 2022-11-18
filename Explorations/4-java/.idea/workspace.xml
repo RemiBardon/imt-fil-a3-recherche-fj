@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" afterDir="false" />
-    </list>
+    <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="" />
     <list id="805de80f-515c-456c-81e5-b9c1d29206d1" name="Changes by lucas" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,8 +85,15 @@
   <component name="RunManager">
     <configuration name="FJTests" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="4-java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
       <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.FJTests" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
