@@ -5,31 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/ArgTypeMismatch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/ArgsTypesMismatch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeCheckingContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeCheckingContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/ClassNotFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/ClassNotFound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/FieldNotFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/FieldNotFound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/MethodNotFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/MethodNotFound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/ParamsTypeMismatch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/VariableNotFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/VariableNotFound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/WrongCast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/WrongCast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/WrongLambdaType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/error/WrongLambdaType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJCreateObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJCreateObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJMethodInvocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJMethodInvocation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJMethod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/util/haskell/Haskell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/util/haskell/Haskell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/4-java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/4-java.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/misc/FieldInitBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/misc/FieldInitBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJVariableBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJVariableBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJConstructorBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJConstructorBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJFieldBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJFieldBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJSignatureBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJSignatureBuilder.java" afterDir="false" />
     </list>
     <list id="805de80f-515c-456c-81e5-b9c1d29206d1" name="Changes by lucas" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,6 +56,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
@@ -104,7 +85,7 @@
       <recent name="imt.fil.a3.recherche.fj.util" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.FJTests">
     <configuration name="FJTests" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.FJTests" />
       <module name="4-java" />
@@ -112,8 +93,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FJTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="4-java" />
+      <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
+      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.FJTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FJTests" />
         <item itemvalue="Application.FJTests" />
       </list>
     </recent_temporary>
