@@ -12,6 +12,29 @@ import java.util.HashMap;
 @SuppressWarnings("SpellCheckingInspection")
 final class FJTests {
 
+    /**
+     * The first example from the paper is not valid Java code, but here is an updated version:
+     * <pre><code class="language-java">
+     * class A extends Object {
+     *   A() { super(); }
+     * }
+     * class B extends Object {
+     *   B() { super(); }
+     * }
+     * class Pair extends Object {
+     *   Object fst;
+     *   Object snd;
+     *   Pair(A fst, B snd) {
+     *     super();
+     *     this.fst = fst;
+     *     this.snd = snd;
+     *   }
+     *   Pair setfst(A newfst) {
+     *     return new Pair(newfst, this.snd);
+     *   }
+     * }
+     * </code></pre>
+     */
     @Test
     void testPaperExampleTypeChecks() {
         final FJProgramBuilder programBuilder = new FJProgramBuilder()
@@ -60,6 +83,11 @@ final class FJTests {
         } catch (FJBuilderException e) {
             Assertions.fail(e);
         }
+    }
+
+    @Test
+    void testTVar() {
+        Assertions.fail("Not implemented yet.");
     }
 
 }
