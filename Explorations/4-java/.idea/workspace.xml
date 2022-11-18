@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" afterDir="false" />
     </list>
     <list id="805de80f-515c-456c-81e5-b9c1d29206d1" name="Changes by lucas" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,7 +67,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="coverage" />
     <property name="settings.editor.splitter.proportion" value="0.22880659" />
   </component>
   <component name="RecentsManager">
@@ -84,15 +84,8 @@
       <recent name="imt.fil.a3.recherche.fj.util" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FJTests">
-    <configuration name="FJTests" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.FJTests" />
-      <module name="4-java" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FJTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="FJTests" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="4-java" />
       <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
       <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.FJTests" />
@@ -101,12 +94,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.FJTests" />
-        <item itemvalue="Application.FJTests" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -130,5 +117,8 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/4_java$FJTests.ic" NAME="FJTests Coverage Results" MODIFIED="1668769568282" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

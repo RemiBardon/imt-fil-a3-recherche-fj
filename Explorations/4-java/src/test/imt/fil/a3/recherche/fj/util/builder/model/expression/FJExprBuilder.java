@@ -32,9 +32,9 @@ public final class FJExprBuilder implements FJBuilder<FJExpr> {
     public FJExprBuilder variableFieldAccess(final String variableName, final String fieldName) {
         return this.fieldAccess(fab -> fab
             .object(eb -> eb
-                .variable(vb -> vb.name(fieldName))
+                .variable(vb -> vb.name(variableName))
             )
-            .fieldName(variableName)
+            .fieldName(fieldName)
         );
     }
 
