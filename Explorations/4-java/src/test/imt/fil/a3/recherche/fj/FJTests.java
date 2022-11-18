@@ -17,40 +17,29 @@ final class FJTests {
         final FJProgramBuilder programBuilder = new FJProgramBuilder()
             .clazz(c -> c
                 .name("A")
-                .constructor(cb -> cb
-                    .name("A")
-                )
+                .constructor()
             )
             .clazz(c -> c
                 .name("B")
-                .constructor(cb -> cb
-                    .name("B")
-                )
+                .constructor()
             )
             .clazz(c -> c
                 .name("Pair")
                 .constructor(cb -> cb
-                    .name("Pair")
-                    .arg(fb -> fb.type("A").name("fst"))
-                    .arg(fb -> fb.type("B").name("snd"))
-                    .fieldInit(fib -> fib
-                        .fieldName("fst")
-                        .argumentName("fst")
-                    )
-                    .fieldInit(fib -> fib
-                        .fieldName("snd")
-                        .argumentName("snd")
-                    )
+                    .arg("A", "fst")
+                    .arg("B", "snd")
+                    .fieldInit("fst")
+                    .fieldInit("snd")
                 )
-                .field(fb -> fb.type("A").name("fst"))
-                .field(f -> f.type("B").name("snd"))
+                .field("A", "fst")
+                .field("B", "snd")
                 .method(mb -> mb
                     .signature(sb -> sb
-                        .returnTypeName("Pair")
+                        .returns("Pair")
                         .name("setfst")
-                        .arg(fb -> fb.type("A").name("newfst"))
+                        .arg("A", "newfst")
                     )
-                    // return new Pair ( newfst , this . snd )
+                    // <=> `return new Pair (newfst , this.snd)`
                     .body(eb -> eb
                         .createObject(cob -> cob
                             .className("Pair")
@@ -58,12 +47,7 @@ final class FJTests {
                                 .variable(vb -> vb.name("newfst"))
                             )
                             .arg(ebArg -> ebArg
-                                .fieldAccess(fab -> fab
-                                    .fieldName("snd")
-                                    .object(ebObject -> ebObject
-                                        .variable(vb -> vb.name("this"))
-                                    )
-                                )
+                                .variableFieldAccess("this", "snd")
                             )
                         )
                     )

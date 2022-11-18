@@ -46,8 +46,19 @@ public final class FJConstructorBuilder implements FJBuilder<FJConstructor> {
         return this;
     }
 
+    public FJConstructorBuilder arg(final String typeName, final String paramName) {
+        return this.arg(b -> b.type(typeName).name(paramName));
+    }
+
     public FJConstructorBuilder fieldInit(Function<FieldInitBuilder, FieldInitBuilder> fieldInit) {
         this.fieldInits.add(fieldInit.apply(new FieldInitBuilder()));
         return this;
+    }
+
+    /**
+     * Initializes an object field with a constructor argument of the same name (<=> `this.fieldName = fieldName`).
+     */
+    public FJConstructorBuilder fieldInit(final String fieldName) {
+        return this.fieldInit(b -> b.fieldName(fieldName).argumentName(fieldName));
     }
 }

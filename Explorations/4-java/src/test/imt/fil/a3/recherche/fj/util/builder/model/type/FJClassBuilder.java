@@ -8,12 +8,13 @@ import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
 import imt.fil.a3.recherche.fj.util.builder.model.misc.FJConstructorBuilder;
 import imt.fil.a3.recherche.fj.util.builder.model.misc.FJFieldBuilder;
 import imt.fil.a3.recherche.fj.util.builder.model.misc.FJMethodBuilder;
+import imt.fil.a3.recherche.fj.util.builder.model.misc.FJSignatureBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class FJClassBuilder implements FJBuilder<FJClass> {
+public final class FJClassBuilder implements FJBuilder<FJClass> {
     private final List<String> implementsNames = new ArrayList<>();
     private final List<FJFieldBuilder> fields = new ArrayList<>();
     private final List<FJMethodBuilder> methods = new ArrayList<>();
@@ -61,14 +62,22 @@ public class FJClassBuilder implements FJBuilder<FJClass> {
         return this;
     }
 
+    public FJClassBuilder field(final String typeName, final String fieldName) {
+        return this.field(b -> b.type(typeName).name(fieldName));
+    }
+
     public FJClassBuilder method(Function<FJMethodBuilder, FJMethodBuilder> update) {
         this.methods.add(update.apply(new FJMethodBuilder()));
         return this;
     }
 
+    public FJClassBuilder constructor() {
+        this.constructor = new FJConstructorBuilder().name(this.name);
+        return this;
+    }
+
     public FJClassBuilder constructor(Function<FJConstructorBuilder, FJConstructorBuilder> update) {
-        this.constructor = new FJConstructorBuilder();
-        update.apply(this.constructor);
+        this.constructor = update.apply(new FJConstructorBuilder().name(this.name));
         return this;
     }
 }

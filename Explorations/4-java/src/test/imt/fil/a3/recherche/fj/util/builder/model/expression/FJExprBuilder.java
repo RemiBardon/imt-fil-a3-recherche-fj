@@ -29,6 +29,15 @@ public final class FJExprBuilder implements FJBuilder<FJExpr> {
         return this;
     }
 
+    public FJExprBuilder variableFieldAccess(final String variableName, final String fieldName) {
+        return this.fieldAccess(fab -> fab
+            .object(eb -> eb
+                .variable(vb -> vb.name(fieldName))
+            )
+            .fieldName(variableName)
+        );
+    }
+
     public FJExprBuilder lambda(Function<FJLambdaBuilder, FJLambdaBuilder> update) {
         this.builder = update.apply(new FJLambdaBuilder());
         return this;
