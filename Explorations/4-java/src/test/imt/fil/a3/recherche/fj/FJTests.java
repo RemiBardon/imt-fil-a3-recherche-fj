@@ -1,16 +1,11 @@
 package imt.fil.a3.recherche.fj;
 
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
-import imt.fil.a3.recherche.fj.model.TypeTable;
-import imt.fil.a3.recherche.fj.model.error.TypeError;
-import imt.fil.a3.recherche.fj.model.error.VariableNotFound;
-import imt.fil.a3.recherche.fj.model.java.expression.FJVariable;
 import imt.fil.a3.recherche.fj.model.java.misc.FJProgram;
 import imt.fil.a3.recherche.fj.util.builder.FJProgramBuilder;
 import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
-import imt.fil.a3.recherche.fj.util.builder.model.expression.FJVariableBuilder;
+import imt.fil.a3.recherche.fj.util.builder.model.type.FJClassBuilder;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -43,44 +38,9 @@ final class FJTests {
     @Test
     void testPaperExampleTypeChecks() {
         final FJProgramBuilder programBuilder = new FJProgramBuilder()
-            .clazz(c -> c
-                .name("A")
-                .constructor()
-            )
-            .clazz(c -> c
-                .name("B")
-                .constructor()
-            )
-            .clazz(c -> c
-                .name("Pair")
-                .constructor(cb -> cb
-                    .arg("A", "fst")
-                    .arg("B", "snd")
-                    .fieldInit("fst")
-                    .fieldInit("snd")
-                )
-                .field("A", "fst")
-                .field("B", "snd")
-                .method(mb -> mb
-                    .signature(sb -> sb
-                        .returns("Pair")
-                        .name("setfst")
-                        .arg("A", "newfst")
-                    )
-                    // <=> `return new Pair (newfst , this.snd)`
-                    .body(eb -> eb
-                        .createObject(cob -> cob
-                            .className("Pair")
-                            .arg(ebArg -> ebArg
-                                .variable(vb -> vb.name("newfst"))
-                            )
-                            .arg(ebArg -> ebArg
-                                .variableFieldAccess("this", "snd")
-                            )
-                        )
-                    )
-                )
-            );
+            .clazz(classA())
+            .clazz(classB())
+            .clazz(classPair());
         try {
             FJProgram program = programBuilder.build();
             final var context = new TypeCheckingContext(program.getTypeTable(), new HashMap<>());
@@ -88,5 +48,45 @@ final class FJTests {
         } catch (FJBuilderException e) {
             Assertions.fail(e);
         }
+    }
+
+    static FJClassBuilder classA() {
+        return new FJClassBuilder().name("A").constructor();
+    }
+
+    static FJClassBuilder classB() {
+        return new FJClassBuilder().name("B").constructor();
+    }
+
+    static FJClassBuilder classPair() {
+        return new FJClassBuilder()
+            .name("Pair")
+            .constructor(cb -> cb
+                .arg("A", "fst")
+                .arg("B", "snd")
+                .fieldInit("fst")
+                .fieldInit("snd")
+            )
+            .field("A", "fst")
+            .field("B", "snd")
+            .method(mb -> mb
+                .signature(sb -> sb
+                    .returns("Pair")
+                    .name("setfst")
+                    .arg("A", "newfst")
+                )
+                // <=> `return new Pair (newfst , this.snd)`
+                .body(eb -> eb
+                    .createObject(cob -> cob
+                        .className("Pair")
+                        .arg(ebArg -> ebArg
+                            .variable(vb -> vb.name("newfst"))
+                        )
+                        .arg(ebArg -> ebArg
+                            .variableFieldAccess("this", "snd")
+                        )
+                    )
+                )
+            );
     }
 }

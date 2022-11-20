@@ -24,11 +24,6 @@ public final class FJExprBuilder implements FJBuilder<FJExpr> {
         return this;
     }
 
-    public FJExprBuilder fieldAccess(Function<FJFieldAccessBuilder, FJFieldAccessBuilder> update) {
-        this.builder = update.apply(new FJFieldAccessBuilder());
-        return this;
-    }
-
     public FJExprBuilder variableFieldAccess(final String variableName, final String fieldName) {
         return this.fieldAccess(fab -> fab
             .object(eb -> eb
@@ -38,6 +33,16 @@ public final class FJExprBuilder implements FJBuilder<FJExpr> {
         );
     }
 
+    public FJExprBuilder fieldAccess(Function<FJFieldAccessBuilder, FJFieldAccessBuilder> update) {
+        this.builder = update.apply(new FJFieldAccessBuilder());
+        return this;
+    }
+
+    public FJExprBuilder variable(Function<FJVariableBuilder, FJVariableBuilder> update) {
+        this.builder = update.apply(new FJVariableBuilder());
+        return this;
+    }
+
     public FJExprBuilder lambda(Function<FJLambdaBuilder, FJLambdaBuilder> update) {
         this.builder = update.apply(new FJLambdaBuilder());
         return this;
@@ -45,11 +50,6 @@ public final class FJExprBuilder implements FJBuilder<FJExpr> {
 
     public FJExprBuilder methodInvocation(Function<FJMethodInvocationBuilder, FJMethodInvocationBuilder> update) {
         this.builder = update.apply(new FJMethodInvocationBuilder());
-        return this;
-    }
-
-    public FJExprBuilder variable(Function<FJVariableBuilder, FJVariableBuilder> update) {
-        this.builder = update.apply(new FJVariableBuilder());
         return this;
     }
 

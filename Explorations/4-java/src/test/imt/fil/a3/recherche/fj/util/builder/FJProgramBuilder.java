@@ -36,13 +36,21 @@ public class FJProgramBuilder implements FJBuilder<FJProgram> {
         return new FJProgram(fjTypes);
     }
 
-    public FJProgramBuilder clazz(Function<FJClassBuilder, FJClassBuilder> clazz) {
-        this.classes.add(clazz.apply(new FJClassBuilder()));
+    public FJProgramBuilder clazz(Function<FJClassBuilder, FJClassBuilder> update) {
+        return this.clazz(update.apply(new FJClassBuilder()));
+    }
+
+    public FJProgramBuilder clazz(FJClassBuilder clazz) {
+        this.classes.add(clazz);
         return this;
     }
 
-    public FJProgramBuilder interfaze(Function<FJInterfaceBuilder, FJInterfaceBuilder> interfaze) {
-        this.interfaces.add(interfaze.apply(new FJInterfaceBuilder()));
+    public FJProgramBuilder interfaze(Function<FJInterfaceBuilder, FJInterfaceBuilder> update) {
+        return this.interfaze(update.apply(new FJInterfaceBuilder()));
+    }
+
+    public FJProgramBuilder interfaze(FJInterfaceBuilder interfaze) {
+        this.interfaces.add(interfaze);
         return this;
     }
 

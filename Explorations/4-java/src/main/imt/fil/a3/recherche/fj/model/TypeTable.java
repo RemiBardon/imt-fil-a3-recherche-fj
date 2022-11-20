@@ -20,6 +20,10 @@ public final class TypeTable {
         return new TypeTable(new HashMap<>(this.typeTable));
     }
 
+    public void add(final FJType type) {
+        this.typeTable.put(type.name(), type);
+    }
+
     public Boolean isSubtype(final String typeAName, final String typeBName) {
         if (typeAName.equals(typeBName)) return true;
         if (!this.typeTable.containsKey(typeAName)) return false;

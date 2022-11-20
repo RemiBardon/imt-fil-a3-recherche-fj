@@ -20,27 +20,30 @@ public final class TypeCheckingContext {
     }
 
     /**
-     * * Gets the type of given variable.
+     * Gets the type of given variable.
+     *
      * @param variableName
      * @return
      */
-    public Optional<String> typeName(String variableName) {
+    public Optional<String> typeName(final String variableName) {
         return Optional.ofNullable(context.get(variableName));
     }
 
     /**
-     * * Adds a list of variables to the context.
+     * Adds a list of variables to the context.
+     *
      * @param fields
      * @return A new context with the added variables.
      */
-    public TypeCheckingContext with(List<FJField> fields) {
+    public TypeCheckingContext with(final List<FJField> fields) {
         final TypeCheckingContext res = this.copy();
-        fields.forEach(arg -> res.context.put(arg.name(), arg.type()));
+        res.add(fields);
         return res;
     }
 
     /**
      * Copy the context.
+     *
      * @return A new context with the same variables.
      */
     public TypeCheckingContext copy() {
@@ -48,14 +51,34 @@ public final class TypeCheckingContext {
     }
 
     /**
+     * Adds a list of variables to the context.
+     *
+     * @param fields
+     */
+    public void add(final List<FJField> fields) {
+        fields.forEach(arg -> this.context.put(arg.name(), arg.type()));
+    }
+
+    /**
      * Adds a variable to the context.
+     *
      * @param variableName
      * @param variableType
      * @return A new context with the added variable.
      */
-    public TypeCheckingContext with(String variableName, String variableType) {
+    public TypeCheckingContext with(final String variableName, final String variableType) {
         final TypeCheckingContext res = this.copy();
-        res.context.put(variableName, variableType);
+        res.add(variableName, variableType);
         return res;
+    }
+
+    /**
+     * Adds a variable to the context.
+     *
+     * @param variableName
+     * @param variableType
+     */
+    public void add(final String variableName, final String variableType) {
+        this.context.put(variableName, variableType);
     }
 }

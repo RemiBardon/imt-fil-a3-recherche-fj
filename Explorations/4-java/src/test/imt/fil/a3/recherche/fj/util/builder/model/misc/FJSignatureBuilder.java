@@ -32,13 +32,13 @@ public class FJSignatureBuilder implements FJBuilder<FJSignature> {
         return this;
     }
 
+    public FJSignatureBuilder arg(final String typeName, final String paramName) {
+        return this.arg(b -> b.type(typeName).name(paramName));
+    }
+
     public FJSignatureBuilder arg(Function<FJFieldBuilder, FJFieldBuilder> update) {
         this.args.add(update.apply(new FJFieldBuilder()));
         return this;
-    }
-
-    public FJSignatureBuilder arg(final String typeName, final String paramName) {
-        return this.arg(b -> b.type(typeName).name(paramName));
     }
 }
 

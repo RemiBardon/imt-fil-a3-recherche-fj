@@ -41,17 +41,12 @@ public final class FJConstructorBuilder implements FJBuilder<FJConstructor> {
         return this;
     }
 
-    public FJConstructorBuilder arg(Function<FJFieldBuilder, FJFieldBuilder> arg) {
-        this.args.add(arg.apply(new FJFieldBuilder()));
-        return this;
-    }
-
     public FJConstructorBuilder arg(final String typeName, final String paramName) {
         return this.arg(b -> b.type(typeName).name(paramName));
     }
 
-    public FJConstructorBuilder fieldInit(Function<FieldInitBuilder, FieldInitBuilder> fieldInit) {
-        this.fieldInits.add(fieldInit.apply(new FieldInitBuilder()));
+    public FJConstructorBuilder arg(Function<FJFieldBuilder, FJFieldBuilder> arg) {
+        this.args.add(arg.apply(new FJFieldBuilder()));
         return this;
     }
 
@@ -60,5 +55,10 @@ public final class FJConstructorBuilder implements FJBuilder<FJConstructor> {
      */
     public FJConstructorBuilder fieldInit(final String fieldName) {
         return this.fieldInit(b -> b.fieldName(fieldName).argumentName(fieldName));
+    }
+
+    public FJConstructorBuilder fieldInit(Function<FieldInitBuilder, FieldInitBuilder> fieldInit) {
+        this.fieldInits.add(fieldInit.apply(new FieldInitBuilder()));
+        return this;
     }
 }

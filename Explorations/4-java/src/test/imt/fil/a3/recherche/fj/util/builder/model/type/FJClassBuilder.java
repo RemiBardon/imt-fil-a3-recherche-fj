@@ -8,7 +8,6 @@ import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
 import imt.fil.a3.recherche.fj.util.builder.model.misc.FJConstructorBuilder;
 import imt.fil.a3.recherche.fj.util.builder.model.misc.FJFieldBuilder;
 import imt.fil.a3.recherche.fj.util.builder.model.misc.FJMethodBuilder;
-import imt.fil.a3.recherche.fj.util.builder.model.misc.FJSignatureBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,13 +56,13 @@ public final class FJClassBuilder implements FJBuilder<FJClass> {
         return this;
     }
 
+    public FJClassBuilder field(final String typeName, final String fieldName) {
+        return this.field(b -> b.type(typeName).name(fieldName));
+    }
+
     public FJClassBuilder field(Function<FJFieldBuilder, FJFieldBuilder> update) {
         fields.add(update.apply(new FJFieldBuilder()));
         return this;
-    }
-
-    public FJClassBuilder field(final String typeName, final String fieldName) {
-        return this.field(b -> b.type(typeName).name(fieldName));
     }
 
     public FJClassBuilder method(Function<FJMethodBuilder, FJMethodBuilder> update) {
