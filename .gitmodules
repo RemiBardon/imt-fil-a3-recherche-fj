@@ -1,0 +1,3 @@
+[submodule "fj-haskell"]
+	path = Implementations/fj-lam
+	url = https://github.com/fjpub/fj-lam
