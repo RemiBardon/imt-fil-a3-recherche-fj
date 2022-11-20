@@ -45,10 +45,12 @@ public class FJProgramBuilder implements FJBuilder<FJProgram> {
         return this;
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     public FJProgramBuilder interfaze(Function<FJInterfaceBuilder, FJInterfaceBuilder> update) {
         return this.interfaze(update.apply(new FJInterfaceBuilder()));
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     public FJProgramBuilder interfaze(FJInterfaceBuilder interfaze) {
         this.interfaces.add(interfaze);
         return this;

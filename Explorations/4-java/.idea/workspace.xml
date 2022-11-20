@@ -7,13 +7,8 @@
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeCheckingContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeCheckingContext.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/FJProgramBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/FJProgramBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJConstructorBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJConstructorBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJSignatureBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJSignatureBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJClassBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJClassBuilder.java" afterDir="false" />
     </list>
     <list id="805de80f-515c-456c-81e5-b9c1d29206d1" name="Changes by lucas" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +47,7 @@
     <setting file="file://$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJMethodInvocation.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="5" />
+    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />

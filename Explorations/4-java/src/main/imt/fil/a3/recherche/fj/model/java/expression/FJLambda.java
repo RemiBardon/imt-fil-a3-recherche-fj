@@ -76,21 +76,6 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
         } else {
             throw new WrongLambdaType(returnTypeName, this);
         }
-    /*
-      let cp' = Data.List.map (\(tp,nm) -> (nm,tp)) cp
-          ctx' = Data.Map.union (Data.Map.fromList cp') ctx in
-        case (absmethods ct i) of
-          Just [(Sign (Type r) mn mp)] ->
-            let e' = lambdaMark e (Type r) in
-              case (typeof ct ctx' e') of
-                Right (Type t, e'') -> if (subtyping ct t r) &&
-                                          (fst (unzip mp) == fst (unzip cp)) then
-                                         return (Type i, Cast i (Closure cp e''))
-                                       else
-                                         throwError (WrongClosure i cl)
-                e -> e -- Error: Expression type not found
-          _ -> throwError (WrongClosure i cl)
-     */
     }
 
     public String getTypeNameApproach2(

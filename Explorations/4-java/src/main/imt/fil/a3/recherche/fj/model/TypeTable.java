@@ -9,6 +9,7 @@ import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 
 import java.util.*;
 
+@SuppressWarnings("ClassCanBeRecord")
 public final class TypeTable {
     private final Map<String, FJType> typeTable;
 

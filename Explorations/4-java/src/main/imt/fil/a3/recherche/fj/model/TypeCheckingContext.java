@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+@SuppressWarnings("ClassCanBeRecord")
 public final class TypeCheckingContext {
     public final static Logger logger = Logger.getLogger("imt.fil.a3.recherche.fj.type-checker");
 
@@ -22,8 +23,8 @@ public final class TypeCheckingContext {
     /**
      * Gets the type of given variable.
      *
-     * @param variableName
-     * @return
+     * @param variableName Name of the variable.
+     * @return Name of the type of the variable.
      */
     public Optional<String> typeName(final String variableName) {
         return Optional.ofNullable(context.get(variableName));
@@ -32,7 +33,7 @@ public final class TypeCheckingContext {
     /**
      * Adds a list of variables to the context.
      *
-     * @param fields
+     * @param fields Fields to add to the new context.
      * @return A new context with the added variables.
      */
     public TypeCheckingContext with(final List<FJField> fields) {
@@ -53,7 +54,7 @@ public final class TypeCheckingContext {
     /**
      * Adds a list of variables to the context.
      *
-     * @param fields
+     * @param fields Fields to add to {@code this}.
      */
     public void add(final List<FJField> fields) {
         fields.forEach(arg -> this.context.put(arg.name(), arg.type()));
@@ -62,8 +63,8 @@ public final class TypeCheckingContext {
     /**
      * Adds a variable to the context.
      *
-     * @param variableName
-     * @param variableType
+     * @param variableName Name of the variable to add to the new context.
+     * @param variableType Name of the type of the variable to add to the new context.
      * @return A new context with the added variable.
      */
     public TypeCheckingContext with(final String variableName, final String variableType) {
@@ -75,8 +76,8 @@ public final class TypeCheckingContext {
     /**
      * Adds a variable to the context.
      *
-     * @param variableName
-     * @param variableType
+     * @param variableName Name of the variable to add to {@code this}.
+     * @param variableType Name of the type of the variable to add to {@code this}.
      */
     public void add(final String variableName, final String variableType) {
         this.context.put(variableName, variableType);
