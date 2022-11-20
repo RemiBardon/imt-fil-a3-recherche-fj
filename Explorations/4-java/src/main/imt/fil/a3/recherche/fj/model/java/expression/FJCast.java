@@ -7,6 +7,7 @@ import imt.fil.a3.recherche.fj.model.error.WrongCast;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
 import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
+import imt.fil.a3.recherche.fj.model.misc.TypeAnnotatedExpression;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,31 @@ public record FJCast(
     FJExpr body
 ) implements FJExpr {
     @Override
+    public TypeAnnotatedExpression getTypeApproach1(final TypeCheckingContext context) throws TypeError { // T-Lam
+        if (this.body instanceof final FJLambda lambda) { // T-Lam
+            return lambda.getTypeApproach1(context, this.typeName);
+        } else {
+            final TypeAnnotatedExpression annotatedBody = this.body.lambdaMark(this.typeName).getTypeApproach1(context);
+            final String expectedTypeName = annotatedBody.typeName();
+
+            final boolean expectedTypeIsType = context.typeTable.isSubtype(expectedTypeName, this.typeName);
+            final boolean typeIsExpectedType = context.typeTable.isSubtype(this.typeName, expectedTypeName);
+
+            if ((expectedTypeIsType) // T-UCast
+                || (typeIsExpectedType && !this.typeName.equals(expectedTypeName)) // T-DCast
+                || (!typeIsExpectedType) /* && !expectedTypeIsType */ // T-SCast
+            ) {
+                return new TypeAnnotatedExpression(this.typeName, annotatedBody.expression());
+            } else {
+                throw new WrongCast(this.typeName, annotatedBody.expression());
+            }
+        }
+    }
+
+    @Override
     public String getTypeNameApproach2(final TypeCheckingContext context) throws TypeError {
         if (this.body instanceof final FJLambda lambda) { // T-Lam
-            return lambda.getTypeName(context, this.typeName);
+            return lambda.getTypeNameApproach2(context, this.typeName);
         } else {
             final String expectedTypeName = this.body.lambdaMark(this.typeName).getTypeNameApproach2(context);
 

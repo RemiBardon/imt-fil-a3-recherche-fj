@@ -9,6 +9,7 @@ import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
 import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
+import imt.fil.a3.recherche.fj.model.misc.TypeAnnotatedExpression;
 import imt.fil.a3.recherche.fj.model.misc.TypeMismatch;
 
 import java.util.ArrayList;
@@ -20,6 +21,38 @@ public record FJCreateObject(
     String className,
     List<FJExpr> args
 ) implements FJExpr {
+    @Override
+    public TypeAnnotatedExpression getTypeApproach1(final TypeCheckingContext context) throws TypeError { // T-New
+        final Optional<List<FJField>> fields = context.typeTable.classFields(this.className);
+        if (fields.isEmpty()) throw new ClassNotFound(this.className);
+
+        // Make sure the correct number of arguments are passed
+        if (this.args.size() != fields.get().size()) {
+            throw new ArgsTypesMismatch(fields.get().stream().map(FJField::type).toList(), this.args, context);
+        }
+
+        // <=> zip(this.args.map(lambdaMark), fields)
+        final var temp = new ArrayList<TypeMismatch>();
+        for (int i = 0; i < this.args.size(); i++) {
+            final FJExpr arg = this.args.get(i);
+            final FJField field = fields.get().get(i);
+            temp.add(new TypeMismatch(arg.lambdaMark(field.type()), field.type()));
+        }
+
+        // Check that arguments are correctly typed
+        final var elaboratedArgs = new ArrayList<FJExpr>();
+        for (final TypeMismatch tm : temp) {
+            final TypeAnnotatedExpression ae = tm.expression().getTypeApproach1(context);
+            elaboratedArgs.add(ae.expression());
+            if (!context.typeTable.isSubtype(ae.typeName(), tm.expectedTypeName())) {
+                throw new ArgTypeMismatch(tm.expectedTypeName(), ae.typeName());
+            }
+        }
+
+        // Object creation is correctly typed
+        return new TypeAnnotatedExpression(this.className, new FJCreateObject(this.className, elaboratedArgs));
+    }
+
     @Override
     public String getTypeNameApproach2(final TypeCheckingContext context) throws TypeError { // T-New
         final Optional<List<FJField>> fields = context.typeTable.classFields(this.className);

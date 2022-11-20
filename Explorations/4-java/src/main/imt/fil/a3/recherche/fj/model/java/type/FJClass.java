@@ -25,18 +25,80 @@ public record FJClass(
     FJConstructor constructor
 ) implements FJType {
     @Override
+    public Optional<FJClass> typeCheckApproach1(final TypeCheckingContext context) {
+        final FJConstructor constructor = this.constructor;
+
+        // Get superclass fields or return `Optional.empty()` if not found.
+        final Optional<List<FJField>> superFields = context.typeTable.classFields(this.extendsName);
+        if (superFields.isEmpty()) {
+            TypeCheckingContext.logger.info("Superclass fields not found.");
+            return Optional.empty();
+        }
+
+        // Make sure all fields are passed to the constructor.
+        final List<FJField> allFields = Stream.concat(superFields.get().stream(), this.fields.stream())
+            .collect(Collectors.toList());
+        if (!constructor.args().equals(allFields)) {
+            TypeCheckingContext.logger.info("Not all fields are passed to the constructor.");
+            return Optional.empty();
+        }
+
+        // Make sure constructor argument names match field names.
+        if (constructor.fieldInits().stream().anyMatch(f -> !f.fieldName().equals(f.argumentName()))) {
+            TypeCheckingContext.logger.info("Constructor argument names do not match field names.");
+            return Optional.empty();
+        }
+
+        final Optional<List<FJSignature>> abstractMethods = context.typeTable.abstractMethods(this.name);
+        if (abstractMethods.isEmpty()) {
+            TypeCheckingContext.logger.info("Error obtaining abstract methods.");
+            return Optional.empty();
+        }
+        if (!abstractMethods.get().isEmpty()) {
+            TypeCheckingContext.logger.info("Not all abstract methods are implemented.");
+            return Optional.empty();
+        }
+
+        // Make sure all constructor arguments are used
+        final List<String> args = constructor.args().stream().map(FJField::name)
+            .collect(Collectors.toList());
+        final List<String> usedArgs = Stream.concat(
+            constructor.superArgs().stream(),
+            constructor.fieldInits().stream().map(FieldInit::fieldName)
+        ).collect(Collectors.toList());
+        if (!args.equals(usedArgs)) {
+            TypeCheckingContext.logger.info("Not all constructor arguments are used.");
+            return Optional.empty();
+        }
+
+        // Make sure all methods are correctly typed
+        final List<FJMethod> typedMethods = this.methods.stream()
+            .map(m -> m.typeCheckApproach1(context, this.name))
+            .flatMap(Optional::stream).toList();
+        final boolean methodsAreTypedCorrectly = typedMethods.size() == this.methods.size();
+        if (!methodsAreTypedCorrectly) {
+            TypeCheckingContext.logger.info("Methods are not correctly typed.");
+            return Optional.empty();
+        }
+
+        return Optional.of(new FJClass(
+            this.name, this.extendsName, this.implementsNames, this.fields, typedMethods, this.constructor
+        ));
+    }
+
+    @Override
     public Boolean typeCheckApproach2(final TypeCheckingContext context) {
         final FJConstructor constructor = this.constructor;
 
         // Get superclass fields or return false if not found.
-        Optional<List<FJField>> superFields = context.typeTable.classFields(this.extendsName);
+        final Optional<List<FJField>> superFields = context.typeTable.classFields(this.extendsName);
         if (superFields.isEmpty()) {
             TypeCheckingContext.logger.info("Superclass fields not found.");
             return false;
         }
 
         // Make sure all fields are passed to the constructor.
-        List<FJField> allFields = Stream.concat(superFields.get().stream(), this.fields.stream())
+        final List<FJField> allFields = Stream.concat(superFields.get().stream(), this.fields.stream())
             .collect(Collectors.toList());
         if (!constructor.args().equals(allFields)) {
             TypeCheckingContext.logger.info("Not all fields are passed to the constructor.");
@@ -71,7 +133,9 @@ public record FJClass(
             return false;
         }
 
-        final boolean methodsAreTypedCorrectly = this.methods.stream().allMatch(m -> m.typeCheckApproach2(context, this.name));
+        // Make sure all methods are correctly typed
+        final boolean methodsAreTypedCorrectly = this.methods.stream()
+            .allMatch(m -> m.typeCheckApproach2(context, this.name));
         if (!methodsAreTypedCorrectly) {
             TypeCheckingContext.logger.info("Methods are not correctly typed.");
             return false;

@@ -7,6 +7,7 @@ import imt.fil.a3.recherche.fj.model.error.ArgsTypesMismatch;
 import imt.fil.a3.recherche.fj.model.error.MethodNotFound;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
+import imt.fil.a3.recherche.fj.model.misc.TypeAnnotatedExpression;
 import imt.fil.a3.recherche.fj.model.misc.TypeMismatch;
 
 import java.util.ArrayList;
@@ -19,22 +20,64 @@ public record FJMethodInvocation(
     List<FJExpr> args
 ) implements FJExpr {
     @Override
+    public TypeAnnotatedExpression getTypeApproach1(final TypeCheckingContext context) throws TypeError { // T-Invk
+        // Get type of expression on which we want to invoke the method
+        final TypeAnnotatedExpression annotatedExpression = this.source.getTypeApproach1(context);
+
+        // Get the method signature
+        final String methodTypeName = annotatedExpression.typeName();
+        final Optional<MethodTypeSignature> methodTypeSignature =
+            context.typeTable.methodType(this.methodName, methodTypeName);
+        if (methodTypeSignature.isEmpty()) throw new MethodNotFound(this.methodName, methodTypeName);
+
+        // Make sure the correct number of arguments are passed
+        final List<String> parametersTypes = methodTypeSignature.get().parameterTypeNames();
+        if (this.args.size() != parametersTypes.size()) {
+            throw new ArgsTypesMismatch(parametersTypes, this.args, context);
+        }
+
+        // <=> zip(this.args.map(lambdaMark), parametersTypes)
+        var temp = new ArrayList<TypeMismatch>();
+        for (int i = 0; i < this.args.size(); i++) {
+            final FJExpr arg = this.args.get(i);
+            final String type = parametersTypes.get(i);
+            temp.add(new TypeMismatch(arg.lambdaMark(type), type));
+        }
+
+        // Check that arguments are correctly typed
+        final var elaboratedArgs = new ArrayList<FJExpr>();
+        for (final TypeMismatch tm : temp) {
+            final TypeAnnotatedExpression ae = tm.expression().getTypeApproach1(context);
+            elaboratedArgs.add(ae.expression());
+            if (!context.typeTable.isSubtype(ae.typeName(), tm.expectedTypeName())) {
+                throw new ArgTypeMismatch(tm.expectedTypeName(), ae.typeName());
+            }
+        }
+
+        // Method invocation is correctly typed
+        return new TypeAnnotatedExpression(
+            methodTypeSignature.get().returnTypeName(),
+            new FJMethodInvocation(annotatedExpression.expression(), this.methodName, elaboratedArgs)
+        );
+    }
+
+    @Override
     public String getTypeNameApproach2(final TypeCheckingContext context) throws TypeError { // T-Invk
         final String typeName = this.source.getTypeNameApproach2(context);
 
         final Optional<MethodTypeSignature> methodTypeSignature =
             context.typeTable.methodType(this.methodName, typeName);
         if (methodTypeSignature.isEmpty()) throw new MethodNotFound(this.methodName, typeName);
-        final List<String> parameterTypes = methodTypeSignature.get().parameterTypeNames();
+        final List<String> parametersTypes = methodTypeSignature.get().parameterTypeNames();
 
-        if (this.args.size() != parameterTypes.size()) {
-            throw new ArgsTypesMismatch(parameterTypes, this.args, context);
+        if (this.args.size() != parametersTypes.size()) {
+            throw new ArgsTypesMismatch(parametersTypes, this.args, context);
         }
 
         var temp = new ArrayList<TypeMismatch>();
         for (int i = 0; i < this.args.size(); i++) {
             final FJExpr arg = this.args.get(i);
-            final String type = parameterTypes.get(i);
+            final String type = parametersTypes.get(i);
             temp.add(new TypeMismatch(arg.lambdaMark(type), type));
         }
 

@@ -12,6 +12,13 @@ import java.util.Optional;
 public interface FJType {
     String name();
 
+    /**
+     * @param context The type checking context.
+     * @return {@code Optional.empty()} if type check failed,
+     * an annotated version of {@code this} if type check succeeded.
+     */
+    Optional<? extends FJType> typeCheckApproach1(final TypeCheckingContext context);
+
     Boolean typeCheckApproach2(final TypeCheckingContext context);
 
     Boolean isSubtype(final TypeTable typeTable, final String otherTypeName);

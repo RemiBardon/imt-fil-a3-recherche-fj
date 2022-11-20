@@ -6,11 +6,38 @@ import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.error.FieldNotFound;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
+import imt.fil.a3.recherche.fj.model.misc.TypeAnnotatedExpression;
 
 import java.util.List;
 import java.util.Optional;
 
 public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
+    @Override
+    public TypeAnnotatedExpression getTypeApproach1(final TypeCheckingContext context) throws TypeError { // T-Field
+        // Get class of object on which we want to access the field
+        final TypeAnnotatedExpression annotatedExpression = this.object.getTypeApproach1(context);
+
+        // Get fields defined in the class
+        final String className = annotatedExpression.typeName();
+        final Optional<List<FJField>> fields = context.typeTable.classFields(className);
+        if (fields.isEmpty()) throw new ClassNotFound(className);
+
+        // Find field type given its name
+        final Optional<FJField> field = fields.get().stream()
+            .filter(f -> f.name().equals(this.fieldName))
+            .findFirst();
+
+        // Return a type-annotated expression if a field was found
+        if (field.isPresent()) {
+            return new TypeAnnotatedExpression(
+                field.get().type(),
+                new FJFieldAccess(annotatedExpression.expression(), this.fieldName)
+            );
+        } else {
+            throw new FieldNotFound(this.fieldName);
+        }
+    }
+
     @Override
     public String getTypeNameApproach2(final TypeCheckingContext context) throws TypeError { // T-Field
         final String typeName = this.object.getTypeNameApproach2(context);

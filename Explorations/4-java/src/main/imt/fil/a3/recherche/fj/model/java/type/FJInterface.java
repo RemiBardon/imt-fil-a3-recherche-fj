@@ -17,8 +17,29 @@ public record FJInterface(
     List<FJMethod> defaultMethods
 ) implements FJType {
     @Override
+    public Optional<FJInterface> typeCheckApproach1(final TypeCheckingContext context) {
+        final Optional<List<FJSignature>> abstractMethods = context.typeTable.abstractMethods(this.name);
+        if (abstractMethods.isEmpty()) {
+            TypeCheckingContext.logger.warning("Interface not found in the type table.");
+            return Optional.empty();
+        }
+        if (abstractMethods.get().isEmpty()) {
+            TypeCheckingContext.logger.info("The interface does not have any abstract method.");
+            return Optional.empty();
+        }
+        final List<FJMethod> typedDefaultMethods = this.defaultMethods.stream()
+            .map(m -> m.typeCheckApproach1(context, this.name))
+            .flatMap(Optional::stream).toList();
+        if (typedDefaultMethods.size() != this.defaultMethods.size()) {
+            TypeCheckingContext.logger.info("Not all default methods are correctly typed.");
+            return Optional.empty();
+        }
+        return Optional.of(new FJInterface(this.name, this.extendsNames, this.signatures, typedDefaultMethods));
+    }
+
+    @Override
     public Boolean typeCheckApproach2(final TypeCheckingContext context) {
-        final var abstractMethods = context.typeTable.abstractMethods(this.name);
+        final Optional<List<FJSignature>> abstractMethods = context.typeTable.abstractMethods(this.name);
         if (abstractMethods.isEmpty()) {
             TypeCheckingContext.logger.warning("Interface not found in the type table.");
             return false;

@@ -3,6 +3,7 @@ package imt.fil.a3.recherche.fj.model.java.expression;
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
+import imt.fil.a3.recherche.fj.model.misc.TypeAnnotatedExpression;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,13 @@ import java.util.Optional;
  * Expression.
  */
 public interface FJExpr {
+    /**
+     * Checks the type of a given expression.
+     *
+     * @return The type of a given term or a type error.
+     */
+    TypeAnnotatedExpression getTypeApproach1(final TypeCheckingContext context) throws TypeError;
+
     /**
      * Checks the type of a given expression.
      *
