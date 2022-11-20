@@ -1,17 +1,22 @@
 package imt.fil.a3.recherche.fj;
 
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
+import imt.fil.a3.recherche.fj.model.TypeTable;
+import imt.fil.a3.recherche.fj.model.error.TypeError;
+import imt.fil.a3.recherche.fj.model.error.VariableNotFound;
+import imt.fil.a3.recherche.fj.model.java.expression.FJVariable;
 import imt.fil.a3.recherche.fj.model.java.misc.FJProgram;
 import imt.fil.a3.recherche.fj.util.builder.FJProgramBuilder;
 import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
+import imt.fil.a3.recherche.fj.util.builder.model.expression.FJVariableBuilder;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
 @SuppressWarnings("SpellCheckingInspection")
 final class FJTests {
-
     /**
      * The first example from the paper is not valid Java code, but here is an updated version:
      * <pre><code class="language-java">
@@ -84,10 +89,4 @@ final class FJTests {
             Assertions.fail(e);
         }
     }
-
-    @Test
-    void testTVar() {
-        Assertions.fail("Not implemented yet.");
-    }
-
 }
