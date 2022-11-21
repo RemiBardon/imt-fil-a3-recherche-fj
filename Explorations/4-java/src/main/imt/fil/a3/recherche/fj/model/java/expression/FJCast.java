@@ -18,7 +18,7 @@ public record FJCast(
     FJExpr body
 ) implements FJExpr {
     @Override
-    public TypeAnnotatedExpression getTypeApproach1(final TypeCheckingContext context) throws TypeError { // T-Lam
+    public TypeAnnotatedExpression getTypeApproach1(final TypeCheckingContext context) throws TypeError {
         if (this.body instanceof final FJLambda lambda) { // T-Lam
             return lambda.getTypeApproach1(context, this.typeName);
         } else {
