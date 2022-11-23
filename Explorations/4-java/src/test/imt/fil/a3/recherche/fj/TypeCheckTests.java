@@ -4,13 +4,9 @@ import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.error.VariableNotFound;
-import imt.fil.a3.recherche.fj.model.java.expression.FJFieldAccess;
-import imt.fil.a3.recherche.fj.model.java.expression.FJMethodInvocation;
-import imt.fil.a3.recherche.fj.model.java.expression.FJVariable;
+import imt.fil.a3.recherche.fj.model.java.expression.*;
 import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
-import imt.fil.a3.recherche.fj.util.builder.model.expression.FJFieldAccessBuilder;
-import imt.fil.a3.recherche.fj.util.builder.model.expression.FJMethodInvocationBuilder;
-import imt.fil.a3.recherche.fj.util.builder.model.expression.FJVariableBuilder;
+import imt.fil.a3.recherche.fj.util.builder.model.expression.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -95,5 +91,65 @@ public final class TypeCheckTests {
 
         Assertions.assertEquals("Pair", invocation.getTypeApproach1(this.context).typeName());
         Assertions.assertEquals("Pair", invocation.getTypeNameApproach2(this.context));
+    }
+
+    @Test
+    void testTNew() throws FJBuilderException, TypeError {
+        final FJCreateObject createObject = new FJCreateObjectBuilder()
+            .className("A")
+            .build();
+
+        this.typeTable.add(FJTests.classA().build());
+
+        Assertions.assertEquals("A", createObject.getTypeApproach1(this.context).typeName());
+        Assertions.assertEquals("A", createObject.getTypeNameApproach2(this.context));
+    }
+
+    @Test
+    void testTLam() throws FJBuilderException, TypeError {
+
+        //(A) (x : A) -> x
+        final FJCast fjCast = new FJCastBuilder()
+            .typeName("A")
+            .body(eb -> eb
+                .lambda(lb -> lb
+                    .arg(fb -> fb
+                        .name("x")
+                        .type("A")
+                    )
+                    .body(eb2 -> eb2
+                        .variable(vb -> vb
+                            .name("x")
+                        )
+                    )
+                )
+            )
+            .build();
+
+        this.typeTable.add(FJTests.classA().build());
+
+        Assertions.assertEquals("(A->A)", fjCast.getTypeApproach1(this.context).typeName());
+        Assertions.assertEquals("(A->A)", fjCast.getTypeNameApproach2(this.context));
+
+    }
+
+    @Test
+    void testUCast() throws FJBuilderException, TypeError {
+        FJCast fjCast = new FJCastBuilder()
+            .typeName("A")
+            .body(eb -> eb
+                .variable(vb -> vb
+                    .name("x")
+                )
+            )
+            .build();
+
+
+
+        this.typeTable.add(FJTests.classA().build());
+        this.context.add("x", "A");
+
+        Assertions.assertEquals("A", fjCast.getTypeApproach1(this.context).typeName());
+        Assertions.assertEquals("A", fjCast.getTypeNameApproach2(this.context));
     }
 }
