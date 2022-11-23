@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeCheckingContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeCheckingContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJCast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJCast.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/FJProgramBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/util/builder/FJProgramBuilder.java" afterDir="false" />
     </list>
     <list id="805de80f-515c-456c-81e5-b9c1d29206d1" name="Changes by lucas" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -154,6 +152,9 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/4_java$FJTests.ic" NAME="FJTests Coverage Results" MODIFIED="1668882404241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>imt.fil.a3.recherche.fj.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/4_java$TypeCheckTests.ic" NAME="TypeCheckTests Coverage Results" MODIFIED="1668973915421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>imt.fil.a3.recherche.fj.*</FILTER>
     </SUITE>
   </component>

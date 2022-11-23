@@ -52,7 +52,7 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     public TypeAnnotatedExpression getTypeApproach1(
         final TypeCheckingContext context,
         final String returnTypeName
-    ) throws TypeError {
+    ) throws TypeError { // T-Lam
         final TypeCheckingContext lambdaContext = context.with(this.args);
 
         final Optional<List<FJSignature>> abstractMethods = context.typeTable.abstractMethods(returnTypeName);
