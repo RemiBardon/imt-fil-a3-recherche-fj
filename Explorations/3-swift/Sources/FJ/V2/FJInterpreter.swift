@@ -9,7 +9,7 @@ func evalʹ(classTable: ClassTable, expr: FJExpr) -> FJExpr? {
     return .createObject(className: className, arguments: pʹ)
 
   case .fieldAccess(let expr, let fieldName):
-    if isValue(classTable: classTable, expr) { // R-Field
+    if isValue(expr) { // R-Field
       switch expr {
       case let .createObject(className, params):
         guard let fields = classFields(classTable: classTable, className: className) else {
@@ -30,8 +30,8 @@ func evalʹ(classTable: ClassTable, expr: FJExpr) -> FJExpr? {
     }
 
   case let .methodInvocation(source, methodName, methodParams):
-    if isValue(classTable: classTable, source) {
-      if methodParams.allSatisfy({ isValue(classTable: classTable, $0) }) {
+    if isValue(source) {
+      if methodParams.allSatisfy(isValue) {
         // R-Invk
         switch source {
         case let .createObject(className, _): // R-Invk
@@ -90,7 +90,7 @@ func evalʹ(classTable: ClassTable, expr: FJExpr) -> FJExpr? {
     }
 
   case let .cast(castType, castExpr):
-    if isValue(classTable: classTable, castExpr) {
+    if isValue(castExpr) {
       switch castExpr {
       case let .createObject(type, _):
         if isSubtype(classTable: classTable, type, castType) { // R-Cast
@@ -123,7 +123,7 @@ func evalʹ(classTable: ClassTable, expr: FJExpr) -> FJExpr? {
 /// Evaluates an expression recursively.
 /// - Returns: A value after all the reduction steps.
 public func eval(classTable: ClassTable, expr: FJExpr) -> FJExpr {
-  if isValue(classTable: classTable, expr) {
+  if isValue(expr) {
     return expr
   } else {
     return evalʹ(classTable: classTable, expr: expr)
