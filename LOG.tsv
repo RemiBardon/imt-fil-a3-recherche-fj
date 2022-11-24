@@ -1,0 +1,94 @@
+e2687fe	Rémi Bardon	Fri Nov 25 00:05:14 2022 +0100	📝 Create UML diagram
+dd1ee58	Rémi Bardon	Thu Nov 24 21:51:42 2022 +0100	📝 Add some highlights
+5be3ef8	Rémi Bardon	Thu Nov 24 08:24:49 2022 +0100	🩹 Fix changes committed by mistake in the Swift exploration
+87fa886	Lucas ROURET	Wed Nov 23 20:06:47 2022 +0100	Merge branch 'main' of github.com:RemiBardon/imt-fil-a3-recherche-fj
+5b706eb	Lucas ROURET	Wed Nov 23 20:06:36 2022 +0100	WIP test
+02a052b	Rémi Bardon	Mon Nov 21 22:26:36 2022 +0100	📝 Move misplaced comment
+829ac78	Rémi Bardon	Sun Nov 20 20:51:13 2022 +0100	🚨 Fix code analysis warnings
+268fca4	Rémi Bardon	Sun Nov 20 20:43:07 2022 +0100	✅ Implement unimplemented tests
+2181e4c	Rémi Bardon	Sun Nov 20 19:54:07 2022 +0100	✨ Implement `FJTypeChecker.hs` approach 1
+7585d55	Rémi Bardon	Sun Nov 20 08:38:53 2022 +0100	🚚 Add `fj-lam` submodule
+a5ff675	Lucas ROURET	Sun Nov 20 13:19:26 2022 +0100	avancement des tests
+28440c9	Rémi Bardon	Sat Nov 19 23:31:03 2022 +0100	📝 Translate some sequents in `SEQUENTS.md`
+1a54cc6	Rémi Bardon	Sat Nov 19 23:29:10 2022 +0100	📝 Improve `LEXIQUE.md`
+d8d2715	Rémi Bardon	Fri Nov 18 15:17:09 2022 +0100	🎨 Prepare approach 1 implementation
+1b3eba8	Rémi Bardon	Fri Nov 18 12:11:17 2022 +0100	🔧 Setup code coverage reports
+d0946ef	Rémi Bardon	Fri Nov 18 12:07:35 2022 +0100	🩹 Fix tests and setup code coverage reports
+5e16525	Rémi Bardon	Fri Nov 18 11:59:58 2022 +0100	🚧 WIP Add more tests
+04d93d4	Rémi Bardon	Fri Nov 18 11:36:41 2022 +0100	✅ Create helper functions to simplify some builder calls
+6e92a27	Rémi Bardon	Fri Nov 18 11:17:16 2022 +0100	✅ Introduce JUnit
+24e59f0	Rémi Bardon	Wed Nov 16 20:57:30 2022 +0100	🔊 Improve error handling and logging
+42084ba	Rémi Bardon	Wed Nov 16 11:59:45 2022 +0100	✅ Add first test
+bbff17f	Rémi Bardon	Wed Nov 16 11:50:31 2022 +0100	✨ Implement all builders
+581f587	Rémi Bardon	Wed Nov 16 10:56:00 2022 +0100	🚧 WIP Fix `FJExprBuilder`
+69952e8	Rémi Bardon	Wed Nov 16 10:43:45 2022 +0100	🚧 WIP Create builders to facilitate testing
+a047c00	Rémi Bardon	Wed Nov 16 09:25:46 2022 +0100	🚚 Create test directory and fix project structure
+312c6ff	Rémi Bardon	Wed Nov 16 09:14:01 2022 +0100	🎨 Create `TypeCheckingContext` to wrap `Map<String, String>` and `TypeTable`
+a1ecb9a	Rémi Bardon	Tue Nov 15 12:05:16 2022 +0100	🎨 Create `TypeTable` to wrap `Map<String, FJType>` and remove `FJUtils`
+bf0d193	Rémi Bardon	Tue Nov 15 11:19:22 2022 +0100	🎨 Remove `FJ` prefix from types not belonging to FJ
+17eb603	Rémi Bardon	Tue Nov 15 11:17:43 2022 +0100	🚚 Improve packages structure
+e59275b	Rémi Bardon	Tue Nov 15 11:10:01 2022 +0100	🎨 Remove unnecessary parentheses
+d465642	Rémi Bardon	Tue Nov 15 11:05:02 2022 +0100	🎨 Simplify `_eval` in `FJMethodInvocation`
+f48c332	Rémi Bardon	Tue Nov 15 10:11:52 2022 +0100	🎨 Refactor `substitute` to make it more object-oriented
+d6c7024	Rémi Bardon	Tue Nov 15 10:02:20 2022 +0100	🎨 Refactor `eval` to make it more object-oriented
+b56a982	Rémi Bardon	Tue Nov 15 09:28:55 2022 +0100	🚚 Fix packages structure and mark sources root
+4a518d2	Rémi Bardon	Tue Nov 15 09:25:06 2022 +0100	🚨 Change `final class`es to `record`s where it makes sense
+a94cd4e	Rémi Bardon	Tue Nov 15 09:01:40 2022 +0100	🚨 Lint and fix warnings
+70880e7	Rémi Bardon	Tue Nov 15 08:00:04 2022 +0100	🚨 Optimize imports
+e21ee9f	Rémi Bardon	Tue Nov 15 07:58:07 2022 +0100	🎨 Refactor code
+83963ad	Rémi Bardon	Tue Nov 15 07:48:45 2022 +0100	🚨 Fix `methodBody`
+f43f016	Rémi Bardon	Tue Nov 15 07:37:24 2022 +0100	🚨 Fix `methodType`
+3b402d8	Rémi Bardon	Tue Nov 15 07:25:10 2022 +0100	🎨 Refactor `classFields` to make it more object-oriented
+c0400c4	Rémi Bardon	Tue Nov 15 07:19:41 2022 +0100	🎨 Refactor `isSubtype` to make it more object-oriented
+5df11d5	Rémi Bardon	Mon Nov 14 23:14:28 2022 +0100	🎨 Refactor code
+ecccf3e	Rémi Bardon	Mon Nov 14 23:08:48 2022 +0100	🎨 Refactor `methods` to make it more object-oriented
+c696f92	Rémi Bardon	Mon Nov 14 22:51:12 2022 +0100	🧹 Remove comment no longer true
+d09d61d	Rémi Bardon	Mon Nov 14 22:49:40 2022 +0100	🎨 Refactor `abstractMethods` to make it more object-oriented
+ef8aee0	Rémi Bardon	Mon Nov 14 22:39:55 2022 +0100	🚨 Comment out invalid code
+2edfc14	Rémi Bardon	Mon Nov 14 22:21:48 2022 +0100	🚨 WIP Fix `abstractMethods`
+984a76f	Lucas ROURET	Mon Nov 14 19:47:55 2022 +0100	WIP FJUtils
+28b4174	Rémi Bardon	Mon Nov 14 18:01:37 2022 +0100	🚚 Rename `Tests` to `Explorations`
+36c2dfd	Rémi Bardon	Mon Nov 14 17:59:08 2022 +0100	🎨 Remove unnecessary argument
+22ba9a3	Rémi Bardon	Mon Nov 14 17:57:41 2022 +0100	🎨 Remove methods from `FJUtils` so they can be more object-oriented
+fb454f0	Rémi Bardon	Mon Nov 14 16:53:25 2022 +0100	🎨 Make type checking more object-oriented
+858cec1	Rémi Bardon	Mon Nov 14 08:32:24 2022 +0100	🚧 WIP Lint and improve `FJUtils`
+e39bfba	Lucas ROURET	Sun Nov 13 21:44:41 2022 +0100	wip
+36fa8ad	Lucas ROURET	Sat Nov 12 11:36:53 2022 +0100	isSubtype done
+ec1fc25	Rémi Bardon	Fri Nov 11 09:21:35 2022 +0100	✨ Translate `FJInterpreter`
+0b1a76c	Rémi Bardon	Mon Nov 7 16:28:20 2022 +0100	✨ Implement `interfaceTyping`
+0eeaf8e	Rémi Bardon	Mon Nov 7 16:15:41 2022 +0100	✨ Implement `classTyping`
+3553257	Rémi Bardon	Mon Nov 7 15:35:15 2022 +0100	✨ Implement `methodTyping`
+20c1a13	Rémi Bardon	Mon Nov 7 15:16:40 2022 +0100	📝 Replace ``` by `{@code …}` in doc comments
+3050a6f	Rémi Bardon	Mon Nov 7 14:54:56 2022 +0100	✨ Implement `typeNameOf`
+b82c629	Rémi Bardon	Mon Nov 7 14:52:23 2022 +0100	🚧 WIP Implement `typeNameOf` for `FJCast`
+99c76b4	Rémi Bardon	Mon Nov 7 14:20:38 2022 +0100	🚧 WIP Implement `typeNameOf` for `FJCreateObject`
+aa630b0	Rémi Bardon	Mon Nov 7 14:01:21 2022 +0100	🚧 WIP Improve `typeNameOf` for `FJMethodInvocation`
+be42bbe	Rémi Bardon	Mon Nov 7 13:53:44 2022 +0100	🚧 WIP Implement `typeNameOf` for `FJMethodInvocation`
+5ff63ee	Rémi Bardon	Mon Nov 7 13:53:23 2022 +0100	🩹 Fix `lambdaMark` arguments
+d2d5316	Rémi Bardon	Mon Nov 7 13:12:17 2022 +0100	🎨 Remove the need for `Pair`
+234d25d	Rémi Bardon	Mon Nov 7 12:21:58 2022 +0100	🚧 WIP Implement `typeNameOf` for `FJVariable` and `FJFieldAccess`
+7b49158	Rémi Bardon	Mon Nov 7 12:03:37 2022 +0100	🎨 Use `Optional` when needed
+397dce6	Rémi Bardon	Mon Nov 7 11:46:03 2022 +0100	🎨 Replace `return null` by a `RuntimeException`
+f3942f1	Rémi Bardon	Mon Nov 7 11:36:56 2022 +0100	🎨 `TypeError` extends `Throwable`
+56d90f6	Rémi Bardon	Mon Nov 7 11:29:20 2022 +0100	🎨 Make Java classes `public`
+92aa8f8	Lucas ROURET	Mon Nov 7 11:03:45 2022 +0100	Merge branch 'main' of github.com:RemiBardon/imt-fil-a3-recherche-fj into main
+ef27df1	Lucas ROURET	Mon Nov 7 11:02:33 2022 +0100	ajout des signatures pour FJUtils
+32fe7d0	Rémi Bardon	Mon Nov 7 09:57:51 2022 +0100	🚧 WIP Make code more readable (2)
+f405ec0	Lucas ROURET	Mon Nov 7 09:38:27 2022 +0100	:pencil2: Correction FJParser
+15b667d	Lucas ROURET	Mon Nov 7 09:31:09 2022 +0100	bookmark_tabs: ajout du début de la version traduite en Java
+5721d65	Rémi Bardon	Mon Nov 7 09:16:00 2022 +0100	🚧 WIP Make code more readable
+70fb204	Rémi Bardon	Sun Nov 6 18:20:55 2022 +0100	🎨 Make most of the code `public`ly usable
+d4b8d33	Rémi Bardon	Fri Nov 4 18:11:26 2022 +0100	✨ Translate `FJInterpreter.hs` to Swift
+9818390	Rémi Bardon	Fri Nov 4 15:59:46 2022 +0100	✨ Add `FJTypeCheckerTests.swift`
+8ebf3c4	Rémi Bardon	Fri Nov 4 15:39:50 2022 +0100	✨ Translate `FJTypeChecker.hs` to Swift
+af6db13	Rémi Bardon	Thu Nov 3 13:13:11 2022 +0100	✅ Test that a program can be represented as values
+a17c698	Rémi Bardon	Thu Nov 3 10:46:37 2022 +0100	✨ Translate `FJUtils.hs`
+140e9d1	Rémi Bardon	Wed Nov 2 23:02:07 2022 +0100	📝 Add link to original Haskell version
+0865bf4	Rémi Bardon	Wed Nov 2 23:00:38 2022 +0100	✨ Create Swift types
+92be3b0	Rémi Bardon	Wed Nov 2 21:05:28 2022 +0100	Merge branch 'fj-types-avancement'
+3a993ba	Rémi Bardon	Wed Nov 2 20:42:57 2022 +0100	✨ Add links back
+bf66623	Rémi Bardon	Wed Nov 2 20:30:56 2022 +0100	🚚 Reorganise files
+7a9c0ee	Rémi Bardon	Fri Oct 28 14:23:42 2022 +0200	💡 Commit old annotations on the research paper
+9aadc10	Lucas ROURET	Thu Oct 27 14:09:27 2022 +0200	fj-types-avancement
+628c09c	Rémi Bardon	Thu Oct 27 10:59:28 2022 +0200	📝 Add files
+69b7229	Rémi Bardon	Thu Oct 27 10:51:03 2022 +0200	Initial commit
