@@ -1,3 +1,6 @@
+b549d81	Rémi Bardon	Fri Nov 25 00:36:08 2022 +0100	📝 Fix GitHub language statistics
+ed0cd0d	Rémi Bardon	Fri Nov 25 00:38:40 2022 +0100	🧹 Remove files which should not have been committed
+d6e05d5	Rémi Bardon	Fri Nov 25 00:18:36 2022 +0100	👷 Create log file and introduce automation
 e2687fe	Rémi Bardon	Fri Nov 25 00:05:14 2022 +0100	📝 Create UML diagram
 dd1ee58	Rémi Bardon	Thu Nov 24 21:51:42 2022 +0100	📝 Add some highlights
 5be3ef8	Rémi Bardon	Thu Nov 24 08:24:49 2022 +0100	🩹 Fix changes committed by mistake in the Swift exploration
