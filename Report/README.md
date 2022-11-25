@@ -23,10 +23,10 @@ Liste des tâches à faire pour le rendu, basées sur [la demande originale de l
   - [ ] Une liste de ce que vous n'avez pas fait (1/2 page)
   - [ ] Une liste des points forts de votre projet (1/2 page)
   - [ ] Une liste des points faibles de votre projet (1/2 page)
-  - [ ] Un choix discuté : (1/2 à 1 page)
-    - [ ] Option 1 : avantages, inconvenients
-    - [ ] Option 2 : avantages, inconvenients
-    - [ ] Choix : explication de pourquoi l'option 1 a été choisie plutôt que l'option 2
+  - [x] Un choix discuté : (1/2 à 1 page)
+    - [x] Option 1 : avantages, inconvenients
+    - [x] Option 2 : avantages, inconvenients
+    - [x] Choix : explication de pourquoi l'option 1 a été choisie plutôt que l'option 2
   - [ ] Ce que vous feriez differement si c'etait à refaire (1/2 page)
   - [ ] Et tout ce qui pourra m'aider a evaluer votre projet (XX pages)
     - [ ] Joindre et expliquer tous les fichiers que nous avons rédigés pour notre compréhension
