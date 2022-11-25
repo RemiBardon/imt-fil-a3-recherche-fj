@@ -21,7 +21,7 @@ Liste des tâches à faire pour le rendu, basées sur [la demande originale de l
   - [ ] Organisation du code et ce qu'il faut lancer pour executer votre programme (1/2 page)
   - [X] Une liste de ce que vous avez fait (1/2 page)
   - [X] Une liste de ce que vous n'avez pas fait (1/2 page)
-  - [ ] Une liste des points forts de votre projet (1/2 page)
+  - [X] Une liste des points forts de votre projet (1/2 page)
   - [ ] Une liste des points faibles de votre projet (1/2 page)
   - [x] Un choix discuté : (1/2 à 1 page)
     - [x] Option 1 : avantages, inconvenients
