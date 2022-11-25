@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJFieldAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJFieldAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJMethod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Report/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Report/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Report/STRENGTHS.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Report/STRENGTHS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Report/WEAKNESSES.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Report/WEAKNESSES.md" afterDir="false" />
-    </list>
+    <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="" />
     <list id="805de80f-515c-456c-81e5-b9c1d29206d1" name="Changes by lucas" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,6 +250,9 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/4_java$imt_fil_a3_recherche_fj_in_4_java.ic" NAME="imt.fil.a3.recherche.fj in 4-java Coverage Results" MODIFIED="1669396526414" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>imt.fil.a3.recherche.fj.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/4_java$FJTests.ic" NAME="FJTests Coverage Results" MODIFIED="1668882404241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>imt.fil.a3.recherche.fj.*</FILTER>
     </SUITE>
