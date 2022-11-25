@@ -19,15 +19,15 @@ Liste des tâches à faire pour le rendu, basées sur [la demande originale de l
   - [x] Nom : `rapport_NOM1_Prenom1_NOM2_Prenom2.pdf`
   - [x] Noms et prenoms
   - [ ] Organisation du code et ce qu'il faut lancer pour executer votre programme (1/2 page)
-  - [ ] Une liste de ce que vous avez fait (1/2 page)
-  - [ ] Une liste de ce que vous n'avez pas fait (1/2 page)
+  - [X] Une liste de ce que vous avez fait (1/2 page)
+  - [X] Une liste de ce que vous n'avez pas fait (1/2 page)
   - [ ] Une liste des points forts de votre projet (1/2 page)
   - [ ] Une liste des points faibles de votre projet (1/2 page)
   - [x] Un choix discuté : (1/2 à 1 page)
     - [x] Option 1 : avantages, inconvenients
     - [x] Option 2 : avantages, inconvenients
     - [x] Choix : explication de pourquoi l'option 1 a été choisie plutôt que l'option 2
-  - [ ] Ce que vous feriez differement si c'etait à refaire (1/2 page)
+  - [Xs] Ce que vous feriez differement si c'etait à refaire (1/2 page)
   - [ ] Et tout ce qui pourra m'aider a evaluer votre projet (XX pages)
     - [ ] Joindre et expliquer tous les fichiers que nous avons rédigés pour notre compréhension
   - [x] Le log du projet
