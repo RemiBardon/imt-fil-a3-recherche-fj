@@ -1,3 +1,30 @@
+ba1cd31	Rémi Bardon	Fri Nov 25 18:46:16 2022 +0100	📝 Document `make build-report`
+aaa4936	Rémi Bardon	Fri Nov 25 18:40:34 2022 +0100	🎉 End of project
+45a8146	Rémi Bardon	Fri Nov 25 18:23:49 2022 +0100	📝 Points faibles de notre projet
+4c72365	Rémi Bardon	Fri Nov 25 18:18:47 2022 +0100	🚨 Lint and run coverage report
+460e676	Lucas ROURET	Fri Nov 25 18:18:47 2022 +0100	fix markdown
+260405d	Lucas ROURET	Fri Nov 25 18:15:50 2022 +0100	maj de la todo list
+1bfc401	Lucas ROURET	Fri Nov 25 18:15:32 2022 +0100	WIP: Points forts de notre projet
+9e0e891	Rémi Bardon	Fri Nov 25 18:02:04 2022 +0100	👷 Fix UML
+845296c	Lucas ROURET	Fri Nov 25 18:02:09 2022 +0100	Rapport: Ce que nous aurions fait différemment si c'était à refaire
+5e3949f	Rémi Bardon	Fri Nov 25 17:53:50 2022 +0100	📝 Un choix discuté
+d8e81ec	Lucas ROURET	Fri Nov 25 17:47:30 2022 +0100	WIP done
+844eefe	Rémi Bardon	Fri Nov 25 17:32:54 2022 +0100	🔧 Add `4-java.iml` back
+9fccba0	Rémi Bardon	Fri Nov 25 17:29:20 2022 +0100	🔧 Add `.idea` back
+1b044c6	Lucas ROURET	Fri Nov 25 17:19:58 2022 +0100	wip Organisation du projet
+d1e6936	Lucas ROURET	Fri Nov 25 16:58:37 2022 +0100	Merge branch 'main' of github.com:RemiBardon/imt-fil-a3-recherche-fj into main
+078b75e	Rémi Bardon	Fri Nov 25 16:57:54 2022 +0100	👷 Create all report parts
+ec27122	Rémi Bardon	Fri Nov 25 16:57:54 2022 +0100	👷 Create all report parts
+2fe1ae2	Rémi Bardon	Fri Nov 25 16:41:39 2022 +0100	👷 Automate UML generation
+672a9a0	Lucas ROURET	Fri Nov 25 16:41:47 2022 +0100	Merge branch 'main' of github.com:RemiBardon/imt-fil-a3-recherche-fj into main
+a164a6f	Lucas ROURET	Fri Nov 25 16:41:34 2022 +0100	setup du projet eclipse
+6c8f532	Rémi Bardon	Fri Nov 25 15:33:58 2022 +0100	👷 Automate report generation
+25a2646	Lucas ROURET	Fri Nov 25 14:38:25 2022 +0100	Merge branch 'main' of github.com:RemiBardon/imt-fil-a3-recherche-fj into main
+757c677	Lucas ROURET	Fri Nov 25 14:38:00 2022 +0100	fin des tests
+0581c53	Rémi Bardon	Fri Nov 25 14:22:34 2022 +0100	✨ Write project log as Markdown
+e78d635	Lucas ROURET	Fri Nov 25 14:03:50 2022 +0100	ajout des tests typecheck DCast et Scast
+4548281	Lucas ROURET	Fri Nov 25 12:35:12 2022 +0100	fix testUCast
+b31c218	Lucas ROURET	Fri Nov 25 10:36:33 2022 +0100	correction des approches 1 et 2 sur le typecheck des lambda
 180c367	Rémi Bardon	Fri Nov 25 00:52:14 2022 +0100	🚚 Move generated log file to `out/` folder
 b549d81	Rémi Bardon	Fri Nov 25 00:36:08 2022 +0100	📝 Fix GitHub language statistics
 ed0cd0d	Rémi Bardon	Fri Nov 25 00:38:40 2022 +0100	🧹 Remove files which should not have been committed
