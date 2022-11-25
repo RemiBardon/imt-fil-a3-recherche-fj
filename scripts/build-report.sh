@@ -44,9 +44,18 @@ read -p "Run 'Markdown PDF' on <${REPORT_BUILD_FILE}> in VSCode, and hit [Enter]
 #read -p "Run 'Markdown PDF' on <${UML_BUILD_FILE}> in VSCode, and hit [Enter] once it's done"
 
 # Move all the files needed in the report directory
+x=( '.settings' 'src' '.classpath' '.project' 'TypeCheckTests.launch' )
+for f in "${x[@]}"; do
+	cp -R "Explorations/4-java/${f}" "${REPORT_DIR}/${f}"
+done
 cp "${REPORT_PDF}" "${REPORT_DIR}/rapport_BARDON_Remi_ROURET_Lucas.pdf"
 #cp "${UML_PDF}" "${REPORT_DIR}/uml.pdf"
 cp "${UML_PDF}" "${REPORT_DIR}/uml.pdf"
 cp "${UML_PDF%.pdf}.svg" "${REPORT_DIR}/uml.svg"
 cp "${UML_PDF%.pdf}.png" "${REPORT_DIR}/uml.png"
 cp 'Report/coverage.png' "${REPORT_DIR}/coverage.png"
+cp 'LEXIQUE.md' "${REPORT_DIR}/LEXIQUE.md"
+cp 'SEQUENTS.md' "${REPORT_DIR}/SEQUENTS.md"
+
+# Archive the report
+tar -cxvf "${REPORT_DIR}"

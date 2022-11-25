@@ -10,8 +10,8 @@ lang: fr-FR
 ## Organisation du projet
 
 Le projet possède 2 packages mère :
-- **main** ayant la structure de FJ.
-- **test** avant nos tests.
+- `main` ayant la structure de FJ.
+- `test` avant nos tests.
 
 En effet, pour tester le projet, nous avons décidé d'utiliser Junit5.
 
@@ -30,27 +30,27 @@ Voici la structure du package main :
 
 Description des packages :
 
-> **util.haskell**: Posséde une classe "Haskell" qui permet de faire des opérations sur les listes que Java ne posséde pas.
+> `util.haskell`: Posséde une classe "Haskell" qui permet de faire des opérations sur les listes que Java ne posséde pas.
 
-> **error**: Posséde les classes d'erreurs tel que "VariableNotFound" ou "TypeError".
+> `error`: Posséde les classes d'erreurs tel que "VariableNotFound" ou "TypeError".
 
-> **java.expression**: Posséde les classes relatives aux expressions tel que "FJCast" ou "FJLambda".
+> `java.expression`: Posséde les classes relatives aux expressions tel que "FJCast" ou "FJLambda".
 
-> **java.type**: Posséde les classes relatives aux types tel que "FJClass" ou "FJType".
+> `java.type`: Posséde les classes relatives aux types tel que "FJClass" ou "FJType".
 
-> **java.misc**: Posséde les classes relatives aux autres éléments tel que "FJSignature" ou "FJConstructor".
+> `java.misc`: Posséde les classes relatives aux autres éléments tel que "FJSignature" ou "FJConstructor".
 
 Dans l'UML, vous pouvez voir dans quelle package se trouve chaque classe.
 
 ### Package test
 
-Dans le package test, nous avons la class **TypeCheckerTest** qui permet de tester le type checker des approches 1 et 2.<br/>
-Nous avons aussi **EvaluationTests** qui permet de tester la réduction que n'avons pas eu le temps de tester.<br/>
-Puis, nous avons **FJTest** qui permet de tester l'exemple donné dans le document de recherche.
+Dans le package test, nous avons la class `TypeCheckerTest` qui permet de tester le type checker des approches 1 et 2.<br/>
+Nous avons aussi `EvaluationTests` qui permet de tester la réduction que n'avons pas eu le temps de tester.<br/>
+Puis, nous avons `FJTest` qui permet de tester l'exemple donné dans le document de recherche.
 
 ### Comment lancer les tests
 
-Comme mentionner plus haut, nous avons utilisé Junit5 pour effectuer nos tests unitaires.<br/> Pour lancer les tests, il suffit de lancer la classe **FJTest** et **TypeCheckerTest** qui se trouve dans le package **test**. Pour ça, nous avons préconfiguré une configuration pour Eclipse. <br/>Pour la retrouver il faut aller dans Run > Run Configurations > JUnit vous devriez voir une configuration nommée "TypeCheckTests". Il suffit simplement de lancer la configuration pour lancer les tests de tous nos tests.
+Comme mentionner plus haut, nous avons utilisé Junit5 pour effectuer nos tests unitaires.<br/> Pour lancer les tests, il suffit de lancer la classe `FJTest` et `TypeCheckerTest` qui se trouve dans le package `test`. Pour ça, nous avons préconfiguré une configuration pour Eclipse. <br/>Pour la retrouver il faut aller dans Run > Run Configurations > JUnit vous devriez voir une configuration nommée "TypeCheckTests". Il suffit simplement de lancer la configuration pour lancer les tests de tous nos tests.
 
 ### Stratégie de test
 
@@ -75,13 +75,41 @@ Nous avons décidé de tester chaque séquent pour vérifier le bon fonctionneme
 
 ## Points forts de notre projet
 
-- Code
-  - Bien structuré
-  - Lisible
-  - Très orienté objet
-  - Variables et noms de fonctions clairs
-- Tests
-  - Vraie librairie de tests (pas simplement un `main`)
+## Code
+### Bien structuré
+Comme mentionné dans la partie organisation, nous avons fait un effort sur la structuration du projet, qu'on peut voir dans l'UML.
+
+### Lisible
+Le code est lisible et commenté. Nous avons fait un effort sur la lisibilité du code. Utiliser des interfaces par exemple pour simplifier la compréhension du code et de son développement
+
+### Très orienté objet
+Il est simple de vérifier et de comprendre les liens entre les classes. Le type checker et l'évaluation est adapté à l'objet.
+
+### Variables et noms de fonctions clairs
+Les variables et les noms de fonctions sont clairs et explicites.
+
+
+## Tests
+### Vraie librairie de tests (pas simplement un `main`)
+
+Pour **simplifier la création des objets**, nous avons utilisé les builders. Cela nous a permis de créer des objets complexes sans avoir à passer par un constructeur. Cela nous a permis de simplifier la création des objets complexes.
+
+Voici un exemple:
+
+```java
+/*
+Eq: 
+class C extends Objects extends B {
+	public C() {super();}
+}
+*/
+FJClass classC = new FJClassBuilder()
+	.name("C")
+	.constructor()
+	.extendsName("B")
+	.build();
+```
+
 
 ## Points faibles de notre projet
 
@@ -196,6 +224,14 @@ La compréhension du document totale du document aurait dû être notre premier 
 
 
 ## Autres informations pouvant être utiles
+
+Nous avons joint quelques fichiers utiles :
+
+- `coverage.png` : Le résultat du *coverage report* fait sur notre librairie
+- `LEXIQUE.md` : Un lexique des termes utilisés dans les séquents du papier de recherche
+- `SEQUENTS.md` : Une traduction en langage naturel de quelques séquents
+  - Pas complète par manque de temps, mais une base de compréhension pour le binôme
+- L'implémentation Swift n'est pas fournie mais peut l'être à la demande
 
 ## Log du projet
 
