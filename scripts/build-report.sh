@@ -3,7 +3,12 @@
 REPORT_DIR='Report/out/2022-2023-FILA3-Capitrain-BARDON-Remi-ROURET-Lucas'
 REPORT_BUILD_DIR='Report/out/REPORT'
 REPORT_BUILD_FILE="${REPORT_BUILD_DIR}/README.md"
+REPORT_PDF="${REPORT_BUILD_FILE%.md}.pdf"
 REPORT_PARTS=( 'Report/LOG.md' )
+UML_BUILD_DIR='Report/out/UML'
+UML_BUILD_FILE="${UML_BUILD_DIR}/UML.md"
+UML_PDF="${UML_BUILD_FILE%.md}.pdf"
+UML_FILE='UML.plantuml'
 
 # Cleanup old generated files
 rm -rf "${REPORT_DIR}"
@@ -29,4 +34,15 @@ sed -i '' -E 's/^## IMT /# IMT /' "${REPORT_BUILD_FILE}"
 # Generate the report PDF
 code "${REPORT_BUILD_FILE}"
 read -p "Run 'Markdown PDF' on <${REPORT_BUILD_FILE}> in VSCode, and hit [Enter] once it's done"
-mv "${REPORT_BUILD_DIR}/README.pdf" "${REPORT_DIR}/rapport_BARDON_Remi_ROURET_Lucas.pdf"
+
+# Generate the UML PDF
+mkdir -p "${UML_BUILD_DIR}"
+echo '```plantuml' > "${UML_BUILD_FILE}"
+cat "${UML_FILE}" >> "${UML_BUILD_FILE}"
+echo '```' >> "${UML_BUILD_FILE}"
+code "${UML_BUILD_FILE}"
+read -p "Run 'Markdown PDF' on <${UML_BUILD_FILE}> in VSCode, and hit [Enter] once it's done"
+
+# Move all the files needed in the report directory
+mv "${REPORT_PDF}" "${REPORT_DIR}/rapport_BARDON_Remi_ROURET_Lucas.pdf"
+mv "${UML_PDF}" "${REPORT_DIR}/uml.pdf"
