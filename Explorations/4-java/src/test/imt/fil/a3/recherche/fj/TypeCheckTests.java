@@ -2,11 +2,14 @@ package imt.fil.a3.recherche.fj;
 
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
+import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.error.VariableNotFound;
 import imt.fil.a3.recherche.fj.model.java.expression.*;
+import imt.fil.a3.recherche.fj.model.java.misc.FJProgram;
 import imt.fil.a3.recherche.fj.model.java.type.FJClass;
 import imt.fil.a3.recherche.fj.model.java.type.FJInterface;
+import imt.fil.a3.recherche.fj.util.builder.FJProgramBuilder;
 import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
 import imt.fil.a3.recherche.fj.util.builder.model.expression.*;
 import imt.fil.a3.recherche.fj.util.builder.model.type.FJClassBuilder;

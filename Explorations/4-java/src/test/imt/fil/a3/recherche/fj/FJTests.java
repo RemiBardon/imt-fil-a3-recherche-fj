@@ -46,6 +46,7 @@ final class FJTests {
             FJProgram program = programBuilder.build();
             final var context = new TypeCheckingContext(program.getTypeTable(), new HashMap<>());
             Assertions.assertTrue(program.typeCheckApproach2(context.copy()));
+            Assertions.assertTrue(program.typeCheckApproach1(context.copy()));
         } catch (FJBuilderException | ClassNotFound e) {
             Assertions.fail(e);
         }

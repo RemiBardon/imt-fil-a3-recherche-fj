@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJProgram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" afterDir="false" />
     </list>
     <list id="805de80f-515c-456c-81e5-b9c1d29206d1" name="Changes by lucas" comment="" />
@@ -89,7 +90,7 @@
       <recent name="imt.fil.a3.recherche.fj.util" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TypeCheckTests.testSCast">
+  <component name="RunManager" selected="JUnit.TypeCheckTests">
     <configuration name="FJTests" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="4-java" />
       <extension name="coverage">
@@ -106,6 +107,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FJTests.testPaperExampleTypeChecks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="4-java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
+      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.FJTests" />
+      <option name="METHOD_NAME" value="testPaperExampleTypeChecks" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TypeCheckTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="4-java" />
       <extension name="coverage">
@@ -117,6 +134,22 @@
       <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
       <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.TypeCheckTests" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TypeCheckTests.lamTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="4-java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
+      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.TypeCheckTests" />
+      <option name="METHOD_NAME" value="lamTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -153,45 +186,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TypeCheckTests.testTLam" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="4-java" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
-      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.TypeCheckTests" />
-      <option name="METHOD_NAME" value="testTLam" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TypeCheckTests.testUCast" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="4-java" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
-      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.TypeCheckTests" />
-      <option name="METHOD_NAME" value="testUCast" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TypeCheckTests.testSCast" />
         <item itemvalue="JUnit.TypeCheckTests" />
+        <item itemvalue="JUnit.TypeCheckTests.lamTest" />
+        <item itemvalue="JUnit.FJTests.testPaperExampleTypeChecks" />
+        <item itemvalue="JUnit.TypeCheckTests.testSCast" />
         <item itemvalue="JUnit.TypeCheckTests.testDCast" />
-        <item itemvalue="JUnit.TypeCheckTests.testUCast" />
-        <item itemvalue="JUnit.TypeCheckTests.testTLam" />
       </list>
     </recent_temporary>
   </component>
@@ -204,7 +205,7 @@
       <option name="presentableId" value="Default" />
       <updated>1667812937823</updated>
       <workItem from="1669360429524" duration="3124000" />
-      <workItem from="1669366350227" duration="11696000" />
+      <workItem from="1669366350227" duration="13422000" />
     </task>
     <servers />
   </component>
@@ -275,6 +276,11 @@
           <line>32</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJClass.java</url>
+          <line>85</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
@@ -284,7 +290,7 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/4_java$TypeCheckTests.ic" NAME="TypeCheckTests Coverage Results" MODIFIED="1668973915421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/4_java$TypeCheckTests.ic" NAME="TypeCheckTests Coverage Results" MODIFIED="1669382498743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>imt.fil.a3.recherche.fj.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/4_java$FJTests.ic" NAME="FJTests Coverage Results" MODIFIED="1668882404241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

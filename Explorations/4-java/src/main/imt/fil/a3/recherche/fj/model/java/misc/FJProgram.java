@@ -17,6 +17,14 @@ public record FJProgram(List<FJType> types) {
         return allTypesAreTyped;
     }
 
+    public Boolean typeCheckApproach1(final TypeCheckingContext context) throws ClassNotFound {
+        boolean allTypesAreTyped = true;
+        for (FJType type : this.types) {
+            allTypesAreTyped &= type.typeCheckApproach1(context).isPresent();
+        }
+        return allTypesAreTyped;
+    }
+
     public TypeTable getTypeTable() {
         final var map = new HashMap<String, FJType>();
         this.types.forEach(t -> map.put(t.name(), t));
