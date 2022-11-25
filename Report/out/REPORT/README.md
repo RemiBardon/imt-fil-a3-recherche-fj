@@ -7,6 +7,22 @@ lang: fr-FR
 *Rémi BARDON, Lucas ROURET*  
 *25 novembre 2022*
 
+## Organisation du projet
+
+## Ce que nous avons fait
+
+## Ce que nous n'avons pas fait
+
+## Points forts de notre projet
+
+## Points faibles de notre projet
+
+## Un choix discuté
+
+## Ce que nous aurions fait différemment si c'était à refaire
+
+## Autres informations pouvant être utiles
+
 ## Log du projet
 
 Légende du tableau :
