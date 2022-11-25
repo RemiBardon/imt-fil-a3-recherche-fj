@@ -2,7 +2,7 @@
 
 # Code
 ## Bien structuré
-Comme mentionné dans la partie organisation, nous avons fait un effort sur la structuration du projet.
+Comme mentionné dans la partie organisation, nous avons fait un effort sur la structuration du projet, qu'on peut voir dans l'UML.
 
 ## Lisible
 Le code est lisible et commenté. Nous avons fait un effort sur la lisibilité du code. Utiliser des interfaces par exemple pour simplifier la compréhension du code et de son développement
