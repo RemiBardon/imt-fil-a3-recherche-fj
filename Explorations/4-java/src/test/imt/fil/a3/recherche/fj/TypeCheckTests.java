@@ -11,7 +11,6 @@ import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
 import imt.fil.a3.recherche.fj.util.builder.model.expression.*;
 import imt.fil.a3.recherche.fj.util.builder.model.type.FJClassBuilder;
 import imt.fil.a3.recherche.fj.util.builder.model.type.FJInterfaceBuilder;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -122,8 +121,8 @@ public final class TypeCheckTests {
                         .type("A")
                     )
                     .arg(fb -> fb
-                            .name("y")
-                            .type("A")
+                        .name("y")
+                        .type("A")
                     )
                     .body(eb2 -> eb2
                         .variable(vb -> vb
@@ -135,13 +134,13 @@ public final class TypeCheckTests {
             .build();
 
         FJInterface fjInterface = new FJInterfaceBuilder()
-                .name("A")
-                .signature(sb -> sb
-                        .returns("A")
-                                .arg("A","a")
-                                .arg("A","b")
-                        )
-                .build();
+            .name("A")
+            .signature(sb -> sb
+                .returns("A")
+                .arg("A", "a")
+                .arg("A", "b")
+            )
+            .build();
 
         this.typeTable.add(fjInterface);
 
@@ -175,19 +174,19 @@ public final class TypeCheckTests {
     void testDCast() throws FJBuilderException, TypeError {
         // (C) (x : B) -> x
         FJCast fjCast = new FJCastBuilder()
-                .typeName("C")
-                .body(eb -> eb
-                        .variable(vb -> vb
-                                .name("y")
-                        )
+            .typeName("C")
+            .body(eb -> eb
+                .variable(vb -> vb
+                    .name("y")
                 )
-                .build();
+            )
+            .build();
 
         FJClass classC = new FJClassBuilder()
-                .name("C")
-                .constructor()
-                .extendsName("B")
-                .build();
+            .name("C")
+            .constructor()
+            .extendsName("B")
+            .build();
 
         this.typeTable.add(classC);
         this.typeTable.add(FJTests.classB().build());
@@ -201,13 +200,13 @@ public final class TypeCheckTests {
     void testSCast() throws FJBuilderException, TypeError {
         // (A) (x : B)
         FJCast fjCast = new FJCastBuilder()
-                .typeName("A")
-                .body(eb -> eb
-                        .variable(vb -> vb
-                                .name("x")
-                        )
+            .typeName("A")
+            .body(eb -> eb
+                .variable(vb -> vb
+                    .name("x")
                 )
-                .build();
+            )
+            .build();
 
 
         this.typeTable.add(FJTests.classA().build());

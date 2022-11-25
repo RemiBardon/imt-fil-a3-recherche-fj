@@ -25,7 +25,7 @@ public record FJMethod(FJSignature signature, FJExpr body) {
      * @return {@code Optional.empty()} if type check failed,
      * an annotated version of {@code this} if type check succeeded.
      **/
-    public Optional<FJMethod> typeCheckApproach1 (
+    public Optional<FJMethod> typeCheckApproach1(
         final TypeCheckingContext context,
         final String className
     ) throws ClassNotFound {

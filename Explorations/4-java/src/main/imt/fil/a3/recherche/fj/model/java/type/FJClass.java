@@ -10,7 +10,10 @@ import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
 import imt.fil.a3.recherche.fj.model.misc.FieldInit;
 import imt.fil.a3.recherche.fj.util.haskell.Haskell;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -159,7 +162,7 @@ public record FJClass(
             return true;
         } else {
             //eq of: typeTable.isSubtype(this.extendsName, otherTypeName) || this.implementsNames.stream().anyMatch(t -> typeTable.isSubtype(t, otherTypeName));
-            if(typeTable.isSubtype(this.extendsName, otherTypeName)){
+            if (typeTable.isSubtype(this.extendsName, otherTypeName)) {
                 return true;
             }
             boolean isSubType = true;

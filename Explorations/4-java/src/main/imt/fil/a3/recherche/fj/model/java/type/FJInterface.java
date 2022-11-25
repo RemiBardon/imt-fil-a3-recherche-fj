@@ -70,7 +70,7 @@ public record FJInterface(
     @Override
     public Boolean isSubtype(final TypeTable typeTable, final String otherTypeName) throws ClassNotFound {
         //eq of: this.extendsNames.contains(otherTypeName) || this.extendsNames.stream().anyMatch(t -> typeTable.isSubtype(t, otherTypeName));
-        if(this.extendsNames.contains(otherTypeName)){
+        if (this.extendsNames.contains(otherTypeName)) {
             return true;
         }
         boolean isSubType = true;

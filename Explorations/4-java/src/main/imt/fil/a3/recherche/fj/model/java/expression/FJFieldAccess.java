@@ -8,7 +8,6 @@ import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.misc.TypeAnnotatedExpression;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Report/out/2022-2023-FILA3-Capitrain-BARDON-Remi-ROURET-Lucas/uml.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Report/out/2022-2023-FILA3-Capitrain-BARDON-Remi-ROURET-Lucas/uml.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Report/out/2022-2023-FILA3-Capitrain-BARDON-Remi-ROURET-Lucas/rapport_BARDON_Remi_ROURET_Lucas.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../Report/out/2022-2023-FILA3-Capitrain-BARDON-Remi-ROURET-Lucas/rapport_BARDON_Remi_ROURET_Lucas.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Report/out/2022-2023-FILA3-Capitrain-BARDON-Remi-ROURET-Lucas/uml.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Report/out/REPORT/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Report/out/REPORT/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../scripts/build-report.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../scripts/build-report.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJFieldAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJFieldAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJMethod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Report/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Report/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Report/STRENGTHS.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Report/STRENGTHS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Report/WEAKNESSES.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Report/WEAKNESSES.md" afterDir="false" />
     </list>
     <list id="805de80f-515c-456c-81e5-b9c1d29206d1" name="Changes by lucas" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,6 +70,9 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent">
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main" />
@@ -80,7 +87,7 @@
       <recent name="imt.fil.a3.recherche.fj.util" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TypeCheckTests">
+  <component name="RunManager" selected="JUnit.imt.fil.a3.recherche.fj in 4-java">
     <configuration name="FJTests" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="4-java" />
       <extension name="coverage">
@@ -144,22 +151,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TypeCheckTests.testDCast" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="4-java" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
-      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.TypeCheckTests" />
-      <option name="METHOD_NAME" value="testDCast" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TypeCheckTests.testSCast" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="4-java" />
       <extension name="coverage">
@@ -176,13 +167,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="imt.fil.a3.recherche.fj in 4-java" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="4-java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.imt.fil.a3.recherche.fj in 4-java" />
         <item itemvalue="JUnit.TypeCheckTests" />
         <item itemvalue="JUnit.TypeCheckTests.lamTest" />
         <item itemvalue="JUnit.FJTests.testPaperExampleTypeChecks" />
         <item itemvalue="JUnit.TypeCheckTests.testSCast" />
-        <item itemvalue="JUnit.TypeCheckTests.testDCast" />
       </list>
     </recent_temporary>
   </component>
@@ -244,7 +249,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/type/FJClass.java</url>
-          <line>85</line>
+          <line>88</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
