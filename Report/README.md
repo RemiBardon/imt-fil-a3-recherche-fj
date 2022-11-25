@@ -15,8 +15,8 @@ Liste des tâches à faire pour le rendu, basées sur [la demande originale de l
   - [ ] Markdown
   - [ ] PDF
 - [ ] Rapport
-  - [ ] Nom : `rapport_NOM1_Prenom1_NOM2_Prenom2.pdf`
-  - [ ] Noms et prenoms
+  - [x] Nom : `rapport_NOM1_Prenom1_NOM2_Prenom2.pdf`
+  - [x] Noms et prenoms
   - [ ] Organisation du code et ce qu'il faut lancer pour executer votre programme (1/2 page)
   - [ ] Une liste de ce que vous avez fait (1/2 page)
   - [ ] Une liste de ce que vous n'avez pas fait (1/2 page)
@@ -29,8 +29,8 @@ Liste des tâches à faire pour le rendu, basées sur [la demande originale de l
   - [ ] Ce que vous feriez differement si c'etait à refaire (1/2 page)
   - [ ] Et tout ce qui pourra m'aider a evaluer votre projet (XX pages)
     - [ ] Joindre et expliquer tous les fichiers que nous avons rédigés pour notre compréhension
-  - [ ] Le log du projet
-- [ ] Log du projet (Markdown)
+  - [x] Le log du projet
+- [x] Log du projet (Markdown)
 
 ## Demande originale
 
