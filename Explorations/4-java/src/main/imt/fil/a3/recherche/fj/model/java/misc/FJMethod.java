@@ -1,6 +1,7 @@
 package imt.fil.a3.recherche.fj.model.java.misc;
 
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
+import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.expression.FJExpr;
 import imt.fil.a3.recherche.fj.model.misc.MethodBodySignature;
@@ -24,10 +25,10 @@ public record FJMethod(FJSignature signature, FJExpr body) {
      * @return {@code Optional.empty()} if type check failed,
      * an annotated version of {@code this} if type check succeeded.
      **/
-    public Optional<FJMethod> typeCheckApproach1(
+    public Optional<FJMethod> typeCheckApproach1 (
         final TypeCheckingContext context,
         final String className
-    ) {
+    ) throws ClassNotFound {
         final TypeCheckingContext methodContext = context
             .with(this.signature.args())
             .with("this", className);
@@ -72,7 +73,7 @@ public record FJMethod(FJSignature signature, FJExpr body) {
     public Boolean typeCheckApproach2(
         final TypeCheckingContext context,
         final String className
-    ) {
+    ) throws ClassNotFound {
         final TypeCheckingContext methodContext = context
             .with(this.signature.args())
             .with("this", className);

@@ -1,5 +1,6 @@
 package imt.fil.a3.recherche.fj.model;
 
+import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.java.misc.FJMethod;
 import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
@@ -25,9 +26,13 @@ public final class TypeTable {
         this.typeTable.put(type.name(), type);
     }
 
-    public Boolean isSubtype(final String typeAName, final String typeBName) {
+    public Boolean isSubtype(final String typeAName, final String typeBName) throws ClassNotFound {
+        if (!this.typeTable.containsKey(typeAName)) {
+            throw new ClassNotFound(typeAName);
+        }else if (!this.typeTable.containsKey(typeBName)) {
+            throw new ClassNotFound(typeBName);
+        }
         if (typeAName.equals(typeBName)) return true;
-        if (!this.typeTable.containsKey(typeAName)) return false;
         return this.typeTable.get(typeAName).isSubtype(this, typeBName);
     }
 

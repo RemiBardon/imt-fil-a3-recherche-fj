@@ -1,6 +1,7 @@
 package imt.fil.a3.recherche.fj;
 
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
+import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.java.misc.FJProgram;
 import imt.fil.a3.recherche.fj.util.builder.FJProgramBuilder;
 import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
@@ -45,7 +46,7 @@ final class FJTests {
             FJProgram program = programBuilder.build();
             final var context = new TypeCheckingContext(program.getTypeTable(), new HashMap<>());
             Assertions.assertTrue(program.typeCheckApproach2(context.copy()));
-        } catch (FJBuilderException e) {
+        } catch (FJBuilderException | ClassNotFound e) {
             Assertions.fail(e);
         }
     }

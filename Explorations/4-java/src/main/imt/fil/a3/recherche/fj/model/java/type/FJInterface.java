@@ -2,10 +2,12 @@ package imt.fil.a3.recherche.fj.model.java.type;
 
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
+import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.java.misc.FJMethod;
 import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
 import imt.fil.a3.recherche.fj.util.haskell.Haskell;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +19,7 @@ public record FJInterface(
     List<FJMethod> defaultMethods
 ) implements FJType {
     @Override
-    public Optional<FJInterface> typeCheckApproach1(final TypeCheckingContext context) {
+    public Optional<FJInterface> typeCheckApproach1(final TypeCheckingContext context) throws ClassNotFound {
         final Optional<List<FJSignature>> abstractMethods = context.typeTable.abstractMethods(this.name);
         if (abstractMethods.isEmpty()) {
             TypeCheckingContext.logger.warning("Interface not found in the type table.");
@@ -27,9 +29,15 @@ public record FJInterface(
             TypeCheckingContext.logger.info("The interface does not have any abstract method.");
             return Optional.empty();
         }
-        final List<FJMethod> typedDefaultMethods = this.defaultMethods.stream()
-            .map(m -> m.typeCheckApproach1(context, this.name))
-            .flatMap(Optional::stream).toList();
+
+        //eq of:  final List<FJMethod> typedDefaultMethods = this.defaultMethods.stream()
+        //            .map(m -> m.typeCheckApproach1(context, this.name))
+        //            .flatMap(Optional::stream).toList();
+        List<FJMethod> typedDefaultMethods = new ArrayList<>();
+        for (FJMethod defaultMethod : this.defaultMethods) {
+            defaultMethod.typeCheckApproach1(context, this.name).map(typedDefaultMethods::add);
+        }
+
         if (typedDefaultMethods.size() != this.defaultMethods.size()) {
             TypeCheckingContext.logger.info("Not all default methods are correctly typed.");
             return Optional.empty();
@@ -38,7 +46,7 @@ public record FJInterface(
     }
 
     @Override
-    public Boolean typeCheckApproach2(final TypeCheckingContext context) {
+    public Boolean typeCheckApproach2(final TypeCheckingContext context) throws ClassNotFound {
         final Optional<List<FJSignature>> abstractMethods = context.typeTable.abstractMethods(this.name);
         if (abstractMethods.isEmpty()) {
             TypeCheckingContext.logger.warning("Interface not found in the type table.");
@@ -48,7 +56,11 @@ public record FJInterface(
             TypeCheckingContext.logger.info("The interface does not have any abstract method.");
             return false;
         }
-        if (!this.defaultMethods.stream().allMatch(m -> m.typeCheckApproach2(context, this.name))) {
+        boolean allDefaultMethodsAreTyped = true;
+        for (FJMethod defaultMethod : this.defaultMethods) {
+            allDefaultMethodsAreTyped &= defaultMethod.typeCheckApproach2(context, this.name);
+        }
+        if (!allDefaultMethodsAreTyped) {
             TypeCheckingContext.logger.info("Not all default methods are correctly typed.");
             return false;
         }
@@ -56,9 +68,16 @@ public record FJInterface(
     }
 
     @Override
-    public Boolean isSubtype(final TypeTable typeTable, final String otherTypeName) {
-        return this.extendsNames.contains(otherTypeName)
-            || this.extendsNames.stream().anyMatch(t -> typeTable.isSubtype(t, otherTypeName));
+    public Boolean isSubtype(final TypeTable typeTable, final String otherTypeName) throws ClassNotFound {
+        //eq of: this.extendsNames.contains(otherTypeName) || this.extendsNames.stream().anyMatch(t -> typeTable.isSubtype(t, otherTypeName));
+        if(this.extendsNames.contains(otherTypeName)){
+            return true;
+        }
+        boolean isSubType = true;
+        for (String extendsName : this.extendsNames) {
+            isSubType &= !typeTable.isSubtype(extendsName, otherTypeName);
+        }
+        return isSubType;
     }
 
     @Override

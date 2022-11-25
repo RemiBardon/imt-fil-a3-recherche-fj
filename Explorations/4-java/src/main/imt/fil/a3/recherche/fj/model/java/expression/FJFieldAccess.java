@@ -8,6 +8,7 @@ import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.misc.TypeAnnotatedExpression;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +67,7 @@ public record FJFieldAccess(FJExpr object, String fieldName) implements FJExpr {
     public Boolean isValue() { return false; }
 
     @Override
-    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) {
+    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) throws ClassNotFound {
         if (this.object.isValue()) { // R-Field
             if (this.object instanceof final FJCreateObject createObject) {
                 final Optional<List<FJField>> _fields = typeTable.classFields(createObject.className());

@@ -10,6 +10,7 @@ import imt.fil.a3.recherche.fj.model.misc.TypeAnnotatedExpression;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     @Override
@@ -37,7 +38,9 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
     public FJLambda removingRuntimeAnnotation() {
         return new FJLambda(this.args, this.body.removingRuntimeAnnotation());
     }
-
+    public String typeName(final String returnTypeName) {
+        return "(" + this.args.stream().map(FJField::type).collect(Collectors.joining(",")) + ")->" + returnTypeName;
+    }
     @Override
     public Boolean isValue() { return true; }
 
@@ -70,14 +73,15 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
         // we check that the type of e′′ is a subtype of the return type T of the abstract method
         final String expectedTypeName = typedBody.typeName();
         final boolean returnTypeIsCorrect = context.typeTable.isSubtype(expectedTypeName, method.returnTypeName());
-        final boolean argsTypesAreCorrect = method.args().get(0).type().equals(this.args.get(0).type());
+
+        final boolean argsTypesAreCorrect = method.args().stream().map(FJField::type).toList()
+                .equals(this.args.stream().map(FJField::type).toList());
 
         // we check that the type of e′′ is a subtype of the return type T of the abstract method
         if (returnTypeIsCorrect && argsTypesAreCorrect) {
             // we return the annotated cast of the λ-expression with the return type T of the abstract method and the body e′′
-            String lambdaTypeName = String.format("(%s)->%s", this.args.get(0).type(), method.returnTypeName());
             return new TypeAnnotatedExpression(
-                    lambdaTypeName,
+                    this.typeName(returnTypeName),
                     new FJCast(returnTypeName, this));
         } else {
             throw new WrongLambdaType(returnTypeName, this);
@@ -103,12 +107,13 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
         final String bodyTypeName = body.getTypeNameApproach2(lambdaContext);
 
         final boolean returnTypeIsCorrect = context.typeTable.isSubtype(bodyTypeName, method.returnTypeName());
-        final boolean argsTypesAreCorrect = method.args().get(0).type().equals(this.args.get(0).type());
-        String lambdaTypeName = String.format("(%s)->%s", this.args.get(0).type(), method.returnTypeName());
+        final boolean argsTypesAreCorrect = method.args().stream().map(FJField::type).toList()
+                .equals(this.args.stream().map(FJField::type).toList());
+
         if (returnTypeIsCorrect && argsTypesAreCorrect) {
-            return lambdaTypeName;
+            return this.typeName(returnTypeName);
         } else {
-            throw new WrongLambdaType(lambdaTypeName, this);
+            throw new WrongLambdaType(this.typeName(returnTypeName), this);
         }
     }
 }

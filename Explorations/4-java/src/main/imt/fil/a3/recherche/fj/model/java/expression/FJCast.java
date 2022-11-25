@@ -2,6 +2,7 @@ package imt.fil.a3.recherche.fj.model.java.expression;
 
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
+import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.error.WrongCast;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
@@ -73,7 +74,7 @@ public record FJCast(
     }
 
     @Override
-    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) {
+    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) throws ClassNotFound {
         if (this.body.isValue()) {
             if (this.body instanceof final FJCreateObject createObject) {
                 if (typeTable.isSubtype(createObject.className(), this.typeName)) { // R-Cast

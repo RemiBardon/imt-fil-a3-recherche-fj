@@ -92,8 +92,12 @@ public record FJCreateObject(
     }
 
     @Override
-    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) { // RC-New-Arg
-        final List<FJExpr> args = this.args.stream().map(e -> e.evalApproach2(typeTable)).toList();
+    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) throws ClassNotFound { // RC-New-Arg
+        //eq of : final List<FJExpr> args = this.args.stream().map(e -> e.evalApproach2(typeTable)).toList();
+        List<FJExpr> args = new ArrayList<>();
+        for (FJExpr arg : this.args) {
+            args.add(arg.evalApproach2(typeTable));
+        }
         return Optional.of(new FJCreateObject(this.className, args));
     }
 

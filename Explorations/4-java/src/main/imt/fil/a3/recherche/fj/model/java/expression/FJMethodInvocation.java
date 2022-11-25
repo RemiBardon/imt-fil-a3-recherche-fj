@@ -2,10 +2,7 @@ package imt.fil.a3.recherche.fj.model.java.expression;
 
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
-import imt.fil.a3.recherche.fj.model.error.ArgTypeMismatch;
-import imt.fil.a3.recherche.fj.model.error.ArgsTypesMismatch;
-import imt.fil.a3.recherche.fj.model.error.MethodNotFound;
-import imt.fil.a3.recherche.fj.model.error.TypeError;
+import imt.fil.a3.recherche.fj.model.error.*;
 import imt.fil.a3.recherche.fj.model.misc.MethodTypeSignature;
 import imt.fil.a3.recherche.fj.model.misc.TypeAnnotatedExpression;
 import imt.fil.a3.recherche.fj.model.misc.TypeMismatch;
@@ -106,7 +103,7 @@ public record FJMethodInvocation(
     public Boolean isValue() { return false; }
 
     @Override
-    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) {
+    public Optional<FJExpr> _evalApproach2(final TypeTable typeTable) throws ClassNotFound {
         // If `this.source` has not been evaluated, evaluate it (recursivity).
         if (!this.source.isValue()) { // RC-Invk-Recv
             return this.source._evalApproach2(typeTable).map(e -> new FJMethodInvocation(e, this.methodName, this.args));
@@ -114,8 +111,11 @@ public record FJMethodInvocation(
 
         // If some arguments have not been evaluated, evaluate them and recursively evaluate the expression.
         if (!this.args.stream().allMatch(FJExpr::isValue)) { // RC-Invk-Arg
-            final List<FJExpr> args = this.args.stream().map(e -> e._evalApproach2(typeTable))
-                .flatMap(Optional::stream).toList();
+            //eq of: this.args.stream().map(e -> e._evalApproach2(typeTable)).flatMap(Optional::stream).toList();
+            final List<FJExpr> args = new ArrayList<>();
+            for (FJExpr arg : this.args) {
+                arg._evalApproach2(typeTable).map(args::add);
+            }
             return Optional.of(new FJMethodInvocation(this.source, this.methodName, args).evalApproach2(typeTable));
         }
 

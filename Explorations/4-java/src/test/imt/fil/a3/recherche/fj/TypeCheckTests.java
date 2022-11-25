@@ -103,13 +103,12 @@ public final class TypeCheckTests {
 
         this.typeTable.add(FJTests.classA().build());
 
-        Assertions.assertEquals("(A", createObject.getTypeApproach1(this.context).typeName());
+        Assertions.assertEquals("A", createObject.getTypeApproach1(this.context).typeName());
         Assertions.assertEquals("A", createObject.getTypeNameApproach2(this.context));
     }
 
     @Test
     void testTLam() throws FJBuilderException, TypeError {
-
         //(A) (x : A) -> x
         final FJCast fjCast = new FJCastBuilder()
             .typeName("A")
@@ -118,6 +117,10 @@ public final class TypeCheckTests {
                     .arg(fb -> fb
                         .name("x")
                         .type("A")
+                    )
+                    .arg(fb -> fb
+                            .name("y")
+                            .type("A")
                     )
                     .body(eb2 -> eb2
                         .variable(vb -> vb
@@ -131,21 +134,23 @@ public final class TypeCheckTests {
         FJInterface fjInterface = new FJInterfaceBuilder()
                 .name("A")
                 .signature(sb -> sb
-                        .name("getA")
                         .returns("A")
                                 .arg("A","a")
+                                .arg("A","b")
                         )
                 .build();
 
         this.typeTable.add(fjInterface);
 
-        //Assertions.assertEquals("(A)->A", fjCast.getTypeApproach1(this.context).typeName());
-        Assertions.assertEquals("A", fjCast.getTypeNameApproach2(this.context));
+        Assertions.assertEquals("(A,A)->A", fjCast.getTypeApproach1(this.context).typeName());
+        Assertions.assertEquals("(A,A)->A", fjCast.getTypeNameApproach2(this.context));
 
     }
 
     @Test
     void testUCast() throws FJBuilderException, TypeError {
+
+        // (A) (x : A)
         FJCast fjCast = new FJCastBuilder()
             .typeName("A")
             .body(eb -> eb
@@ -154,7 +159,6 @@ public final class TypeCheckTests {
                 )
             )
             .build();
-
 
 
         this.typeTable.add(FJTests.classA().build());

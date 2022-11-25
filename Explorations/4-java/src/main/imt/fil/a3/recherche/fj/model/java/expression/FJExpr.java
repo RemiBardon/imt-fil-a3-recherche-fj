@@ -2,6 +2,7 @@ package imt.fil.a3.recherche.fj.model.java.expression;
 
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
+import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.misc.TypeAnnotatedExpression;
 
@@ -46,7 +47,7 @@ public interface FJExpr {
      *
      * @return A value after all the reduction steps.
      */
-    default FJExpr evalApproach2(final TypeTable typeTable) {
+    default FJExpr evalApproach2(final TypeTable typeTable) throws ClassNotFound {
         return this.isValue() ? this : this._evalApproach2(typeTable).orElse(this);
     }
 
@@ -62,7 +63,7 @@ public interface FJExpr {
      *
      * @return An expression after processing one reduction step.
      */
-    Optional<FJExpr> _evalApproach2(final TypeTable typeTable);
+    Optional<FJExpr> _evalApproach2(final TypeTable typeTable) throws ClassNotFound;
 
     /**
      * Replaces actual parameters in method body expression.

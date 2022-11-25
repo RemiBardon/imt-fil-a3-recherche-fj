@@ -2,6 +2,7 @@ package imt.fil.a3.recherche.fj.model.java.type;
 
 import imt.fil.a3.recherche.fj.model.TypeCheckingContext;
 import imt.fil.a3.recherche.fj.model.TypeTable;
+import imt.fil.a3.recherche.fj.model.error.ClassNotFound;
 import imt.fil.a3.recherche.fj.model.java.misc.FJConstructor;
 import imt.fil.a3.recherche.fj.model.java.misc.FJField;
 import imt.fil.a3.recherche.fj.model.java.misc.FJMethod;
@@ -9,10 +10,7 @@ import imt.fil.a3.recherche.fj.model.java.misc.FJSignature;
 import imt.fil.a3.recherche.fj.model.misc.FieldInit;
 import imt.fil.a3.recherche.fj.util.haskell.Haskell;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,7 +23,7 @@ public record FJClass(
     FJConstructor constructor
 ) implements FJType {
     @Override
-    public Optional<FJClass> typeCheckApproach1(final TypeCheckingContext context) {
+    public Optional<FJClass> typeCheckApproach1(final TypeCheckingContext context) throws ClassNotFound {
         final FJConstructor constructor = this.constructor;
 
         // Get superclass fields or return `Optional.empty()` if not found.
@@ -72,9 +70,13 @@ public record FJClass(
         }
 
         // Make sure all methods are correctly typed
-        final List<FJMethod> typedMethods = this.methods.stream()
-            .map(m -> m.typeCheckApproach1(context, this.name))
-            .flatMap(Optional::stream).toList();
+        //eq of: List<FJMethod> typedMethods = this.methods.stream()
+        //            .map(m -> m.typeCheckApproach1(context, this.name))
+        //            .flatMap(Optional::stream).toList();
+        final List<FJMethod> typedMethods = new ArrayList<>();
+        for (FJMethod method : this.methods) {
+            method.typeCheckApproach1(context, this.name).map(typedMethods::add);
+        }
         final boolean methodsAreTypedCorrectly = typedMethods.size() == this.methods.size();
         if (!methodsAreTypedCorrectly) {
             TypeCheckingContext.logger.info("Methods are not correctly typed.");
@@ -87,7 +89,7 @@ public record FJClass(
     }
 
     @Override
-    public Boolean typeCheckApproach2(final TypeCheckingContext context) {
+    public Boolean typeCheckApproach2(final TypeCheckingContext context) throws ClassNotFound {
         final FJConstructor constructor = this.constructor;
 
         // Get superclass fields or return false if not found.
@@ -134,8 +136,15 @@ public record FJClass(
         }
 
         // Make sure all methods are correctly typed
-        final boolean methodsAreTypedCorrectly = this.methods.stream()
-            .allMatch(m -> m.typeCheckApproach2(context, this.name));
+        //eq of: final boolean methodsAreTypedCorrectly = this.methods.stream()
+        //            .allMatch(m -> m.typeCheckApproach2(context, this.name));
+        boolean methodsAreTypedCorrectly = true;
+
+        for (FJMethod method : this.methods) {
+            methodsAreTypedCorrectly &= method.typeCheckApproach2(context, this.name);
+        }
+
+
         if (!methodsAreTypedCorrectly) {
             TypeCheckingContext.logger.info("Methods are not correctly typed.");
             return false;
@@ -145,12 +154,19 @@ public record FJClass(
     }
 
     @Override
-    public Boolean isSubtype(final TypeTable typeTable, final String otherTypeName) {
+    public Boolean isSubtype(final TypeTable typeTable, final String otherTypeName) throws ClassNotFound {
         if (this.extendsName.equals(otherTypeName) || this.implementsNames.contains(otherTypeName)) {
             return true;
         } else {
-            return typeTable.isSubtype(this.extendsName, otherTypeName)
-                || this.implementsNames.stream().anyMatch(t -> typeTable.isSubtype(t, otherTypeName));
+            //eq of: typeTable.isSubtype(this.extendsName, otherTypeName) || this.implementsNames.stream().anyMatch(t -> typeTable.isSubtype(t, otherTypeName));
+            if(typeTable.isSubtype(this.extendsName, otherTypeName)){
+                return true;
+            }
+            boolean isSubType = true;
+            for (String implementsName : this.implementsNames) {
+                isSubType &= !typeTable.isSubtype(implementsName, otherTypeName);
+            }
+            return isSubType;
         }
     }
 
