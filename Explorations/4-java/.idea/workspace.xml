@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Report/CHOICE.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Report/CHOICE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Report/out/2022-2023-FILA3-Capitrain-BARDON-Remi-ROURET-Lucas/uml.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Report/out/2022-2023-FILA3-Capitrain-BARDON-Remi-ROURET-Lucas/uml.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Report/out/2022-2023-FILA3-Capitrain-BARDON-Remi-ROURET-Lucas/rapport_BARDON_Remi_ROURET_Lucas.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../Report/out/2022-2023-FILA3-Capitrain-BARDON-Remi-ROURET-Lucas/rapport_BARDON_Remi_ROURET_Lucas.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Report/out/2022-2023-FILA3-Capitrain-BARDON-Remi-ROURET-Lucas/uml.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Report/out/REPORT/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Report/out/REPORT/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../scripts/build-report.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../scripts/build-report.sh" afterDir="false" />
     </list>
     <list id="805de80f-515c-456c-81e5-b9c1d29206d1" name="Changes by lucas" comment="" />
     <option name="SHOW_DIALOG" value="false" />

@@ -9,15 +9,162 @@ lang: fr-FR
 
 ## Organisation du projet
 
-## Ce que nous avons fait
+Le projet possède 2 packages mère :
+- **main** ayant la structure de FJ.
+- **test** avant nos tests.
 
-## Ce que nous n'avons pas fait
+En effet, pour tester le projet, nous avons décidé d'utiliser Junit5.
+
+### Package main
+
+Voici la structure du package main :
+
+- model
+  - error
+  - java
+     - expression
+	 - misc
+	 - type
+  - misc
+- util.haskell
+
+Description des packages :
+
+> **util.haskell**: Posséde une classe "Haskell" qui permet de faire des opérations sur les listes que Java ne posséde pas.
+
+> **error**: Posséde les classes d'erreurs tel que "VariableNotFound" ou "TypeError".
+
+> **java.expression**: Posséde les classes relatives aux expressions tel que "FJCast" ou "FJLambda".
+
+> **java.type**: Posséde les classes relatives aux types tel que "FJClass" ou "FJType".
+
+> **java.misc**: Posséde les classes relatives aux autres éléments tel que "FJSignature" ou "FJConstructor".
+
+Dans l'UML, vous pouvez voir dans quelle package se trouve chaque classe.
+
+### Package test
+
+Dans le package test, nous avons la class **TypeCheckerTest** qui permet de tester le type checker des approches 1 et 2.<br/>
+Nous avons aussi **EvaluationTests** qui permet de tester la réduction que n'avons pas eu le temps de tester.<br/>
+Puis, nous avons **FJTest** qui permet de tester l'exemple donné dans le document de recherche.
+
+### Comment lancer les tests
+
+Comme mentionner plus haut, nous avons utilisé Junit5 pour effectuer nos tests unitaires.<br/> Pour lancer les tests, il suffit de lancer la classe **FJTest** et **TypeCheckerTest** qui se trouve dans le package **test**. Pour ça, nous avons préconfiguré une configuration pour Eclipse. <br/>Pour la retrouver il faut aller dans Run > Run Configurations > JUnit vous devriez voir une configuration nommée "TypeCheckTests". Il suffit simplement de lancer la configuration pour lancer les tests de tous nos tests.
+
+### Stratégie de test
+
+Nous avons décidé de tester chaque séquent pour vérifier le bon fonctionnement de l'implémentation. À voir dans la partie "Points forts de notre projet"
+
+## Ce que nous avons fait 
+
+- ✅ Création du projet
+- ✅ Création de la structure de FJ en Java
+   - Nous avons utilisé la structure de FJ-Lam
+- ✅ Type Checker approche 1
+   - Nous avons implémenté le type checker de l'approche 1, en se basant sur la définintion donnée dans le documen, mais aussi le code haskell. 
+- ✅ Type Checker approche 2
+- ❌ Evaluation approche 1
+- ✅ Evaluation approche 2
+- ✅ Tests Type Checker approche 1
+   - Nos tests permettent de vérifier : T-Field, T-Invk, T-Var, T-New T-Lam, T-UCast, T-Dcast et T-SCast
+- ✅ Tests Type Checker approche 2
+   - Nos tests permettent de vérifier : T-Field, T-Invk, T-Var, T-New T-Lam, T-UCast, T-Dcast et T-SCast
+- ❌ Tests Evaluation approche 1
+- ❌ Tests Evaluation approche 2
 
 ## Points forts de notre projet
 
 ## Points faibles de notre projet
 
 ## Un choix discuté
+
+### Option 1 : Faire référence aux types par des `String`
+
+Comme dans le code Haskell rédigé par les auteurs du papier étudié,
+nous avons utilisé le concept de "*class table*". Selon le document,
+
+> *a class table CT is a mapping from class or interface names, to class or interface declarations*
+
+Dans notre code Java, cela correspond à `Map<String, FJType>`.
+Nous avons pris la liberté de renommer ce concept en *type table* car on ne stocke pas que des classes,
+mais aussi des interfaces et potentiellement des types "fonction" (ou autre si évolutions du langage).
+
+Le *parser* FJ (non implémenté dans notre cas) lit du code Java, donc cela a du sens de stocker des `String`.
+Cependant, cela rend plus complexe le code (entendre complexité algorithmique)
+car il faut toujours aller chercher dans la *type table* pour récupérer les instances des objets.
+
+Nous avons donc besoin d'écrire
+
+```java
+final String expectedReturnTypeName = typedBody.typeName();
+final boolean returnTypeIsCorrect = context.typeTable.isSubtype(expectedReturnTypeName, this.signature.returnTypeName());
+if (!returnTypeIsCorrect) {
+    // …
+}
+```
+
+là où
+
+```java
+if (!typedBody.type().isSubtype(this.signature.returnType)) {
+    // …
+}
+```
+
+pourrait suffir si on stackait des `FJType` directement.
+
+### Option 2 : Faire référence aux types par des objets
+
+Nous avions comme tâche d'écrire le code "le plus objet possible",
+alors nous avons rapidement pensé à faire référence aux types par des objets.
+Cela nous aurait permis de faire disparaître la *type table*,
+qui est un point central source de beaucoup d'erreurs dans l'autre cas.
+
+La plupart des `Exception`s que l'on utilise
+(notamment `ClassNotFound` quand une classe n'est pas trouvée dans la *type table*)
+pourraient disparaître et ainsi simplifier grandement le code.
+Cela nous permettrait par exemple d'utiliser des `Stream` que nous avons du remplacer par des "for each"
+car `Stream::map` ne permet pas de passer une méthode/lambda qui lève des `Exception`s.
+Ces erreurs nous empêchent d'écrire
+
+```java
+return typeTable.isSubtype(this.extendsName, otherTypeName)
+    || this.implementsNames.stream().anyMatch(t -> typeTable.isSubtype(t, otherTypeName));
+```
+
+et nous forcent à écrire
+
+```java
+if(typeTable.isSubtype(this.extendsName, otherTypeName)){
+    return true;
+}
+boolean isSubType = true;
+for (String implementsName : this.implementsNames) {
+    isSubType &= !typeTable.isSubtype(implementsName, otherTypeName);
+}
+return isSubType;
+```
+
+Ce n'est pas très important, mais cela impacte la lisibilité du code.
+
+Le principal inconvénient de cette option est qu'elle complexifie grandement la création des objets.
+Pour résoudre ce problème, nous avons imaginé une solution expliquée ci-dessous.
+
+### Notre choix
+
+> explication de pourquoi l'option 1 a été choisie plutôt que l'option 2
+
+Nous avons choisi d'utiliser une *type table* et de stocker des `String`
+car c'est comme ça que fonctionne le code original en Haskell,
+mais nous avions prévu (si on avait eu plus de temps) d'implémenter l'option 2 à terme.
+
+Lors de ce changement d'implémentation interne à la librairie,
+il était important pour nous de ne pas "casser" les tests.
+Garder les tests fonctionnels permet de vérifier que l'on n'intère pas de régression,
+ce qui est crucial pendant un *refactoring*.
+Pour faciliter l'implémentation, nous avons donc créé des *builders* qui font l'interface
+entre les tests rédigés avec des `String`, et la librairie qui ensuite fonctionnerait avec des objets.
 
 ## Ce que nous aurions fait différemment si c'était à refaire
 
