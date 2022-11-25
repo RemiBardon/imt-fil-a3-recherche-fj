@@ -5,9 +5,11 @@ import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.error.VariableNotFound;
 import imt.fil.a3.recherche.fj.model.java.expression.*;
+import imt.fil.a3.recherche.fj.model.java.type.FJClass;
 import imt.fil.a3.recherche.fj.model.java.type.FJInterface;
 import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
 import imt.fil.a3.recherche.fj.util.builder.model.expression.*;
+import imt.fil.a3.recherche.fj.util.builder.model.type.FJClassBuilder;
 import imt.fil.a3.recherche.fj.util.builder.model.type.FJInterfaceBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -163,6 +165,54 @@ public final class TypeCheckTests {
 
         this.typeTable.add(FJTests.classA().build());
         this.context.add("x", "A");
+
+        Assertions.assertEquals("A", fjCast.getTypeApproach1(this.context).typeName());
+        Assertions.assertEquals("A", fjCast.getTypeNameApproach2(this.context));
+    }
+
+    @Test
+    void testDCast() throws FJBuilderException, TypeError {
+        // (C) (x : B) -> x
+        FJCast fjCast = new FJCastBuilder()
+                .typeName("C")
+                .body(eb -> eb
+                        .variable(vb -> vb
+                                .name("y")
+                        )
+                )
+                .build();
+
+        FJClass classC = new FJClassBuilder()
+                .name("C")
+                .constructor()
+                .extendsName("B")
+                .build();
+
+        this.typeTable.add(classC);
+        this.typeTable.add(FJTests.classB().build());
+        this.context.add("y", "B");
+
+        Assertions.assertEquals("C", fjCast.getTypeApproach1(this.context).typeName());
+        Assertions.assertEquals("C", fjCast.getTypeNameApproach2(this.context));
+    }
+
+    @Test
+    void testSCast() throws FJBuilderException, TypeError {
+        // (A) (x : B)
+        FJCast fjCast = new FJCastBuilder()
+                .typeName("A")
+                .body(eb -> eb
+                        .variable(vb -> vb
+                                .name("x")
+                        )
+                )
+                .build();
+
+
+        this.typeTable.add(FJTests.classA().build());
+        this.typeTable.add(FJTests.classB().build());
+        this.context.add("x", "B");
+
 
         Assertions.assertEquals("A", fjCast.getTypeApproach1(this.context).typeName());
         Assertions.assertEquals("A", fjCast.getTypeNameApproach2(this.context));

@@ -27,11 +27,10 @@ public final class TypeTable {
     }
 
     public Boolean isSubtype(final String typeAName, final String typeBName) throws ClassNotFound {
-        if (!this.typeTable.containsKey(typeAName)) {
-            throw new ClassNotFound(typeAName);
-        }else if (!this.typeTable.containsKey(typeBName)) {
-            throw new ClassNotFound(typeBName);
-        }
+        if(typeAName.equals("Object")) return true;
+        if (!this.typeTable.containsKey(typeAName)) throw new ClassNotFound(typeAName);
+        if(typeBName.equals("Object")) return true;
+        if (!this.typeTable.containsKey(typeBName)) throw new ClassNotFound(typeBName);
         if (typeAName.equals(typeBName)) return true;
         return this.typeTable.get(typeAName).isSubtype(this, typeBName);
     }
