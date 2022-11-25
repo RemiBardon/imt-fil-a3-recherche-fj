@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJCast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJCast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" afterDir="false" />
     </list>
     <list id="805de80f-515c-456c-81e5-b9c1d29206d1" name="Changes by lucas" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +46,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJMethodInvocation.java" root0="SKIP_INSPECTION" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedIndex" value="2" />
   </component>
@@ -59,22 +64,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
-    <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="coverage" />
-    <property name="settings.editor.splitter.proportion" value="0.22880659" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/IMT/imt-fil-a3-recherche-fj/Explorations/4-java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main" />
@@ -89,7 +89,7 @@
       <recent name="imt.fil.a3.recherche.fj.util" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TypeCheckTests">
+  <component name="RunManager" selected="JUnit.TypeCheckTests.testTLam">
     <configuration name="FJTests" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="4-java" />
       <extension name="coverage">
@@ -121,8 +121,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TypeCheckTests.testTLam" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="4-java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
+      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.TypeCheckTests" />
+      <option name="METHOD_NAME" value="testTLam" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TypeCheckTests.testTLam" />
         <item itemvalue="JUnit.TypeCheckTests" />
       </list>
     </recent_temporary>
@@ -135,8 +152,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667812937823</updated>
+      <workItem from="1669360429524" duration="3124000" />
+      <workItem from="1669366350227" duration="2205000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -148,13 +170,12 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/4_java$FJTests.ic" NAME="FJTests Coverage Results" MODIFIED="1668882404241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/4_java$TypeCheckTests.ic" NAME="TypeCheckTests Coverage Results" MODIFIED="1668973915421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>imt.fil.a3.recherche.fj.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/4_java$TypeCheckTests.ic" NAME="TypeCheckTests Coverage Results" MODIFIED="1668973915421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/4_java$FJTests.ic" NAME="FJTests Coverage Results" MODIFIED="1668882404241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>imt.fil.a3.recherche.fj.*</FILTER>
     </SUITE>
   </component>

@@ -5,8 +5,10 @@ import imt.fil.a3.recherche.fj.model.TypeTable;
 import imt.fil.a3.recherche.fj.model.error.TypeError;
 import imt.fil.a3.recherche.fj.model.error.VariableNotFound;
 import imt.fil.a3.recherche.fj.model.java.expression.*;
+import imt.fil.a3.recherche.fj.model.java.type.FJInterface;
 import imt.fil.a3.recherche.fj.util.builder.error.FJBuilderException;
 import imt.fil.a3.recherche.fj.util.builder.model.expression.*;
+import imt.fil.a3.recherche.fj.util.builder.model.type.FJInterfaceBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -101,7 +103,7 @@ public final class TypeCheckTests {
 
         this.typeTable.add(FJTests.classA().build());
 
-        Assertions.assertEquals("A", createObject.getTypeApproach1(this.context).typeName());
+        Assertions.assertEquals("(A", createObject.getTypeApproach1(this.context).typeName());
         Assertions.assertEquals("A", createObject.getTypeNameApproach2(this.context));
     }
 
@@ -126,10 +128,19 @@ public final class TypeCheckTests {
             )
             .build();
 
-        this.typeTable.add(FJTests.classA().build());
+        FJInterface fjInterface = new FJInterfaceBuilder()
+                .name("A")
+                .signature(sb -> sb
+                        .name("getA")
+                        .returns("A")
+                                .arg("A","a")
+                        )
+                .build();
 
-        Assertions.assertEquals("(A->A)", fjCast.getTypeApproach1(this.context).typeName());
-        Assertions.assertEquals("(A->A)", fjCast.getTypeNameApproach2(this.context));
+        this.typeTable.add(fjInterface);
+
+        //Assertions.assertEquals("(A)->A", fjCast.getTypeApproach1(this.context).typeName());
+        Assertions.assertEquals("A", fjCast.getTypeNameApproach2(this.context));
 
     }
 

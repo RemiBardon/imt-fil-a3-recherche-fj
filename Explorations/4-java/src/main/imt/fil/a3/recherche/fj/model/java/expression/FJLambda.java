@@ -60,19 +60,25 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
         if (abstractMethods.isEmpty() || abstractMethods.get().size() != 1) {
             throw new WrongLambdaType(returnTypeName, this);
         }
+
         final FJSignature method = abstractMethods.get().get(0);
+        // we apply lambdamark on the λ-expression body e with the return type T of the abstract method, once it can be another λ-expression, producing a new term e2
+        final FJExpr body = this.body.lambdaMark(method.returnTypeName());
+        // we apply the typing judgment T on the new body e2 with the formal parameters of the λ-expression added to context Γ, resulting in a new body e′′
+        final TypeAnnotatedExpression typedBody = body.getTypeApproach1(lambdaContext);
 
-        final TypeAnnotatedExpression annotatedLambda =
-            this.lambdaMark(method.returnTypeName()).getTypeApproach1(lambdaContext);
-        final String expectedTypeName = annotatedLambda.typeName();
+        // we check that the type of e′′ is a subtype of the return type T of the abstract method
+        final String expectedTypeName = typedBody.typeName();
         final boolean returnTypeIsCorrect = context.typeTable.isSubtype(expectedTypeName, method.returnTypeName());
-        final boolean argsTypesAreCorrect = method.args().get(0).equals(this.args.get(0));
+        final boolean argsTypesAreCorrect = method.args().get(0).type().equals(this.args.get(0).type());
 
+        // we check that the type of e′′ is a subtype of the return type T of the abstract method
         if (returnTypeIsCorrect && argsTypesAreCorrect) {
+            // we return the annotated cast of the λ-expression with the return type T of the abstract method and the body e′′
+            String lambdaTypeName = String.format("(%s)->%s", this.args.get(0).type(), method.returnTypeName());
             return new TypeAnnotatedExpression(
-                returnTypeName,
-                new FJCast(returnTypeName, new FJLambda(this.args, annotatedLambda.expression()))
-            );
+                    lambdaTypeName,
+                    new FJCast(returnTypeName, this));
         } else {
             throw new WrongLambdaType(returnTypeName, this);
         }
@@ -91,14 +97,18 @@ public record FJLambda(List<FJField> args, FJExpr body) implements FJExpr {
         }
         final FJSignature method = abstractMethods.get().get(0);
 
-        final String expectedTypeName = this.lambdaMark(method.returnTypeName()).getTypeNameApproach2(lambdaContext);
-        final boolean returnTypeIsCorrect = context.typeTable.isSubtype(expectedTypeName, method.returnTypeName());
-        final boolean argsTypesAreCorrect = method.args().get(0).equals(this.args.get(0));
+        //, applies λmark in the body expression e with the return type T of the method m
+        final FJExpr body = this.body.lambdaMark(method.returnTypeName());
+        //it verifies if the resulting type of the body is a subtype of the return type of the method m.
+        final String bodyTypeName = body.getTypeNameApproach2(lambdaContext);
 
+        final boolean returnTypeIsCorrect = context.typeTable.isSubtype(bodyTypeName, method.returnTypeName());
+        final boolean argsTypesAreCorrect = method.args().get(0).type().equals(this.args.get(0).type());
+        String lambdaTypeName = String.format("(%s)->%s", this.args.get(0).type(), method.returnTypeName());
         if (returnTypeIsCorrect && argsTypesAreCorrect) {
-            return returnTypeName;
+            return lambdaTypeName;
         } else {
-            throw new WrongLambdaType(returnTypeName, this);
+            throw new WrongLambdaType(lambdaTypeName, this);
         }
     }
 }
