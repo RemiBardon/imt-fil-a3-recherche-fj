@@ -6,10 +6,10 @@ Liste des tâches à faire pour le rendu, basées sur [la demande originale de l
 
 - [ ] Archive
   - [ ] Nom : `2022-2023-FILA3-Capitrain-NOM1-Prenom1-NOM2-Prenom2.zip`
-- [ ] Projet Eclipse
-  - [ ] Nom : `2022-2023-FILA3-Capitrain-NOM1-Prenom1-NOM2-Prenom2`
-  - [ ] Bibliothèques embraquées (JUnit)
-  - [ ] UML visible depuis Eclipse
+- [x] Projet Eclipse
+  - [x] Nom : `2022-2023-FILA3-Capitrain-NOM1-Prenom1-NOM2-Prenom2`
+  - [x] Bibliothèques embraquées (JUnit)
+  - [x] UML visible depuis Eclipse
 - [ ] Diagramme UML
   - [ ] Nom : `uml.pdf`
   - [ ] Markdown

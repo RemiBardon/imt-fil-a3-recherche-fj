@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f1a94013-51c7-42a6-9687-d5143d807672" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2HBq7N8QrxhrJElhEKBzvmhTEuf" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/IMT/imt-fil-a3-recherche-fj/Explorations/4-java",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RunManager" selected="JUnit.TypeCheckTests">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.Main" />
+      <module name="Tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests/4-java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FJTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="imt-fil-a3-recherche-fj" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
+      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.FJTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FJTests.testTVar" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="imt-fil-a3-recherche-fj" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
+      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.FJTests" />
+      <option name="METHOD_NAME" value="testTVar" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TypeCheckTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="imt-fil-a3-recherche-fj" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="imt.fil.a3.recherche.fj" />
+      <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.TypeCheckTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TypeCheckTests" />
+        <item itemvalue="JUnit.FJTests" />
+        <item itemvalue="JUnit.FJTests.testTVar" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f1a94013-51c7-42a6-9687-d5143d807672" name="Changes" comment="" />
+      <created>1667768658528</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667768658528</updated>
+      <workItem from="1667768665074" duration="1745000" />
+      <workItem from="1667806545739" duration="62000" />
+      <workItem from="1667806683094" duration="8395000" />
+      <workItem from="1667940148849" duration="94000" />
+      <workItem from="1668248330471" duration="712000" />
+      <workItem from="1668249084604" duration="959000" />
+      <workItem from="1668372160960" duration="126000" />
+      <workItem from="1668449807130" duration="1326000" />
+      <workItem from="1668451174354" duration="507000" />
+      <workItem from="1668453554921" duration="14000" />
+      <workItem from="1668585559726" duration="1966000" />
+      <workItem from="1668847503756" duration="2151000" />
+      <workItem from="1668850493272" duration="59000" />
+      <workItem from="1668851050122" duration="1357000" />
+      <workItem from="1668862068841" duration="1799000" />
+      <workItem from="1668879958771" duration="3147000" />
+      <workItem from="1668887771355" duration="1190000" />
+      <workItem from="1668931866805" duration="2890000" />
+      <workItem from="1668942028344" duration="1834000" />
+      <workItem from="1669360130656" duration="241000" />
+      <workItem from="1669360388516" duration="39000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Explorations/4-java/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJVariable.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Explorations/4-java/src/main/imt/fil/a3/recherche/fj/model/TypeCheckingContext.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/imt_fil_a3_recherche_fj$FJTests.ic" NAME="FJTests Coverage Results" MODIFIED="1668882419836" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>imt.fil.a3.recherche.fj.*</FILTER>
+    </SUITE>
+  </component>
+</project>

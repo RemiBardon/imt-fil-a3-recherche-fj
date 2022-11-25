@@ -5,10 +5,187 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c964df0-1e51-49b5-a7fc-1d2b18e9e390" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/FJTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/.idea/dictionaries/remibardon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/.idea/discord.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/.idea/sbt.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/4-java.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/css/coverage.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/css/highlight-idea.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/img/arrowDown.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/img/arrowUp.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/index_SORT_BY_BLOCK.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/index_SORT_BY_BLOCK_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/index_SORT_BY_CLASS.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/index_SORT_BY_CLASS_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/index_SORT_BY_LINE.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/index_SORT_BY_LINE_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/index_SORT_BY_METHOD.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/index_SORT_BY_METHOD_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/index_SORT_BY_NAME_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/js/highlight.pack.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-1/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-1/index_SORT_BY_BLOCK.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-1/index_SORT_BY_BLOCK_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-1/index_SORT_BY_CLASS.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-1/index_SORT_BY_CLASS_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-1/index_SORT_BY_LINE.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-1/index_SORT_BY_LINE_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-1/index_SORT_BY_METHOD.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-1/index_SORT_BY_METHOD_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-1/index_SORT_BY_NAME_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-1/sources/source-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-1/sources/source-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/index_SORT_BY_BLOCK.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/index_SORT_BY_BLOCK_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/index_SORT_BY_CLASS.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/index_SORT_BY_CLASS_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/index_SORT_BY_LINE.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/index_SORT_BY_LINE_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/index_SORT_BY_METHOD.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/index_SORT_BY_METHOD_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/index_SORT_BY_NAME_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/sources/source-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/sources/source-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/sources/source-3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/sources/source-4.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/sources/source-5.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/sources/source-6.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/sources/source-7.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/sources/source-8.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-2/sources/source-9.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/index_SORT_BY_BLOCK.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/index_SORT_BY_BLOCK_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/index_SORT_BY_CLASS.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/index_SORT_BY_CLASS_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/index_SORT_BY_LINE.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/index_SORT_BY_LINE_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/index_SORT_BY_METHOD.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/index_SORT_BY_METHOD_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/index_SORT_BY_NAME_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/sources/source-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/sources/source-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/sources/source-3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/sources/source-4.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/sources/source-5.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/sources/source-6.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-3/sources/source-7.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/index_SORT_BY_BLOCK.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/index_SORT_BY_BLOCK_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/index_SORT_BY_CLASS.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/index_SORT_BY_CLASS_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/index_SORT_BY_LINE.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/index_SORT_BY_LINE_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/index_SORT_BY_METHOD.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/index_SORT_BY_METHOD_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/index_SORT_BY_NAME_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/sources/source-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/sources/source-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/sources/source-3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/sources/source-4.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-4/sources/source-5.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/index_SORT_BY_BLOCK.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/index_SORT_BY_BLOCK_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/index_SORT_BY_CLASS.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/index_SORT_BY_CLASS_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/index_SORT_BY_LINE.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/index_SORT_BY_LINE_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/index_SORT_BY_METHOD.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/index_SORT_BY_METHOD_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/index_SORT_BY_NAME_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/sources/source-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/sources/source-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-5/sources/source-3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/index_SORT_BY_BLOCK.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/index_SORT_BY_BLOCK_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/index_SORT_BY_CLASS.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/index_SORT_BY_CLASS_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/index_SORT_BY_LINE.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/index_SORT_BY_LINE_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/index_SORT_BY_METHOD.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/index_SORT_BY_METHOD_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/index_SORT_BY_NAME_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/sources/source-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/sources/source-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/sources/source-3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-6/sources/source-4.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-7/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-7/index_SORT_BY_BLOCK.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-7/index_SORT_BY_BLOCK_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-7/index_SORT_BY_CLASS.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-7/index_SORT_BY_CLASS_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-7/index_SORT_BY_LINE.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-7/index_SORT_BY_LINE_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-7/index_SORT_BY_METHOD.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-7/index_SORT_BY_METHOD_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-7/index_SORT_BY_NAME_DESC.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/coverage/ns-7/sources/source-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/TypeCheckingContext.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/TypeTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/error/ArgTypeMismatch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/error/ArgsTypesMismatch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/error/ClassNotFound.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/error/FieldNotFound.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/error/MethodNotFound.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/error/TypeError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/error/VariableNotFound.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/error/WrongCast.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/error/WrongLambdaType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJCast.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJCreateObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJExpr.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJFieldAccess.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJLambda.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJMethodInvocation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJVariable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJConstructor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJMethod.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJProgram.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/misc/FJSignature.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/type/FJClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/type/FJInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/java/type/FJType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/misc/FieldInit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/misc/MethodBodySignature.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/misc/MethodTypeSignature.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/misc/TypeAnnotatedExpression.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/model/misc/TypeMismatch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/main/imt/fil/a3/recherche/fj/util/haskell/Haskell.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/EvaluationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/FJTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/TypeCheckTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/FJBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/FJProgramBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/error/FJBuilderException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/misc/FieldInitBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJCastBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJCreateObjectBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJExprBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJFieldAccessBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJLambdaBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJMethodInvocationBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/FJVariableBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/expression/IFJExprBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJConstructorBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJFieldBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJMethodBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/misc/FJSignatureBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJClassBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4-java/src/test/imt/fil/a3/recherche/fj/util/builder/model/type/FJInterfaceBuilder.java" beforeDir="false" />
     </list>
     <list id="805de80f-515c-456c-81e5-b9c1d29206d1" name="Changes by lucas" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,9 +220,6 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/imt/fil/a3/recherche/fj/model/java/expression/FJMethodInvocation.java" root0="SKIP_INSPECTION" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -66,14 +240,19 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/IMT/imt-fil-a3-recherche-fj/Explorations/4-java",
+    "last_opened_file_path": "D:/IMT/imt-fil-a3-recherche-fj/Explorations/2022-2023-FILA3-Capitrain-Bardon-Rémi-Rouret-Lucas",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -92,7 +271,7 @@
   </component>
   <component name="RunManager" selected="JUnit.TypeCheckTests">
     <configuration name="FJTests" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
-      <module name="4-java" />
+      <module name="2022-2023-FILA3-Capitrain-Bardon-Rémi-Rouret-Lucas" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
@@ -108,7 +287,7 @@
       </method>
     </configuration>
     <configuration name="FJTests.testPaperExampleTypeChecks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="4-java" />
+      <module name="2022-2023-FILA3-Capitrain-Bardon-Rémi-Rouret-Lucas" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
@@ -124,7 +303,7 @@
       </method>
     </configuration>
     <configuration name="TypeCheckTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="4-java" />
+      <module name="2022-2023-FILA3-Capitrain-Bardon-Rémi-Rouret-Lucas" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
@@ -139,7 +318,7 @@
       </method>
     </configuration>
     <configuration name="TypeCheckTests.lamTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="4-java" />
+      <module name="2022-2023-FILA3-Capitrain-Bardon-Rémi-Rouret-Lucas" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
@@ -155,7 +334,7 @@
       </method>
     </configuration>
     <configuration name="TypeCheckTests.testDCast" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="4-java" />
+      <module name="2022-2023-FILA3-Capitrain-Bardon-Rémi-Rouret-Lucas" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
@@ -171,7 +350,7 @@
       </method>
     </configuration>
     <configuration name="TypeCheckTests.testSCast" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="4-java" />
+      <module name="2022-2023-FILA3-Capitrain-Bardon-Rémi-Rouret-Lucas" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="imt.fil.a3.recherche.fj.*" />
@@ -182,6 +361,19 @@
       <option name="MAIN_CLASS_NAME" value="imt.fil.a3.recherche.fj.TypeCheckTests" />
       <option name="METHOD_NAME" value="testSCast" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="2022-2023-FILA3-Capitrain-Bardon-Rémi-Rouret-Lucas" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="2022-2023-FILA3-Capitrain-Bardon-Rémi-Rouret-Lucas" />
+      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -205,7 +397,9 @@
       <option name="presentableId" value="Default" />
       <updated>1667812937823</updated>
       <workItem from="1669360429524" duration="3124000" />
-      <workItem from="1669366350227" duration="13422000" />
+      <workItem from="1669366350227" duration="15170000" />
+      <workItem from="1669385251953" duration="1334000" />
+      <workItem from="1669387991559" duration="731000" />
     </task>
     <servers />
   </component>
